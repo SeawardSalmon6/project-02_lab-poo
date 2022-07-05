@@ -1,9 +1,15 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+
 public class Funcionario {
   private long rg;
   private String nome;
   private Data dataNascimento;
   private Data dataAdmissao;
   private double salario;
+
+  ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
+  Scanner sc = new Scanner(System.in);
 
   // ============= Construtores
   public Funcionario() {

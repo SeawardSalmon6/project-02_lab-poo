@@ -4,14 +4,14 @@ public class Data {
   private int ano;
 
   // ============== Construtores
-  public Data() {
-    this(1, 1, 2022);
-  }
-
   public Data(int dia, int mes, int ano) {
     this.setDia(dia);
     this.setMes(mes);
     this.setAno(ano);
+  }
+
+  public Data() {
+    this(0, 0, 0);
   }
 
   // ============== Getters e Setters
