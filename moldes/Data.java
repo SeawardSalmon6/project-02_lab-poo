@@ -52,18 +52,18 @@ public class Data {
    */
 
   public void setMes(int mes) {
-    do {
-      if (mes < 1 || mes > 12)
-        System.out.println("Valor para mes invalido");
-    } while (mes < 1 || mes > 12);
+    // do {
+    // if (mes < 1 || mes > 12)
+    // System.out.println("Valor para mes invalido");
+    // } while (mes < 1 || mes > 12);
     this.mes = mes;
   }
 
   public void setAno(int ano) {
-    do {
-      if (ano < 1950 || ano > 2050)
-        System.out.println("Valor para ano invalido");
-    } while (ano < 1 || ano > 12);
+    // do {
+    //   if (ano < 1950 || ano > 2050)
+    //     System.out.println("Valor para ano invalido");
+    // } while (ano < 1 || ano > 12);
     this.ano = ano;
   }
 }

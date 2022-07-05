@@ -5,7 +5,10 @@ public class Gerente extends Funcionario {
     this.anosExperiencia = anosExperiencia;
   }
 
-  public int getAnosExperiencia() {
+  public Gerente() {
+}
+
+public int getAnosExperiencia() {
     return anosExperiencia;
   }
 

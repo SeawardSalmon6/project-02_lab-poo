@@ -8,12 +8,14 @@ public class Vendedor extends Funcionario {
   Scanner sc = new Scanner(System.in);
   ArrayList<Vendedor> vendedores = new ArrayList<Vendedor>();
 
-  public Vendedor(long rg, String nome, Data dataNascimento, Data dataAdmissao, double salario, int tempoTreinamento, Gerente gerenteResponsavel) {
+  public Vendedor(long rg, String nome, Data dataNascimento, Data dataAdmissao, double salario, int tempoTreinamento,
+      Gerente gerenteResponsavel) {
     super(rg, nome, dataNascimento, dataAdmissao, salario);
     this.tempoTreinamento = tempoTreinamento;
     this.gerenteResponsavel = gerenteResponsavel;
   }
-  public Vendedor(){
+
+  public Vendedor() {
     this(0, null, null, null, 0, 0, null);
   }
 
@@ -33,17 +35,19 @@ public class Vendedor extends Funcionario {
     this.gerenteResponsavel = gerenteResponsavel;
   }
 
-  //=============== Metodos 
-  
-  public void cadastroVendedor(long rg, String nome, Data dataNascimento, Data dataAdmissao, double salario, ArrayList<Vendedor> listaVendedores) {
+  // =============== Metodos
 
+  public void cadastroVendedor(ArrayList<Vendedor> listaVendedores, Scanner sc) {
+    final Data dataNascimento = new Data();
+    final Data dataAdmissao = new Data();
     Vendedor v1 = new Vendedor();
-    
+    Gerente gerenteResponsavel = new Gerente();
+
     System.out.println("\nRG: ");
     rg = sc.nextLong();
     System.out.println("\nNome: ");
     sc.next();
-    nome = sc.next();
+    nome = sc.nextLine();
     System.out.println("\nDia de nascimento: ");
     dataNascimento.setDia(sc.nextInt());
     System.out.println("\nMes de nascimento: ");
@@ -62,7 +66,7 @@ public class Vendedor extends Funcionario {
     tempoTreinamento = sc.nextInt();
     System.out.println("\nGerente responsavel: ");
     gerenteResponsavel.setNome(sc.next());
-    
+
     v1.setRg(rg);
     v1.setNome(nome);
     v1.setDataNascimento(dataNascimento);

@@ -2,11 +2,11 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Funcionario {
-  private long rg;
-  private String nome;
-  private Data dataNascimento;
-  private Data dataAdmissao;
-  private double salario;
+  protected long rg;
+  protected String nome;
+  protected Data dataNascimento;
+  protected Data dataAdmissao;
+  protected double salario;
 
   ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
   Scanner sc = new Scanner(System.in);
