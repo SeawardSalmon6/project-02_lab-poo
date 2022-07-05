@@ -26,19 +26,20 @@ public class Horario {
    * tratados
    * para evitar a inserção de dados inválidos.
    */
-  public void setHora(int hora) {
-    do {
-      if (hora < 0 || hora > 23)
-        System.out.println("Valor para hora invalido");
-    } while (hora < 0 || hora > 23);
+
+  public boolean setHora(int hora) {
+    if (hora < 0 || hora > 23)
+      return false;
+
     this.hora = hora;
+    return true;
   }
 
-  public void setMinuto(int minuto) {
-    do {
-      if (minuto < 0 || minuto > 59)
-        System.out.println("Valor para minuto invalido");
-    } while (minuto < 0 || minuto > 59);
+  public boolean setMinuto(int minuto) {
+    if (hora < 0 || hora > 59)
+      return false;
+
     this.minuto = minuto;
+    return true;
   }
 }
