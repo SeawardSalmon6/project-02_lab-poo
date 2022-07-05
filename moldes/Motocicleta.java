@@ -1,8 +1,14 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+
 public class Motocicleta extends Veiculo {
   private static final String[] tiposMotocicleta = { "Trail", "Street", "Sport", "Custom" };
 
   private int cilindradas;
   private int indexTipoMotocicleta;
+
+  ArrayList<Motocicleta> listaMotocicletas = new ArrayList<Motocicleta>();
+  Scanner sc = new Scanner(System.in);
 
   // ============ Métodos de Classe
   public String getTipoMotocicleta() {
@@ -21,6 +27,10 @@ public class Motocicleta extends Veiculo {
     this.cilindradas = cilindradas;
     this.indexTipoMotocicleta = indexTipoMotocicleta;
   }
+  
+  public Motocicleta(){
+    this(0, null, null, 0, 0, null, 0, false, 0, 0);
+  }
 
   // ============ Getters e Setters
   public int getCilindradas() {
@@ -37,5 +47,13 @@ public class Motocicleta extends Veiculo {
 
   public void setIndexTipoMotocicleta(int indexTipoMotocicleta) {
     this.indexTipoMotocicleta = indexTipoMotocicleta;
+  }
+
+  //Metodos extra
+  // ===========
+
+  public void cadastroMotocicleta(ArrayList<Motocicleta> listaMotocicletas, Scanner sc){
+    Motocicleta m1 = new Motocicleta();
+    
   }
 }
