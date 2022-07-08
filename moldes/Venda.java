@@ -90,10 +90,36 @@ public class Venda {
     public void cadastroVenda(ArrayList<Venda> listaVendas, Scanner sc){
         Venda v1 = new Venda();
         Data data = new Data();
+        Cliente newCliente = new Cliente();
+        Vendedor newVendedor = new Vendedor();
         Horario horario = new Horario();
+        Carro newCarro = new Carro();
+        Motocicleta newMoto = new Motocicleta();
+        int op;
 
         System.out.println("\nDigite o id da venda: ");
         idVenda = sc.nextInt();
+        System.out.println("\nRG do Vendedor: ");
+        newVendedor.setRg(sc.nextLong());
+        System.out.println("\nCPF do cliente: ");
+        newCliente.setCpf(sc.nextLong());
+
+        do{
+            System.out.println("\nQual veiculo sera vendido?(Selecione 0 ou 1)");
+            System.out.println("\n 0 - Carro");
+            System.out.println("\n 1 - Motocicleta");
+            op = sc.nextInt();
+        }while(op < 0 && op > 1);
+
+        if(op == 0){
+            System.out.println("\nDigite o chassi do carro vendido: ");
+            newCarro.setNumChassi(sc.nextLong());
+        }
+        else if(op == 1){
+            System.out.println("\nDigite o chassi da moto vendida: ");
+            newMoto.setNumChassi(sc.nextLong());
+        }
+
         System.out.println("\nDigite o valor da venda: ");
         valor = sc.nextDouble();
         System.out.println("\nDigite o dia da venda: ");
@@ -112,4 +138,5 @@ public class Venda {
        System.out.println("\nCadastro efetuado com sucesso!");
        System.out.println("\nAperte enter para sair do cadastro!");
        sc.nextLine();
+    }
 }
