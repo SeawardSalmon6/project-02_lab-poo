@@ -1,3 +1,6 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+
 public class Venda {
     private int idVenda;
     private Vendedor vendedor;
@@ -7,8 +10,9 @@ public class Venda {
     private Data data;
     private Horario horario;
 
-    public Venda(int idVenda, Vendedor vendedor, Cliente cliente, Veiculo veiculo, double valor, Data data,
-            Horario horario) {
+
+    //Metodos Construtores
+    public Venda(int idVenda, Vendedor vendedor, Cliente cliente, Veiculo veiculo, double valor, Data data, Horario horario) {
         this.idVenda = idVenda;
         this.vendedor = vendedor;
         this.cliente = cliente;
@@ -18,6 +22,12 @@ public class Venda {
         this.horario = horario;
     }
 
+    public Venda(){
+        this(0, null, null, null, 0, null, null);
+    }
+
+
+    //Getters e Setters 
     public int getIdVenda() {
         return idVenda;
     }
@@ -73,4 +83,33 @@ public class Venda {
     public void setHorario(Horario horario) {
         this.horario = horario;
     }
+
+    //Metodos criados
+    //Cadastro venda
+
+    public void cadastroVenda(ArrayList<Venda> listaVendas, Scanner sc){
+        Venda v1 = new Venda();
+        Data data = new Data();
+        Horario horario = new Horario();
+
+        System.out.println("\nDigite o id da venda: ");
+        idVenda = sc.nextInt();
+        System.out.println("\nDigite o valor da venda: ");
+        valor = sc.nextDouble();
+        System.out.println("\nDigite o dia da venda: ");
+        data.setDia(sc.nextInt());
+        System.out.println("\nDigite o mes da venda: ");
+        data.setMes(sc.nextInt());
+        System.out.println("\nDigite o ano da venda: ");
+        data.setAno(sc.nextInt());
+        System.out.println("\nDigite a hora e minuto de venda separadamente!");
+        System.out.println("\nHora da venda: ");
+        horario.setHora(sc.nextInt());
+        System.out.println("\nMinuto da venda: ");
+       horario.setMinuto(sc.nextInt());
+
+       listaVendas.add(v1);
+       System.out.println("\nCadastro efetuado com sucesso!");
+       System.out.println("\nAperte enter para sair do cadastro!");
+       sc.nextLine();
 }

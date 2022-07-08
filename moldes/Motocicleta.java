@@ -73,6 +73,19 @@ public class Motocicleta extends Veiculo {
     System.out.println("\nPeso da moto: ");
     peso = sc.nextInt();
 
+    System.out.println("\nDigite o numero de cilindradas da moto: ");
+    cilindradas = sc.nextInt();
+
+    do {
+      System.out.println("\nDigite o tipo de motocicleta: ");
+      System.out.println("\n 0 - Trail");
+      System.out.println("\n 1 - Street");
+      System.out.println("\n 2 - Sport");
+      System.out.println("\n 3 - Custom");
+      System.out.println("\n --------------");
+      indexTipoMotocicleta = sc.nextInt();
+    } while (indexTipoMotocicleta < 0 && indexTipoMotocicleta > 3);
+
     // Verificar se a moto foi vendida
     do {
       System.out.println("\nA moto foi vendida?");
@@ -89,19 +102,6 @@ public class Motocicleta extends Veiculo {
       vendido = false;
     }
 
-    System.out.println("\nDigite o numero de cilindradas da moto: ");
-    cilindradas = sc.nextInt();
-
-    do {
-      System.out.println("\nDigite o tipo de motocicleta: ");
-      System.out.println("\n 0 - Trail");
-      System.out.println("\n 1 - Street");
-      System.out.println("\n 2 - Sport");
-      System.out.println("\n 3 - Custom");
-      System.out.println("\n --------------");
-      indexTipoMotocicleta = sc.nextInt();
-    } while (indexTipoMotocicleta < 0 && indexTipoMotocicleta > 3);
-
     m1.setNumChassi(numChassi);
     m1.setMarca(marca);
     m1.setModelo(modelo);
@@ -114,7 +114,7 @@ public class Motocicleta extends Veiculo {
     m1.setIndexTipoMotocicleta(indexTipoMotocicleta);
 
     listaMotocicletas.add(m1);
-    System.out.println("\nCadastro de motocicleta efetuado com sucesso!");
+    System.out.println("\nCadastro efetuado com sucesso!");
     System.out.println("\nAperte enter para sair do cadastro!");
     sc.nextLine();
   }

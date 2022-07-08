@@ -1,5 +1,4 @@
 public class Veiculo {
-  protected long numChassi;
   protected String marca;
   protected String modelo;
   protected int ano;
@@ -7,7 +6,8 @@ public class Veiculo {
   protected String tipoCombustivel;
   protected int peso;
   protected boolean vendido;
-  
+  protected long numChassi;
+
   // ============= Construtores
   public Veiculo() {
     this(0, "", "", 0, 0, "", 0, false);
