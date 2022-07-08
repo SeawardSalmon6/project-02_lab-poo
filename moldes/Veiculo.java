@@ -1,13 +1,13 @@
 public class Veiculo {
-  private long numChassi;
-  private String marca;
-  private String modelo;
-  private int ano;
-  private int km;
-  private String tipoCombustivel;
-  private int peso;
-  private boolean vendido;
-
+  protected long numChassi;
+  protected String marca;
+  protected String modelo;
+  protected int ano;
+  protected int km;
+  protected String tipoCombustivel;
+  protected int peso;
+  protected boolean vendido;
+  
   // ============= Construtores
   public Veiculo() {
     this(0, "", "", 0, 0, "", 0, false);
