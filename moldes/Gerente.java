@@ -1,4 +1,7 @@
 import java.util.Scanner;
+
+import services.Utilidades;
+
 import java.util.ArrayList;
 
 public class Gerente extends Funcionario {
@@ -40,28 +43,20 @@ public int getAnosExperiencia() {
     final Data dataNascimento = new Data();
     final Data dataAdmissao = new Data();
     Gerente g1 = new Gerente();
+    Utilidades util = new Utilidades();
 
-    System.out.println("\nRG: ");
-    rg = sc.nextLong();
-    System.out.println("\nNome: ");
-    sc.next();
-    nome = sc.nextLine();
-    System.out.println("\nDia de nascimento: ");
-    dataNascimento.setDia(sc.nextInt());
-    System.out.println("\nMes de nascimento: ");
-    dataNascimento.setMes(sc.nextInt());
-    System.out.println("\nAno de nascimento: ");
-    dataNascimento.setAno(sc.nextInt());
-    System.out.println("\nDia de admissao: ");
-    dataAdmissao.setDia(sc.nextInt());
-    System.out.println("\nMes de admissao: ");
-    dataAdmissao.setMes(sc.nextInt());
-    System.out.println("\nAno de admissao: ");
-    dataAdmissao.setAno(sc.nextInt());
-    System.out.println("\nSalario: ");
-    salario = sc.nextDouble();
-    System.out.println("\nAnos de experiencia: ");
-    anosExperiencia = sc.nextInt();
+    util.printCabecalho("Cadastro de gerente");
+
+    rg = util.lerLong("RG", sc);
+    nome = util.lerString("Nome", sc);
+    dataNascimento.setDia(util.lerInt("Dia de nascimento", sc));
+    dataNascimento.setMes(util.lerInt("Mes de nascimento", sc));
+    dataNascimento.setAno(util.lerInt("Ano de nascimento", sc));
+    dataAdmissao.setDia(util.lerInt("Dia de nascimento", sc));
+    dataAdmissao.setMes(util.lerInt("Mes de nascimento", sc));
+    dataAdmissao.setAno(util.lerInt("Ano de nascimento", sc));
+    salario = util.lerDouble("Salario", sc);
+    anosExperiencia = util.lerInt("Anos de experiencia", sc);
 
     g1.setRg(rg);
     g1.setNome(nome);
@@ -72,7 +67,9 @@ public int getAnosExperiencia() {
 
     listaGerentes.add(g1);
     System.out.println("\nCadastro efetuado com sucesso!");
-    System.out.println("\nAperte enter para sair do cadastro!");
-    sc.nextLine();
+    util.aguardarTecla();
+    util.limpaTela();  
   }
+
+  //Consulta 
 }

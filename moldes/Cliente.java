@@ -1,4 +1,7 @@
 import java.util.Scanner;
+
+import services.Utilidades;
+
 import java.util.ArrayList;
 
 public class Cliente {
@@ -24,34 +27,29 @@ public class Cliente {
     this.dependentes = dependentes;
   }
 
-  static long count_digit(long x) //Calcula o numero de digitos de um tipo long
-    {
-        return (long)Math.floor(Math.log10(x) + 1);
-    }
+  static long count_digit(long x) // Calcula o numero de digitos de um tipo long
+  {
+    return (long) Math.floor(Math.log10(x) + 1);
+  }
 
+  // Cadastro cliente
   public void cadastraCliente(ArrayList<Cliente> listaClientes, Scanner sc) {
     Cliente c1 = new Cliente();
     Data dataNascimento = new Data();
+    Utilidades util = new Utilidades();
 
-    System.out.println("\nNome do cliente: ");
-    sc.next();
-    nome = sc.nextLine();
-    
-    do{
-      System.out.println("\nCPF do cliente: ");
-      cpf = sc.nextLong();
-    }while(count_digit(cpf) != 11); //verifica se o cpf tem 11 digitos
+    util.printCabecalho("Cadastro de cliente");
+    nome = util.lerString("Nome", sc);
 
-    System.out.println("\nDia de nascimento: ");
-    dataNascimento.setDia(sc.nextInt());
-    System.out.println("\nMes de nascimento: ");
-    dataNascimento.setMes(sc.nextInt());
-    System.out.println("\nAno de nascimento: ");
-    dataNascimento.setAno(sc.nextInt());
-    System.out.println("\nRenda: ");
-    renda = sc.nextFloat();
-    System.out.println("\nNumero de dependentes: ");
-    dependentes = sc.nextInt();
+    do {
+      cpf = util.lerLong("CPF do cliente", sc);
+    } while (count_digit(cpf) != 11); // verifica se o cpf tem 11 digitos
+
+    dataNascimento.setDia(util.lerInt("Dia de nascimento", sc));
+    dataNascimento.setMes(util.lerInt("Mes de nascimento", sc));
+    dataNascimento.setAno(util.lerInt("Ano de nascimento", sc));
+    renda = util.lerFloat("Renda", sc);
+    dependentes = util.lerInt("Numero de dependentes", sc);
 
     c1.setNome(nome);
     c1.setCpf(cpf);
@@ -61,9 +59,8 @@ public class Cliente {
 
     listaClientes.add(c1);
     System.out.println("\nCadastro efetuado com sucesso!");
-    System.out.println("\nAperte enter para sair do cadastro!");
-    sc.nextLine();
-    
+    util.aguardarTecla();
+    util.limpaTela();
   }
 
   // Getters e Setters

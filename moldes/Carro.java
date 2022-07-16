@@ -1,4 +1,7 @@
 import java.util.Scanner;
+
+import services.Utilidades;
+
 import java.util.ArrayList;
 
 public class Carro extends Veiculo {
@@ -15,7 +18,7 @@ public class Carro extends Veiculo {
   ArrayList<Carro> listaCarros = new ArrayList<Carro>();
   Scanner sc = new Scanner(System.in);
 
-  //Metodos Construtor
+  // Metodos Construtor
 
   public Carro(int potencia, int numCilindros, int numAssentos, int indexTipoCarro, double altura, double largura,
       double comprimento) {
@@ -41,9 +44,9 @@ public class Carro extends Veiculo {
     this.comprimento = comprimento;
   }
 
-  public Carro(){
-    this(0, null, null, 0, 0, null, 0, false, 
-    0, 0, 0, 0, 0, 0, 0);
+  public Carro() {
+    this(0, null, null, 0, 0, null, 0, false,
+        0, 0, 0, 0, 0, 0, 0);
   }
 
   // ============ Métodos de Classe
@@ -51,7 +54,7 @@ public class Carro extends Veiculo {
     return tiposCarros[this.indexTipoCarro];
   }
 
-  //Getters e Setters
+  // Getters e Setters
 
   public static String[] getTiposcarros() {
     return tiposCarros;
@@ -113,36 +116,23 @@ public class Carro extends Veiculo {
     this.comprimento = comprimento;
   }
 
-
-  //Metodos criados
-  //Cadastro
-  public void cadastroCarro(ArrayList<Carro> listaCarros, Scanner sc){
+  // Metodos criados
+  // Cadastro
+  public void cadastroCarro(ArrayList<Carro> listaCarros, Scanner sc) {
     Carro newCar = new Carro();
-  
-    System.out.println("\nChassi do carro: ");
-    numChassi = sc.nextLong();
-    System.out.println("Marca do carro: ");
-    sc.next();
-    marca = sc.nextLine();
-    System.out.println("\nModelo do carro: ");
-    sc.next();
-    modelo = sc.nextLine();
-    System.out.println("\nAno do carro: ");
-    ano = sc.nextInt();
-    System.out.println("\nQuilometragem do carro: ");
-    km = sc.nextInt();
-    System.out.println("\nTipo do combustivel: ");
-    sc.next();
-    tipoCombustivel = sc.nextLine();
-    System.out.println("\nPeso do carro: ");
-    peso = sc.nextInt();
-    System.out.println("\nPotencia do carro(inteiros): ");
-    potencia = sc.nextInt();
-    System.out.println("\nNumero de cilindros: ");
-    numCilindros = sc.nextInt();
-    System.out.println("\nNumero de Assentos: ");
-    numAssentos = sc.nextInt();
-    System.out.println("\n");
+    Utilidades util = new Utilidades();
+
+    util.printCabecalho("Cadastro Carro");
+    numChassi = util.lerLong("Chassi", sc);
+    marca = util.lerString("Marca do carro", sc);
+    modelo = util.lerString("Modelo do carro", sc);
+    ano = util.lerInt("Ano", sc);
+    km = util.lerInt("Quilometragem", sc);
+    tipoCombustivel = util.lerString("Tipo do combustivel", sc);
+    peso = util.lerInt("Peso do carro", sc);
+    potencia = util.lerInt("Potencia do carro", sc);
+    numCilindros = util.lerInt("Numero de cilindros", sc);
+    numAssentos = util.lerInt("Numero de assentos", sc);
 
     do {
       System.out.println("\nDigite o tipo de carro: ");
@@ -152,15 +142,12 @@ public class Carro extends Veiculo {
       System.out.println("\n 3 - Hatch");
       System.out.println("\n 4 - Esportivo");
       System.out.println("\n --------------");
-      indexTipoCarro = sc.nextInt();
+      indexTipoCarro = util.lerInt("Opcao desejada", sc);
     } while (indexTipoCarro < 0 && indexTipoCarro > 4);
 
-    System.out.println("\nAltura do carro: ");
-    altura = sc.nextDouble();
-    System.out.println("\nLargura do carro: ");
-    largura = sc.nextDouble();
-    System.out.println("\nComprimento do carro: ");
-    comprimento = sc.nextDouble();
+    altura = util.lerDouble("Altura do carro", sc);
+    largura = util.lerDouble("Largura do carro", sc);
+    comprimento = util.lerDouble("Comprimento do carro", sc);
 
     // Verificar se o carro foi vendido
     do {
@@ -168,7 +155,7 @@ public class Carro extends Veiculo {
       System.out.println("\n 0 - Nao");
       System.out.println("\n 1 - Sim");
       System.out.println("\n --------------");
-      op = sc.nextInt();
+      op = util.lerInt("Opcao desejada", sc);
     } while (op > 1 && op < 0);
 
     // Se foi vendida(1), recebe true. c.c.(0) recebe false
@@ -196,8 +183,8 @@ public class Carro extends Veiculo {
 
     listaCarros.add(newCar);
     System.out.println("\nCadastro efetuado com sucesso!");
-    System.out.println("\nAperte enter para sair do cadastro!");
-    sc.nextLine();
+    util.aguardarTecla();
+    util.limpaTela();
   }
-  
+
 }

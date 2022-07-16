@@ -1,4 +1,7 @@
 import java.util.Scanner;
+
+import services.Utilidades;
+
 import java.util.ArrayList;
 
 public class Venda {
@@ -96,47 +99,44 @@ public class Venda {
         Carro newCarro = new Carro();
         Motocicleta newMoto = new Motocicleta();
         int op;
+        Utilidades util = new Utilidades();
 
-        System.out.println("\nDigite o id da venda: ");
-        idVenda = sc.nextInt();
-        System.out.println("\nRG do Vendedor: ");
-        newVendedor.setRg(sc.nextLong());
-        System.out.println("\nCPF do cliente: ");
-        newCliente.setCpf(sc.nextLong());
+        util.printCabecalho("Cadastro da venda");
+        idVenda = util.lerInt("ID da venda", sc);
+        newVendedor.setRg(util.lerLong("RG do vendedor", sc));
+        newCliente.setCpf(util.lerLong("CPF do cliente", sc));
+        
 
         do{
             System.out.println("\nQual veiculo sera vendido?(Selecione 0 ou 1)");
             System.out.println("\n 0 - Carro");
             System.out.println("\n 1 - Motocicleta");
-            op = sc.nextInt();
+            op = util.lerInt("Option", sc);
         }while(op < 0 && op > 1);
 
         if(op == 0){
-            System.out.println("\nDigite o chassi do carro vendido: ");
-            newCarro.setNumChassi(sc.nextLong());
+            newCarro.setNumChassi(util.lerLong("Numero do chassi do carro: ", sc));
         }
         else if(op == 1){
-            System.out.println("\nDigite o chassi da moto vendida: ");
-            newMoto.setNumChassi(sc.nextLong());
+            newMoto.setNumChassi(util.lerLong("Numero do chassi da moto", sc));
         }
 
-        System.out.println("\nDigite o valor da venda: ");
-        valor = sc.nextDouble();
+        valor = util.lerDouble("Valor da venda", sc);
         System.out.println("\nDigite o dia da venda: ");
-        data.setDia(sc.nextInt());
-        System.out.println("\nDigite o mes da venda: ");
-        data.setMes(sc.nextInt());
-        System.out.println("\nDigite o ano da venda: ");
-        data.setAno(sc.nextInt());
+        data.setDia(util.lerInt("Dia da venda", sc));
+        data.setMes(util.lerInt("Mes da venda", sc));
+        data.setAno(util.lerInt("Ano da venda", sc));
+
         System.out.println("\nDigite a hora e minuto de venda separadamente!");
-        System.out.println("\nHora da venda: ");
-        horario.setHora(sc.nextInt());
-        System.out.println("\nMinuto da venda: ");
-       horario.setMinuto(sc.nextInt());
+        horario.setHora(util.lerInt("Hora da venda", sc));
+        horario.setMinuto(util.lerInt("Minuto da venda", sc));
 
        listaVendas.add(v1);
        System.out.println("\nCadastro efetuado com sucesso!");
-       System.out.println("\nAperte enter para sair do cadastro!");
-       sc.nextLine();
+       util.aguardarTecla();
+       util.limpaTela();
     }
+
+    //Alterar dados
+    public void alteraIdVenda
 }

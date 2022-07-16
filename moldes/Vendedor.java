@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import services.Utilidades;
 import java.util.ArrayList;
 
 public class Vendedor extends Funcionario {
@@ -42,30 +43,21 @@ public class Vendedor extends Funcionario {
     final Data dataAdmissao = new Data();
     Vendedor v1 = new Vendedor();
     Gerente gerenteResponsavel = new Gerente();
+    
+    Utilidades util = new Utilidades();
 
-    System.out.println("\nRG: ");
-    rg = sc.nextLong();
-    System.out.println("\nNome: ");
-    sc.next();
-    nome = sc.nextLine();
-    System.out.println("\nDia de nascimento: ");
-    dataNascimento.setDia(sc.nextInt());
-    System.out.println("\nMes de nascimento: ");
-    dataNascimento.setMes(sc.nextInt());
-    System.out.println("\nAno de nascimento: ");
-    dataNascimento.setAno(sc.nextInt());
-    System.out.println("\nDia de admissao: ");
-    dataAdmissao.setDia(sc.nextInt());
-    System.out.println("\nMes de admissao: ");
-    dataAdmissao.setMes(sc.nextInt());
-    System.out.println("\nAno de admissao: ");
-    dataAdmissao.setAno(sc.nextInt());
-    System.out.println("\nSalario: ");
-    salario = sc.nextDouble();
-    System.out.println("\nTempo de treinamento: ");
-    tempoTreinamento = sc.nextInt();
-    System.out.println("\nGerente responsavel: ");
-    gerenteResponsavel.setNome(sc.next());
+    util.printCabecalho("Cadastro de vendedor");
+    rg = util.lerLong("RG", sc);
+    nome = util.lerString("Nome", sc);
+    dataNascimento.setDia(util.lerInt("Dia de nascimento", sc));
+    dataNascimento.setMes(util.lerInt("Mes de nascimento", sc));
+    dataNascimento.setAno(util.lerInt("Ano de nascimento", sc));
+    dataAdmissao.setDia(util.lerInt("Dia de nascimento", sc));
+    dataAdmissao.setMes(util.lerInt("Mes de nascimento", sc));
+    dataAdmissao.setAno(util.lerInt("Ano de nascimento", sc));
+    salario = util.lerDouble("Salario", sc);
+    tempoTreinamento = util.lerInt("Tempo de treinamento", sc);    
+    gerenteResponsavel.setNome(util.lerString("Nome do gerente responsavel", sc));
 
     v1.setRg(rg);
     v1.setNome(nome);
@@ -77,7 +69,122 @@ public class Vendedor extends Funcionario {
 
     listaVendedores.add(v1);
     System.out.println("\nCadastro efetuado com sucesso!");
-    System.out.println("\nAperte enter para sair do cadastro!");
-    sc.nextLine();
+    util.aguardarTecla();
+    util.limpaTela();
+  }
+
+  //Alteracao de dados
+  public void alteraVendedor(ArrayList<Vendedor> listaVendedores, Scanner sc, int id){
+    Utilidades util = new Utilidades();
+    
+    util.printCabecalho("Alterar dados do vendedor");
+    System.out.println("\n 1 - Rg");
+    System.out.println("\n 2 - Nome");
+    System.out.println("\n 3 - Data de nascimento");
+    System.out.println("\n 4 - Data de admissao");
+    System.out.println("\n 5 - Salario");
+    System.out.println("\n 6 - Tempo treinamento");
+    System.out.println("\n 7 - Gerente responsavel");
+    int op = util.lerInt("Selecione a opcao", sc);
+
+    switch(op){
+      case 1: 
+        alterarRg(listaVendedores, sc, id);
+        break;
+      case 2:
+        alterarNome(listaVendedores, sc, id);
+        break;
+      case 3: 
+        alterarDataNasc(listaVendedores, sc, id);
+        break;
+      case 4:
+        alterarDataAdmissao(listaVendedores, sc, id);
+        break; 
+      case 5:
+        alterarSalario(listaVendedores, sc, id);
+        break;
+      case 6:
+        alterarTempoTreinamento(listaVendedores, sc, id);
+        break;
+      case 7:
+        alterarGerente(listaVendedores, sc, id);
+        break;
+      default:
+        break;
+    }
+
+  }
+  public void alterarRg(ArrayList<Vendedor> listaVendedores, Scanner sc, int id){
+    Utilidades util = new Utilidades();
+
+    rg = util.lerLong("Novo rg do vendedor", sc);
+    listaVendedores.get(id).setRg(rg);
+    System.out.println("\nRg do vendedor"+ id + "atualizado!");
+    util.aguardarTecla();
+    util.limpaTela();
+  }
+
+  public void alterarNome(ArrayList<Vendedor> listaVendedores, Scanner sc, int id){
+    Utilidades util = new Utilidades();
+
+    nome = util.lerString("Novo nome do vendedor", sc);
+    listaVendedores.get(id).setNome(nome);
+    System.out.println("\nNome do vendedor" + id + "atualizado!");
+    util.aguardarTecla();
+    util.limpaTela();
+  }
+
+  public void alterarDataNasc(ArrayList<Vendedor> listaVendedores, Scanner sc, int id){
+    Utilidades util = new Utilidades();
+
+    dataNascimento.setDia(util.lerInt("Novo dia de nascimento", sc));
+    dataNascimento.setMes(util.lerInt("Novo mes de nascimento", sc));
+    dataNascimento.setAno(util.lerInt("Novo ano de nascimento", sc));
+    listaVendedores.get(id).setDataNascimento(dataNascimento);
+    System.out.println("\nData de nascimento do vendedor" + id + "atualizada!");
+    util.aguardarTecla();
+    util.limpaTela();
+  }
+  
+  public void alterarDataAdmissao(ArrayList<Vendedor> listaVendedores, Scanner sc, int id){
+    Utilidades util = new Utilidades();
+
+    dataNascimento.setDia(util.lerInt("Novo dia de admissao", sc));
+    dataNascimento.setMes(util.lerInt("Novo mes de admissao", sc));
+    dataNascimento.setAno(util.lerInt("Novo ano de admissao", sc));
+    listaVendedores.get(id).setDataAdmissao(dataAdmissao);
+    System.out.println("\nData de admissao do vendedor" + id + "atualizada!");
+    util.aguardarTecla();
+    util.limpaTela();
+  }
+
+  public void alterarSalario(ArrayList<Vendedor> listaVendedores, Scanner sc, int id){
+    Utilidades util = new Utilidades();
+
+    salario = util.lerDouble("Novo salario", sc);
+    listaVendedores.get(id).setSalario(salario);
+    System.out.println("\nSalario do vendedor" + id + "atualizado!");
+    util.aguardarTecla();
+    util.limpaTela();
+  }
+
+  public void alterarTempoTreinamento(ArrayList<Vendedor> listaVendedores, Scanner sc, int id){
+    Utilidades util = new Utilidades();
+
+    tempoTreinamento = util.lerInt("Novo tempo de treinamento", sc);
+    listaVendedores.get(id).setTempoTreinamento(tempoTreinamento);
+    System.out.println("\nTempo de treinamento do vendedor" + id + "atualizado!");
+    util.aguardarTecla();
+    util.limpaTela();
+  }
+  
+  public void alterarGerente(ArrayList<Vendedor> listaVendedores, Scanner sc, int id){
+    Utilidades util = new Utilidades();
+
+    gerenteResponsavel.setNome(util.lerString("Nome do novo gerente responsavel", sc));
+    listaVendedores.get(id).setGerenteResponsavel(gerenteResponsavel);
+    System.out.println("\nSalario do vendedor" + id + "atualizado!");
+    util.aguardarTecla();
+    util.limpaTela();
   }
 }

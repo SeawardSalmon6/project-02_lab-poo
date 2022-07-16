@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import services.Utilidades;
 import java.util.ArrayList;
 
 public class Motocicleta extends Veiculo {
@@ -54,27 +55,17 @@ public class Motocicleta extends Veiculo {
   // ===========
   public void cadastroMotocicleta(ArrayList<Motocicleta> listaMotocicletas, Scanner sc) {
     Motocicleta m1 = new Motocicleta();
+    Utilidades util = new Utilidades();
 
-    System.out.println("\nNumero do Chassi: ");
-    numChassi = sc.nextLong();
-    System.out.println("Marca da moto: ");
-    sc.next();
-    marca = sc.nextLine();
-    System.out.println("\nModelo da moto: ");
-    sc.next();
-    modelo = sc.nextLine();
-    System.out.println("\nAno da moto: ");
-    ano = sc.nextInt();
-    System.out.println("\nQuilometragem da moto: ");
-    km = sc.nextInt();
-    System.out.println("\nTipo do combustivel: ");
-    sc.next();
-    tipoCombustivel = sc.nextLine();
-    System.out.println("\nPeso da moto: ");
-    peso = sc.nextInt();
-
-    System.out.println("\nDigite o numero de cilindradas da moto: ");
-    cilindradas = sc.nextInt();
+    util.printCabecalho("Cadastro Moto");
+    numChassi = util.lerLong("Chassi", sc);
+    marca = util.lerString("Marca da moto", sc);
+    modelo = util.lerString("Modelo da moto", sc);
+    ano = util.lerInt("Ano", sc);
+    km = util.lerInt("Quilometragem", sc);
+    tipoCombustivel = util.lerString("Tipo do combustivel", sc);
+    peso = util.lerInt("Peso da moto", sc);
+    cilindradas = util.lerInt("Cilindradas da moto", sc);
 
     do {
       System.out.println("\nDigite o tipo de motocicleta: ");
@@ -83,7 +74,7 @@ public class Motocicleta extends Veiculo {
       System.out.println("\n 2 - Sport");
       System.out.println("\n 3 - Custom");
       System.out.println("\n --------------");
-      indexTipoMotocicleta = sc.nextInt();
+      indexTipoMotocicleta = util.lerInt("Opcao desejada", sc);
     } while (indexTipoMotocicleta < 0 && indexTipoMotocicleta > 3);
 
     // Verificar se a moto foi vendida
@@ -92,7 +83,7 @@ public class Motocicleta extends Veiculo {
       System.out.println("\n 0 - Nao");
       System.out.println("\n 1 - Sim");
       System.out.println("\n --------------");
-      op = sc.nextInt();
+      op = util.lerInt("Opcao desejada", sc);
     } while (op > 1 && op < 0);
 
     // Se foi vendida(1), recebe true. c.c.(0) recebe false
@@ -115,7 +106,7 @@ public class Motocicleta extends Veiculo {
 
     listaMotocicletas.add(m1);
     System.out.println("\nCadastro efetuado com sucesso!");
-    System.out.println("\nAperte enter para sair do cadastro!");
-    sc.nextLine();
+    util.aguardarTecla();
+    util.limpaTela();
   }
 }
