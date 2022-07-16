@@ -1,7 +1,9 @@
+package moldes;
+
 import java.util.Scanner;
-
-import services.Utilidades;
-
+import moldes.aux.Horario;
+import moldes.aux.Data;
+import services.Utils;
 import java.util.ArrayList;
 
 public class Venda {
@@ -13,9 +15,9 @@ public class Venda {
     private Data data;
     private Horario horario;
 
-
-    //Metodos Construtores
-    public Venda(int idVenda, Vendedor vendedor, Cliente cliente, Veiculo veiculo, double valor, Data data, Horario horario) {
+    // Metodos Construtores
+    public Venda(int idVenda, Vendedor vendedor, Cliente cliente, Veiculo veiculo, double valor, Data data,
+            Horario horario) {
         this.idVenda = idVenda;
         this.vendedor = vendedor;
         this.cliente = cliente;
@@ -25,12 +27,11 @@ public class Venda {
         this.horario = horario;
     }
 
-    public Venda(){
+    public Venda() {
         this(0, null, null, null, 0, null, null);
     }
 
-
-    //Getters e Setters 
+    // Getters e Setters
     public int getIdVenda() {
         return idVenda;
     }
@@ -87,10 +88,10 @@ public class Venda {
         this.horario = horario;
     }
 
-    //Metodos criados
-    //Cadastro venda
+    // Metodos criados
+    // Cadastro venda
 
-    public void cadastroVenda(ArrayList<Venda> listaVendas, Scanner sc){
+    public void cadastroVenda(ArrayList<Venda> listaVendas, Scanner sc) {
         Venda v1 = new Venda();
         Data data = new Data();
         Cliente newCliente = new Cliente();
@@ -99,25 +100,23 @@ public class Venda {
         Carro newCarro = new Carro();
         Motocicleta newMoto = new Motocicleta();
         int op;
-        Utilidades util = new Utilidades();
+        Utils util = new Utils();
 
         util.printCabecalho("Cadastro da venda");
         idVenda = util.lerInt("ID da venda", sc);
         newVendedor.setRg(util.lerLong("RG do vendedor", sc));
         newCliente.setCpf(util.lerLong("CPF do cliente", sc));
-        
 
-        do{
+        do {
             System.out.println("\nQual veiculo sera vendido?(Selecione 0 ou 1)");
             System.out.println("\n 0 - Carro");
             System.out.println("\n 1 - Motocicleta");
             op = util.lerInt("Option", sc);
-        }while(op < 0 && op > 1);
+        } while (op < 0 && op > 1);
 
-        if(op == 0){
+        if (op == 0) {
             newCarro.setNumChassi(util.lerLong("Numero do chassi do carro: ", sc));
-        }
-        else if(op == 1){
+        } else if (op == 1) {
             newMoto.setNumChassi(util.lerLong("Numero do chassi da moto", sc));
         }
 
@@ -131,12 +130,9 @@ public class Venda {
         horario.setHora(util.lerInt("Hora da venda", sc));
         horario.setMinuto(util.lerInt("Minuto da venda", sc));
 
-       listaVendas.add(v1);
-       System.out.println("\nCadastro efetuado com sucesso!");
-       util.aguardarTecla();
-       util.limpaTela();
+        listaVendas.add(v1);
+        System.out.println("\nCadastro efetuado com sucesso!");
+        util.aguardarTecla();
+        util.limpaTela();
     }
-
-    //Alterar dados
-    public void alteraIdVenda
 }

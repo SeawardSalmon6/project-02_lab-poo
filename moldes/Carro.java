@@ -1,67 +1,52 @@
-import java.util.Scanner;
-
-import services.Utilidades;
-
-import java.util.ArrayList;
+package moldes;
 
 public class Carro extends Veiculo {
-  private static final String[] tiposCarros = { "Utilitário", "Pickup", "Sedan", "Hatch", "Esportivo" };
-  private int op;
+  private static final String[] tiposCarro = { "Utilitário", "Pickup", "Sedan", "Hatch", "Esportivo" };
   private int potencia;
   private int numCilindros;
   private int numAssentos;
   private int indexTipoCarro;
-  private double altura; // Criar classe separada para as dimensoes?
+  private double altura;
   private double largura;
   private double comprimento;
 
-  ArrayList<Carro> listaCarros = new ArrayList<Carro>();
-  Scanner sc = new Scanner(System.in);
+  // ========= Métodos de Classe
+  public String getTipoCarro() {
+    return tiposCarro[this.indexTipoCarro];
+  }
 
-  // Metodos Construtor
+  public static void printOpcoesTiposCarro() {
+    for (int i = 0; i < tiposCarro.length; i++)
+      System.out.printf("\n(%d) %s", i + 1, tiposCarro[i]);
 
-  public Carro(int potencia, int numCilindros, int numAssentos, int indexTipoCarro, double altura, double largura,
-      double comprimento) {
-    this.potencia = potencia;
-    this.numCilindros = numCilindros;
-    this.numAssentos = numAssentos;
-    this.indexTipoCarro = indexTipoCarro;
-    this.altura = altura;
-    this.largura = largura;
-    this.comprimento = comprimento;
+    System.out.println();
+  }
+
+  // ========= Construtores
+  public Carro() {
+    this(0, "", "", 0, 0, "", 0, false, 0, 0, 0, 0, 0, 0, 0);
   }
 
   public Carro(long numChassi, String marca, String modelo, int ano, int km, String tipoCombustivel, int peso,
       boolean vendido, int potencia, int numCilindros, int numAssentos, int indexTipoCarro, double altura,
       double largura, double comprimento) {
     super(numChassi, marca, modelo, ano, km, tipoCombustivel, peso, vendido);
-    this.potencia = potencia;
-    this.numCilindros = numCilindros;
-    this.numAssentos = numAssentos;
-    this.indexTipoCarro = indexTipoCarro;
-    this.altura = altura;
-    this.largura = largura;
-    this.comprimento = comprimento;
+    this.setPotencia(potencia);
+    this.setNumCilindros(numCilindros);
+    this.setNumAssentos(numAssentos);
+    this.setIndexTipoCarro(indexTipoCarro);
+    this.setAltura(altura);
+    this.setLargura(largura);
+    this.setComprimento(comprimento);
   }
 
-  public Carro() {
-    this(0, null, null, 0, 0, null, 0, false,
-        0, 0, 0, 0, 0, 0, 0);
-  }
-
-  // ============ Métodos de Classe
-  public String getTipoCarro() {
-    return tiposCarros[this.indexTipoCarro];
-  }
-
-  // Getters e Setters
-
-  public static String[] getTiposcarros() {
-    return tiposCarros;
+  // ========= Getters e Setters
+  public static String[] getTiposCarros() {
+    return tiposCarro;
   }
 
   public int getPotencia() {
-    return potencia;
+    return this.potencia;
   }
 
   public void setPotencia(int potencia) {
@@ -69,7 +54,7 @@ public class Carro extends Veiculo {
   }
 
   public int getNumCilindros() {
-    return numCilindros;
+    return this.numCilindros;
   }
 
   public void setNumCilindros(int numCilindros) {
@@ -77,7 +62,7 @@ public class Carro extends Veiculo {
   }
 
   public int getNumAssentos() {
-    return numAssentos;
+    return this.numAssentos;
   }
 
   public void setNumAssentos(int numAssentos) {
@@ -85,7 +70,7 @@ public class Carro extends Veiculo {
   }
 
   public int getIndexTipoCarro() {
-    return indexTipoCarro;
+    return this.indexTipoCarro;
   }
 
   public void setIndexTipoCarro(int indexTipoCarro) {
@@ -93,7 +78,7 @@ public class Carro extends Veiculo {
   }
 
   public double getAltura() {
-    return altura;
+    return this.altura;
   }
 
   public void setAltura(double altura) {
@@ -101,7 +86,7 @@ public class Carro extends Veiculo {
   }
 
   public double getLargura() {
-    return largura;
+    return this.largura;
   }
 
   public void setLargura(double largura) {
@@ -109,82 +94,10 @@ public class Carro extends Veiculo {
   }
 
   public double getComprimento() {
-    return comprimento;
+    return this.comprimento;
   }
 
   public void setComprimento(double comprimento) {
     this.comprimento = comprimento;
   }
-
-  // Metodos criados
-  // Cadastro
-  public void cadastroCarro(ArrayList<Carro> listaCarros, Scanner sc) {
-    Carro newCar = new Carro();
-    Utilidades util = new Utilidades();
-
-    util.printCabecalho("Cadastro Carro");
-    numChassi = util.lerLong("Chassi", sc);
-    marca = util.lerString("Marca do carro", sc);
-    modelo = util.lerString("Modelo do carro", sc);
-    ano = util.lerInt("Ano", sc);
-    km = util.lerInt("Quilometragem", sc);
-    tipoCombustivel = util.lerString("Tipo do combustivel", sc);
-    peso = util.lerInt("Peso do carro", sc);
-    potencia = util.lerInt("Potencia do carro", sc);
-    numCilindros = util.lerInt("Numero de cilindros", sc);
-    numAssentos = util.lerInt("Numero de assentos", sc);
-
-    do {
-      System.out.println("\nDigite o tipo de carro: ");
-      System.out.println("\n 0 - Utilitario");
-      System.out.println("\n 1 - Pickup");
-      System.out.println("\n 2 - Sedan");
-      System.out.println("\n 3 - Hatch");
-      System.out.println("\n 4 - Esportivo");
-      System.out.println("\n --------------");
-      indexTipoCarro = util.lerInt("Opcao desejada", sc);
-    } while (indexTipoCarro < 0 && indexTipoCarro > 4);
-
-    altura = util.lerDouble("Altura do carro", sc);
-    largura = util.lerDouble("Largura do carro", sc);
-    comprimento = util.lerDouble("Comprimento do carro", sc);
-
-    // Verificar se o carro foi vendido
-    do {
-      System.out.println("\nO carro foi vendido?");
-      System.out.println("\n 0 - Nao");
-      System.out.println("\n 1 - Sim");
-      System.out.println("\n --------------");
-      op = util.lerInt("Opcao desejada", sc);
-    } while (op > 1 && op < 0);
-
-    // Se foi vendida(1), recebe true. c.c.(0) recebe false
-    if (op == 1) {
-      vendido = true;
-    } else if (op == 0) {
-      vendido = false;
-    }
-
-    newCar.setNumChassi(numChassi);
-    newCar.setMarca(marca);
-    newCar.setModelo(modelo);
-    newCar.setAno(ano);
-    newCar.setKm(km);
-    newCar.setTipoCombustivel(tipoCombustivel);
-    newCar.setPeso(peso);
-    newCar.setPotencia(potencia);
-    newCar.setNumCilindros(numCilindros);
-    newCar.setNumAssentos(numAssentos);
-    newCar.setIndexTipoCarro(indexTipoCarro);
-    newCar.setAltura(altura);
-    newCar.setLargura(altura);
-    newCar.setComprimento(altura);
-    newCar.setVendido(vendido);
-
-    listaCarros.add(newCar);
-    System.out.println("\nCadastro efetuado com sucesso!");
-    util.aguardarTecla();
-    util.limpaTela();
-  }
-
 }

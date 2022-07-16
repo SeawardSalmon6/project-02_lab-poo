@@ -1,5 +1,7 @@
+package moldes;
+
 import java.util.Scanner;
-import services.Utilidades;
+import services.Utils;
 import java.util.ArrayList;
 
 public class Motocicleta extends Veiculo {
@@ -9,18 +11,21 @@ public class Motocicleta extends Veiculo {
   private int cilindradas;
   private int indexTipoMotocicleta;
 
-  ArrayList<Motocicleta> listaMotocicletas = new ArrayList<Motocicleta>();
-  Scanner sc = new Scanner(System.in);
-
   // ============ Métodos de Classe
   public String getTipoMotocicleta() {
     return tiposMotocicleta[this.indexTipoMotocicleta];
   }
 
+  public static void printOpcoesTiposMotocicleta() {
+    for (int i = 0; i < tiposMotocicleta.length; i++)
+      System.out.printf("\n(%d) %s", i + 1, tiposMotocicleta[i]);
+
+    System.out.println();
+  }
+
   // ============ Construtores
-  public Motocicleta(int cilindradas, int indexTipoMotocicleta) {
-    this.cilindradas = cilindradas;
-    this.indexTipoMotocicleta = indexTipoMotocicleta;
+  public Motocicleta() {
+    this(0, null, null, 0, 0, null, 0, false, 0, 0);
   }
 
   public Motocicleta(long numChassi, String marca, String modelo, int ano, int km, String tipoCombustivel, int peso,
@@ -28,10 +33,6 @@ public class Motocicleta extends Veiculo {
     super(numChassi, marca, modelo, ano, km, tipoCombustivel, peso, vendido);
     this.cilindradas = cilindradas;
     this.indexTipoMotocicleta = indexTipoMotocicleta;
-  }
-
-  public Motocicleta() {
-    this(0, null, null, 0, 0, null, 0, false, 0, 0);
   }
 
   // ============ Getters e Setters
@@ -55,7 +56,7 @@ public class Motocicleta extends Veiculo {
   // ===========
   public void cadastroMotocicleta(ArrayList<Motocicleta> listaMotocicletas, Scanner sc) {
     Motocicleta m1 = new Motocicleta();
-    Utilidades util = new Utilidades();
+    Utils util = new Utils();
 
     util.printCabecalho("Cadastro Moto");
     numChassi = util.lerLong("Chassi", sc);

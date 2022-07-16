@@ -1,19 +1,21 @@
-public class Veiculo {
+package moldes;
+
+public abstract class Veiculo {
+  protected long numChassi;
   protected String marca;
   protected String modelo;
   protected int ano;
-  protected int km;
+  protected double km;
   protected String tipoCombustivel;
-  protected int peso;
+  protected double peso;
   protected boolean vendido;
-  protected long numChassi;
 
   // ============= Construtores
   public Veiculo() {
     this(0, "", "", 0, 0, "", 0, false);
   }
 
-  public Veiculo(long numChassi, String marca, String modelo, int ano, int km, String tipoCombustivel, int peso,
+  public Veiculo(long numChassi, String marca, String modelo, int ano, double km, String tipoCombustivel, double peso,
       boolean vendido) {
     this.setNumChassi(numChassi);
     this.setMarca(marca);
@@ -42,7 +44,7 @@ public class Veiculo {
     return this.ano;
   }
 
-  public int getKm() {
+  public double getKm() {
     return this.km;
   }
 
@@ -50,7 +52,7 @@ public class Veiculo {
     return this.tipoCombustivel;
   }
 
-  public int getPeso() {
+  public double getPeso() {
     return this.peso;
   }
 
@@ -74,7 +76,7 @@ public class Veiculo {
     this.ano = ano;
   }
 
-  public void setKm(int km) {
+  public void setKm(double km) {
     this.km = km;
   }
 
@@ -82,7 +84,7 @@ public class Veiculo {
     this.tipoCombustivel = tipoCombustivel;
   }
 
-  public void setPeso(int peso) {
+  public void setPeso(double peso) {
     this.peso = peso;
   }
 

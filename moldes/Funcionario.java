@@ -1,5 +1,6 @@
-import java.util.Scanner;
-import java.util.ArrayList;
+package moldes;
+
+import moldes.aux.Data;
 
 public class Funcionario {
   protected long rg;
@@ -7,9 +8,6 @@ public class Funcionario {
   protected Data dataNascimento;
   protected Data dataAdmissao;
   protected double salario;
-
-  ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
-  Scanner sc = new Scanner(System.in);
 
   // ============= Construtores
   public Funcionario() {

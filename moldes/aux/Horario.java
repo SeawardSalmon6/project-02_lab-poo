@@ -1,10 +1,12 @@
+package moldes.aux;
+
 public class Horario {
   private int hora;
   private int minuto;
 
   // ============== Construtores
   public Horario() {
-    this(1, 1);
+    this(0, 0);
   }
 
   public Horario(int hora, int minuto) {

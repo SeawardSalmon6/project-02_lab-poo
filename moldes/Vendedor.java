@@ -1,13 +1,13 @@
+package moldes;
+
 import java.util.Scanner;
-import services.Utilidades;
+import moldes.aux.Data;
+import services.Utils;
 import java.util.ArrayList;
 
 public class Vendedor extends Funcionario {
   private int tempoTreinamento;
   private Gerente gerenteResponsavel;
-
-  Scanner sc = new Scanner(System.in);
-  ArrayList<Vendedor> vendedores = new ArrayList<Vendedor>();
 
   public Vendedor(long rg, String nome, Data dataNascimento, Data dataAdmissao, double salario, int tempoTreinamento,
       Gerente gerenteResponsavel) {
@@ -43,8 +43,8 @@ public class Vendedor extends Funcionario {
     final Data dataAdmissao = new Data();
     Vendedor v1 = new Vendedor();
     Gerente gerenteResponsavel = new Gerente();
-    
-    Utilidades util = new Utilidades();
+
+    Utils util = new Utils();
 
     util.printCabecalho("Cadastro de vendedor");
     rg = util.lerLong("RG", sc);
@@ -56,7 +56,7 @@ public class Vendedor extends Funcionario {
     dataAdmissao.setMes(util.lerInt("Mes de nascimento", sc));
     dataAdmissao.setAno(util.lerInt("Ano de nascimento", sc));
     salario = util.lerDouble("Salario", sc);
-    tempoTreinamento = util.lerInt("Tempo de treinamento", sc);    
+    tempoTreinamento = util.lerInt("Tempo de treinamento", sc);
     gerenteResponsavel.setNome(util.lerString("Nome do gerente responsavel", sc));
 
     v1.setRg(rg);
@@ -73,10 +73,10 @@ public class Vendedor extends Funcionario {
     util.limpaTela();
   }
 
-  //Alteracao de dados
-  public void alteraVendedor(ArrayList<Vendedor> listaVendedores, Scanner sc, int id){
-    Utilidades util = new Utilidades();
-    
+  // Alteracao de dados
+  public void alteraVendedor(ArrayList<Vendedor> listaVendedores, Scanner sc, int id) {
+    Utils util = new Utils();
+
     util.printCabecalho("Alterar dados do vendedor");
     System.out.println("\n 1 - Rg");
     System.out.println("\n 2 - Nome");
@@ -87,19 +87,19 @@ public class Vendedor extends Funcionario {
     System.out.println("\n 7 - Gerente responsavel");
     int op = util.lerInt("Selecione a opcao", sc);
 
-    switch(op){
-      case 1: 
+    switch (op) {
+      case 1:
         alterarRg(listaVendedores, sc, id);
         break;
       case 2:
         alterarNome(listaVendedores, sc, id);
         break;
-      case 3: 
+      case 3:
         alterarDataNasc(listaVendedores, sc, id);
         break;
       case 4:
         alterarDataAdmissao(listaVendedores, sc, id);
-        break; 
+        break;
       case 5:
         alterarSalario(listaVendedores, sc, id);
         break;
@@ -114,18 +114,19 @@ public class Vendedor extends Funcionario {
     }
 
   }
-  public void alterarRg(ArrayList<Vendedor> listaVendedores, Scanner sc, int id){
-    Utilidades util = new Utilidades();
+
+  public void alterarRg(ArrayList<Vendedor> listaVendedores, Scanner sc, int id) {
+    Utils util = new Utils();
 
     rg = util.lerLong("Novo rg do vendedor", sc);
     listaVendedores.get(id).setRg(rg);
-    System.out.println("\nRg do vendedor"+ id + "atualizado!");
+    System.out.println("\nRg do vendedor" + id + "atualizado!");
     util.aguardarTecla();
     util.limpaTela();
   }
 
-  public void alterarNome(ArrayList<Vendedor> listaVendedores, Scanner sc, int id){
-    Utilidades util = new Utilidades();
+  public void alterarNome(ArrayList<Vendedor> listaVendedores, Scanner sc, int id) {
+    Utils util = new Utils();
 
     nome = util.lerString("Novo nome do vendedor", sc);
     listaVendedores.get(id).setNome(nome);
@@ -134,8 +135,8 @@ public class Vendedor extends Funcionario {
     util.limpaTela();
   }
 
-  public void alterarDataNasc(ArrayList<Vendedor> listaVendedores, Scanner sc, int id){
-    Utilidades util = new Utilidades();
+  public void alterarDataNasc(ArrayList<Vendedor> listaVendedores, Scanner sc, int id) {
+    Utils util = new Utils();
 
     dataNascimento.setDia(util.lerInt("Novo dia de nascimento", sc));
     dataNascimento.setMes(util.lerInt("Novo mes de nascimento", sc));
@@ -145,9 +146,9 @@ public class Vendedor extends Funcionario {
     util.aguardarTecla();
     util.limpaTela();
   }
-  
-  public void alterarDataAdmissao(ArrayList<Vendedor> listaVendedores, Scanner sc, int id){
-    Utilidades util = new Utilidades();
+
+  public void alterarDataAdmissao(ArrayList<Vendedor> listaVendedores, Scanner sc, int id) {
+    Utils util = new Utils();
 
     dataNascimento.setDia(util.lerInt("Novo dia de admissao", sc));
     dataNascimento.setMes(util.lerInt("Novo mes de admissao", sc));
@@ -158,8 +159,8 @@ public class Vendedor extends Funcionario {
     util.limpaTela();
   }
 
-  public void alterarSalario(ArrayList<Vendedor> listaVendedores, Scanner sc, int id){
-    Utilidades util = new Utilidades();
+  public void alterarSalario(ArrayList<Vendedor> listaVendedores, Scanner sc, int id) {
+    Utils util = new Utils();
 
     salario = util.lerDouble("Novo salario", sc);
     listaVendedores.get(id).setSalario(salario);
@@ -168,8 +169,8 @@ public class Vendedor extends Funcionario {
     util.limpaTela();
   }
 
-  public void alterarTempoTreinamento(ArrayList<Vendedor> listaVendedores, Scanner sc, int id){
-    Utilidades util = new Utilidades();
+  public void alterarTempoTreinamento(ArrayList<Vendedor> listaVendedores, Scanner sc, int id) {
+    Utils util = new Utils();
 
     tempoTreinamento = util.lerInt("Novo tempo de treinamento", sc);
     listaVendedores.get(id).setTempoTreinamento(tempoTreinamento);
@@ -177,9 +178,9 @@ public class Vendedor extends Funcionario {
     util.aguardarTecla();
     util.limpaTela();
   }
-  
-  public void alterarGerente(ArrayList<Vendedor> listaVendedores, Scanner sc, int id){
-    Utilidades util = new Utilidades();
+
+  public void alterarGerente(ArrayList<Vendedor> listaVendedores, Scanner sc, int id) {
+    Utils util = new Utils();
 
     gerenteResponsavel.setNome(util.lerString("Nome do novo gerente responsavel", sc));
     listaVendedores.get(id).setGerenteResponsavel(gerenteResponsavel);
