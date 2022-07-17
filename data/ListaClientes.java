@@ -76,4 +76,76 @@ public class ListaClientes {
     System.out.println("\n---> Cadastro efetuado com sucesso!");
     Utils.aguardarTecla();
   }
+
+  //Alteracao
+  public void alteraCliente(ArrayList<Cliente> listaClientes, Scanner sc, int id) {
+
+    Utils.printCabecalho("Alterar dados do Cliente");
+    System.out.println("\n 1 - CPF");
+    System.out.println("\n 2 - Nome");
+    System.out.println("\n 3 - Data de nascimento");
+    System.out.println("\n 4 - Renda");
+    System.out.println("\n 5 - Dependentes");
+    int op = Utils.lerInt("Selecione a opcao", sc);
+
+    switch (op) {
+      case 1:
+        alterarCpf(listaClientes, sc, id);
+        break;
+      case 2:
+        alterarNome(listaClientes, sc, id);
+        break;
+      case 3:
+        alterarDataNasc(listaClientes, sc, id);
+        break;
+      case 4:
+        alterarRenda(listaClientes, sc, id);
+        break;
+      case 5:
+        alterarDependentes(listaClientes, sc, id);
+        break;
+      default:
+        break;
+    }
+  }
+
+  public void alterarCpf(ArrayList<Cliente> listaClientes, Scanner sc, int id) {
+
+    listaClientes.get(id).setCpf(Utils.lerLong("Novo CPF do Cliente", sc));
+    System.out.println("\nCPF do Cliente" + id + "atualizado!");
+    Utils.aguardarTecla();
+  }
+
+  public void alterarNome(ArrayList<Cliente> listaClientes, Scanner sc, int id) {
+
+    listaClientes.get(id).setNome(Utils.lerString("Novo nome do Cliente", sc));
+    System.out.println("\nNome do Cliente" + id + "atualizado!");
+    Utils.aguardarTecla();
+   
+  }
+
+  public void alterarDataNasc(ArrayList<Cliente> listaClientes, Scanner sc, int id) {
+    Data dataNascimento = new Data();
+
+    dataNascimento.setDia(Utils.lerInt("Novo dia de nascimento", sc));
+    dataNascimento.setMes(Utils.lerInt("Novo mes de nascimento", sc));
+    dataNascimento.setAno(Utils.lerInt("Novo ano de nascimento", sc));
+    listaClientes.get(id).setDataNasc(dataNascimento);
+    System.out.println("\nData de nascimento do Cliente" + id + "atualizada!");
+    Utils.aguardarTecla();
+  }
+
+  public void alterarRenda(ArrayList<Cliente> listaClientes, Scanner sc, int id) {
+
+    listaClientes.get(id).setRenda(Utils.lerInt("Nova renda do cliente", sc));
+    System.out.println("\nRenda do Cliente" + id + "atualizada!");
+    Utils.aguardarTecla();
+  }
+
+  public void alterarDependentes(ArrayList<Cliente> listaClientes, Scanner sc, int id) {
+
+    listaClientes.get(id).setDependentes(Utils.lerInt("Novo numero de dep. do cliente", sc));
+    System.out.println("\nNumero de dependentes do Cliente" + id + "atualizado!");
+    Utils.aguardarTecla();
+  }
 }

@@ -22,7 +22,7 @@ public class Motocicleta extends Veiculo {
     this(0, null, null, 0, 0, null, 0, false, 0, 0);
   }
 
-  public Motocicleta(long numChassi, String marca, String modelo, int ano, int km, String tipoCombustivel, int peso,
+  public Motocicleta(long numChassi, String marca, String modelo, int ano, double km, String tipoCombustivel, int peso,
       boolean vendido, int cilindradas, int indexTipoMotocicleta) {
     super(numChassi, marca, modelo, ano, km, tipoCombustivel, peso, vendido);
     this.cilindradas = cilindradas;

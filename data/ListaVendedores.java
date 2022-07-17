@@ -86,7 +86,6 @@ public class ListaVendedores {
       default:
         break;
     }
-
   }
 
   public void alterarRg(ArrayList<Vendedor> listaVendedores, Scanner sc, int id) {
