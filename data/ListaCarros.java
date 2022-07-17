@@ -92,7 +92,7 @@ public class ListaCarros {
   //Alteracao
   public void alterarCarro(ArrayList<Carro> listaCarros, Scanner sc, int id) {
 
-    Utils.printCabecalho("Alterar dados da motocicleta");
+    Utils.printCabecalho("Alterar dados do carro");
     System.out.println("\n 1 - Numero chassi");
     System.out.println("\n 2 - Marca");
     System.out.println("\n 3 - Modelo");
@@ -108,8 +108,6 @@ public class ListaCarros {
     System.out.println("\n 13 - Altura");
     System.out.println("\n 14 - Largura");
     System.out.println("\n 15 - Comprimento");
-
-
     int op = Utils.lerInt("Selecione a opcao", sc);
 
     switch (op) {
