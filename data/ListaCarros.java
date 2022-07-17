@@ -2,7 +2,6 @@ package data;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import models.Carro;
 import services.Utils;
 
@@ -32,7 +31,7 @@ public class ListaCarros {
   }
 
   // ======= Métodos da Classe
-  public void cadastrarCarro(ArrayList<Carro> listaCarros, Scanner sc) {
+  public void cadastrarCarro(Scanner sc) {
     Carro novoCarro = new Carro();
     long auxChassi;
     int auxTipoCarro, auxVendido;
