@@ -1,4 +1,4 @@
-package moldes.aux;
+package models.util;
 
 public class Horario {
   private int hora;

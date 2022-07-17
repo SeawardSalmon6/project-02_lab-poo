@@ -1,7 +1,8 @@
 package data;
 
 import java.util.ArrayList;
-import moldes.Motocicleta;
+
+import models.Motocicleta;
 
 public class ListaMotos {
   private static ArrayList<Motocicleta> listaMotos = new ArrayList<>();

@@ -1,8 +1,8 @@
-package moldes;
+package models;
 
 import java.util.Scanner;
-import moldes.aux.Horario;
-import moldes.aux.Data;
+import models.util.Data;
+import models.util.Horario;
 import services.Utils;
 import java.util.ArrayList;
 

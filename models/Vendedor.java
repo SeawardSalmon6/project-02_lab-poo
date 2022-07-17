@@ -1,7 +1,7 @@
-package moldes;
+package models;
 
 import java.util.Scanner;
-import moldes.aux.Data;
+import models.util.Data;
 import services.Utils;
 import java.util.ArrayList;
 

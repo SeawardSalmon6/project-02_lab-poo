@@ -1,6 +1,6 @@
-package moldes;
+package models;
 
-import moldes.aux.Data;
+import models.util.Data;
 
 public class Gerente extends Funcionario {
   private int anosExperiencia;

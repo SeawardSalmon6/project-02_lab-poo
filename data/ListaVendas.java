@@ -1,7 +1,8 @@
 package data;
 
 import java.util.ArrayList;
-import moldes.Venda;
+
+import models.Venda;
 
 public class ListaVendas {
   private static ArrayList<Venda> listaVendas = new ArrayList<>();

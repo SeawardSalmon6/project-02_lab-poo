@@ -1,4 +1,4 @@
-package moldes;
+package models;
 
 public class Carro extends Veiculo {
   private static final String[] tiposCarro = { "Utilitário", "Pickup", "Sedan", "Hatch", "Esportivo" };

@@ -1,4 +1,4 @@
-package moldes;
+package models;
 
 public abstract class Veiculo {
   protected long numChassi;

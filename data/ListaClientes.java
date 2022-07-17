@@ -1,9 +1,12 @@
 package data;
 
 import java.util.Scanner;
+
+import models.Cliente;
+import models.util.Data;
+
 import java.util.ArrayList;
-import moldes.Cliente;
-import moldes.aux.Data;
+
 import services.Utils;
 
 public class ListaClientes {

@@ -1,6 +1,6 @@
-package moldes;
+package models;
 
-import moldes.aux.Data;
+import models.util.Data;
 
 public class Funcionario {
   protected long rg;

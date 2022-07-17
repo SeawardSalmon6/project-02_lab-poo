@@ -1,4 +1,4 @@
-package moldes;
+package models;
 
 import java.util.Scanner;
 import services.Utils;

@@ -2,9 +2,10 @@ package data;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import models.Gerente;
+import models.util.Data;
 import services.Utils;
-import moldes.aux.Data;
-import moldes.Gerente;
 
 public class ListaGerentes {
   private static ArrayList<Gerente> listaGerentes = new ArrayList<>();
