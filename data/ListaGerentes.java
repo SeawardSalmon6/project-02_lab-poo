@@ -1,8 +1,6 @@
 package data;
-
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import models.Gerente;
 import models.util.Data;
 import services.Utils;
@@ -20,7 +18,7 @@ public class ListaGerentes {
   }
 
   // ======= Métodos da Classe
-  public void cadastroGerente(ArrayList<Gerente> listaGerentes, Scanner sc) {
+  public void cadastroGerente(Scanner sc) {
     Gerente novoGerente = new Gerente();
     Data dataNascimento = new Data();
     Data dataAdmissao = new Data();

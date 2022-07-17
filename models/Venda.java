@@ -1,12 +1,10 @@
 package models;
 
-import java.util.Scanner;
 import models.util.Data;
 import models.util.Horario;
-import services.Utils;
-import java.util.ArrayList;
 
 public class Venda {
+    private static final String[] tipoVenda = { "Carro", "Motocicleta" };
     private int idVenda;
     private Vendedor vendedor;
     private Cliente cliente;
@@ -91,48 +89,10 @@ public class Venda {
     // Metodos criados
     // Cadastro venda
 
-    public void cadastroVenda(ArrayList<Venda> listaVendas, Scanner sc) {
-        Venda v1 = new Venda();
-        Data data = new Data();
-        Cliente newCliente = new Cliente();
-        Vendedor newVendedor = new Vendedor();
-        Horario horario = new Horario();
-        Carro newCarro = new Carro();
-        Motocicleta newMoto = new Motocicleta();
-        int op;
-        Utils util = new Utils();
+    public static void printOpcoesTipoVenda() {
+        for (int i = 0; i < tipoVenda.length; i++)
+            System.out.printf("\n(%d) %s", i + 1, tipoVenda[i]);
 
-        util.printCabecalho("Cadastro da venda");
-        idVenda = util.lerInt("ID da venda", sc);
-        newVendedor.setRg(util.lerLong("RG do vendedor", sc));
-        newCliente.setCpf(util.lerLong("CPF do cliente", sc));
-
-        do {
-            System.out.println("\nQual veiculo sera vendido?(Selecione 0 ou 1)");
-            System.out.println("\n 0 - Carro");
-            System.out.println("\n 1 - Motocicleta");
-            op = util.lerInt("Option", sc);
-        } while (op < 0 && op > 1);
-
-        if (op == 0) {
-            newCarro.setNumChassi(util.lerLong("Numero do chassi do carro: ", sc));
-        } else if (op == 1) {
-            newMoto.setNumChassi(util.lerLong("Numero do chassi da moto", sc));
-        }
-
-        valor = util.lerDouble("Valor da venda", sc);
-        System.out.println("\nDigite o dia da venda: ");
-        data.setDia(util.lerInt("Dia da venda", sc));
-        data.setMes(util.lerInt("Mes da venda", sc));
-        data.setAno(util.lerInt("Ano da venda", sc));
-
-        System.out.println("\nDigite a hora e minuto de venda separadamente!");
-        horario.setHora(util.lerInt("Hora da venda", sc));
-        horario.setMinuto(util.lerInt("Minuto da venda", sc));
-
-        listaVendas.add(v1);
-        System.out.println("\nCadastro efetuado com sucesso!");
-        util.aguardarTecla();
-        util.limpaTela();
+        System.out.println();
     }
 }

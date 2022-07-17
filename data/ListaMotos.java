@@ -61,9 +61,9 @@ public class ListaMotos {
       Motocicleta.printOpcoesTiposMotocicleta();
       auxTipoMoto = Utils.lerInt("Escolha o tipo de motocicleta desejado: ", sc);
 
-      if (auxTipoMoto < 1 && auxTipoMoto > 5)
+      if (auxTipoMoto < 1 && auxTipoMoto > 4)
         Utils.printAviso("Insira um valor válido!");
-    } while (auxTipoMoto < 1 && auxTipoMoto > 5);
+    } while (auxTipoMoto < 1 && auxTipoMoto > 4);
 
     novaMoto.setIndexTipoMotocicleta(auxTipoMoto - 1);
 

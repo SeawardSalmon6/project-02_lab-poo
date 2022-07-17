@@ -40,7 +40,7 @@ public class ListaClientes {
   }
 
   // ======= Métodos da Classe
-  public void cadastrarCliente(ArrayList<Cliente> listaClientes, Scanner sc) {
+  public void cadastrarCliente(Scanner sc) {
     Cliente novoCliente = new Cliente();
     Data dataNascimento = new Data();
     long auxCpf;
