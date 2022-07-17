@@ -2,7 +2,7 @@ package models;
 
 import models.util.Data;
 
-public class Funcionario {
+public abstract class Funcionario {
   protected long rg;
   protected String nome;
   protected Data dataNascimento;

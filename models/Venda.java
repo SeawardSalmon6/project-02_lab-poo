@@ -5,6 +5,8 @@ import models.util.Horario;
 
 public class Venda {
     private static final String[] tipoVenda = { "Carro", "Motocicleta" };
+    private static int qtdVendas = 0;
+
     private int idVenda;
     private Vendedor vendedor;
     private Cliente cliente;
@@ -26,7 +28,7 @@ public class Venda {
     }
 
     public Venda() {
-        this(0, null, null, null, 0, null, null);
+        this(++qtdVendas, null, null, null, 0, null, null);
     }
 
     // Getters e Setters

@@ -1,15 +1,15 @@
 package data;
-import services.Utils;
+
 import models.util.*;
+import services.Utils;
 import models.Cliente;
 import models.Vendedor;
 import models.Carro;
 import models.Motocicleta;
 import models.Veiculo;
-
+import models.Venda;
 import java.util.ArrayList;
 import java.util.Scanner;
-import models.Venda;
 
 public class ListaVendas {
   private static ArrayList<Venda> listaVendas = new ArrayList<>();
@@ -23,9 +23,9 @@ public class ListaVendas {
     return listaVendas.size();
   }
 
-  //Metodos da classe
+  // Metodos da classe
 
-  public void cadastroVenda(Scanner sc) {
+  public void realizarVenda(Scanner sc) {
     Venda novaVenda = new Venda();
     Data data = new Data();
     Cliente novoCliente = new Cliente();
@@ -43,17 +43,16 @@ public class ListaVendas {
     novoCliente.setCpf(Utils.lerLong("CPF do cliente", sc));
     novaVenda.setCliente(novoCliente);
 
-
     do {
-        System.out.println("\nQual veiculo sera vendido?");
-        Venda.printOpcoesTipoVenda();
-        op = Utils.lerInt("Option", sc);
+      System.out.println("\nQual veiculo sera vendido?");
+      Venda.printOpcoesTipoVenda();
+      op = Utils.lerInt("Option", sc);
     } while (op < 0 && op > 1);
 
     if (op == 0) {
-        novoCarro.setNumChassi(Utils.lerLong("Numero do chassi do carro: ", sc));
+      novoCarro.setNumChassi(Utils.lerLong("Numero do chassi do carro: ", sc));
     } else if (op == 1) {
-        novaMoto.setNumChassi(Utils.lerLong("Numero do chassi da moto", sc));
+      novaMoto.setNumChassi(Utils.lerLong("Numero do chassi da moto", sc));
     }
 
     novaVenda.setValor(Utils.lerDouble("Valor da venda", sc));
@@ -72,45 +71,47 @@ public class ListaVendas {
     System.out.println("\n---> Cadastro efetuado com sucesso!");
     Utils.aguardarTecla();
   }
-// Alteracao de dados
-public void alteraVenda(ArrayList<Venda> listaVendas, Scanner sc, int id) {
 
-  Utils.printCabecalho("Alterar dados da venda");
-  System.out.println("\n 1 - ID da venda");
-  System.out.println("\n 2 - Vendedor");
-  System.out.println("\n 3 - Cliente");
-  System.out.println("\n 4 - Veiculo");
-  System.out.println("\n 5 - Valor");
-  System.out.println("\n 6 - Data");
-  System.out.println("\n 7 - Horario");
-  int op = Utils.lerInt("Selecione a opcao", sc);
+  // Alteracao de dados
+  public void alteraVenda(ArrayList<Venda> listaVendas, Scanner sc, int id) {
 
-  switch (op) {
-    case 1:
-      alterarIdVenda(listaVendas, sc, id);
-      break;
-    case 2:
-      alteraVendedor(listaVendas, sc, id);//supostamente chama a funcao do listaVendedores
-      break;
-    case 3:
-      alteraCliente(listaVendas, sc, id);//supostamente chama a funcao do listaClientes
-      break;
-    case 4:
-      alterarVeiculo(listaVendas, sc, id);
-      break;
-    case 5:
-      alterarValor(listaVendas, sc, id);
-      break;
-    case 6:
-      alterarData(listaVendas, sc, id);
-      break;
-    case 7:
-      alterarHorario(listaVendas, sc, id);
-      break;
-    default:
-      break;
+    Utils.printCabecalho("Alterar dados da venda");
+    System.out.println("\n 1 - ID da venda");
+    System.out.println("\n 2 - Nome");
+    System.out.println("\n 3 - Data de nascimento");
+    System.out.println("\n 4 - Data de admissao");
+    System.out.println("\n 5 - Salario");
+    System.out.println("\n 6 - Tempo treinamento");
+    System.out.println("\n 7 - ");
+    int op = Utils.lerInt("Selecione a opcao", sc);
+
+    switch (op) {
+      case 1:
+        alterarIdVenda(listaVendas, sc, id);
+        break;
+      case 2:
+        alterarNome(listaVendas, sc, id);
+        break;
+      case 3:
+        alterarDataNasc(listaVendas, sc, id);
+        break;
+      case 4:
+        alterarDataAdmissao(listaVendas, sc, id);
+        break;
+      case 5:
+        alterarSalario(listaVendas, sc, id);
+        break;
+      case 6:
+        alterarTempoTreinamento(listaVendas, sc, id);
+        break;
+      case 7:
+        alterarGerente(listaVendas, sc, id);
+        break;
+      default:
+        break;
+    }
+
   }
-}
 
   public void alterarIdVenda(ArrayList<Venda> listaVenda, Scanner sc, int id) {
 
@@ -119,41 +120,30 @@ public void alteraVenda(ArrayList<Venda> listaVendas, Scanner sc, int id) {
     Utils.aguardarTecla();
   }
 
-  public void alterarVeiculo(ArrayList<Venda> listaVenda, Scanner sc, int id) {//falta finalizar implementacao
-    
-    do {
-      System.out.println("\nQual veiculo sera alterado?");
-      Venda.printOpcoesTipoVenda();
-      op = Utils.lerInt("Option", sc);
-    } while (op < 0 && op > 1);
+  public void alterarVendedor(ArrayList<Venda> listaVenda, Scanner sc, int id) {
+    Vendedor novoVendedor = new Vendedor();
 
-    if (op == 0) {
-      Carro novoCarro = new Carro();
-      novoCarro.setNumChassi(Utils.lerLong("Numero do chassi do carro: ", sc));
-    } else if (op == 1) {
-      Motocicleta novaMoto = new Motocicleta();
-      novaMoto.setNumChassi(Utils.lerLong("Numero do chassi da moto", sc));
-    }
-  }
-
-  public void alterarData(ArrayList<Venda> listaVendas, Scanner sc, int id) {
-    Data novaData = new Data();
-
-    novaData.setDia(Utils.lerInt("Novo dia de venda", sc));
-    novaData.setMes(Utils.lerInt("Novo mes de venda", sc));
-    novaData.setAno(Utils.lerInt("Novo ano de venda", sc));
-    listaVendas.get(id).setData(novaData);
-    System.out.println("\nData de venda" + id + "atualizada!");
+    novoVendedor.setRg((Utils.lerLong("Novo vendedor", sc)));
+    listaVenda.get(id).setVendedor(novoVendedor);
+    System.out.println("\nVendedor da venda" + id + "atualizado!");
     Utils.aguardarTecla();
   }
 
-  public void alterarHorario(ArrayList<Venda> listaVendas, Scanner sc, int id){
-    Horario novoHorario = new Horario();
+  public void alterarCliente(ArrayList<Venda> listaVenda, Scanner sc, int id) {
+    Cliente novoCliente = new Cliente();
 
-    novoHorario.setHora(Utils.lerInt("Nova hora de venda", sc));
-    novoHorario.setMinuto(Utils.lerInt("Novo minuto de venda", sc));
-    listaHorario.get(id).setHorario(novoHorario);
-    System.out.println("\nHora de venda" + id + "atualizada!");
+    novoCliente.setCpf((Utils.lerLong("Novo cliente", sc)));
+    listaVenda.get(id).setCliente(novoCliente);
+    System.out.println("\nCliente da venda" + id + "atualizado!");
     Utils.aguardarTecla();
   }
+
+  public void alterarVeiculo(ArrayList<Venda> listaVenda, Scanner sc, int id) {
+
+    novoVendedor.setRg((Utils.lerLong("Novo veiculo", sc)));
+    listaVenda.get(id).setVeiculo(veiculo);
+    System.out.println("\nVendedor" + id + "atualizado!");
+    Utils.aguardarTecla();
+  }
+
 }
