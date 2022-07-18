@@ -1,28 +1,39 @@
 package models;
 
 import models.util.Data;
+import models.util.Endereco;
 
 public class Cliente {
+  private static int qtdClientes = 0;
+
+  private int idCliente;
   private long cpf;
   private String nome;
   private Data dataNasc;
+  private Endereco endereco;
   private float renda;
   private int dependentes;
 
   // Construtores
   public Cliente() {
-    this(0, "", null, 0, 0);
+    this(++qtdClientes, 0, "", null, null, 0, 0);
   }
 
-  public Cliente(long cpf, String nome, Data dataNasc, float renda, int dependentes) {
+  public Cliente(int idCliente, long cpf, String nome, Data dataNasc, Endereco endereco, float renda, int dependentes) {
+    this.idCliente = idCliente;
     this.cpf = cpf;
     this.nome = nome;
     this.dataNasc = dataNasc;
+    this.endereco = endereco;
     this.renda = renda;
     this.dependentes = dependentes;
   }
 
-  // Getters e Setters
+  // ======= Getters e Setters
+  public int getIdCliente() {
+    return this.idCliente;
+  }
+
   public long getCpf() {
     return cpf;
   }
@@ -59,7 +70,19 @@ public class Cliente {
     return dependentes;
   }
 
+  public void setIdCliente(int idCliente) {
+    this.idCliente = idCliente;
+  }
+
   public void setDependentes(int dependentes) {
     this.dependentes = dependentes;
+  }
+
+  public void setEndereco(Endereco endereco) {
+    this.endereco = endereco;
+  }
+
+  public Endereco getEndereco() {
+    return this.endereco;
   }
 }

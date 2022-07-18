@@ -1,7 +1,10 @@
 package models;
 
 public class Carro extends Veiculo {
+  private static int qtdCarros = 0;
+
   private static final String[] tiposCarro = { "Utilitário", "Pickup", "Sedan", "Hatch", "Esportivo" };
+  private int idCarro;
   private int potencia;
   private int numCilindros;
   private int numAssentos;
@@ -24,13 +27,15 @@ public class Carro extends Veiculo {
 
   // ========= Construtores
   public Carro() {
-    this(0, "", "", 0, 0, "", 0, false, 0, 0, 0, 0, 0, 0, 0);
+    this(++qtdCarros, 0, "", "", 0, 0, "", 0, false, 0, 0, 0, 0, 0, 0, 0);
   }
 
-  public Carro(long numChassi, String marca, String modelo, int ano, int km, String tipoCombustivel, int peso,
+  public Carro(int idCarro, long numChassi, String marca, String modelo, int ano, int km, String tipoCombustivel,
+      int peso,
       boolean vendido, int potencia, int numCilindros, int numAssentos, int indexTipoCarro, double altura,
       double largura, double comprimento) {
     super(numChassi, marca, modelo, ano, km, tipoCombustivel, peso, vendido);
+    this.idCarro = idCarro;
     this.setPotencia(potencia);
     this.setNumCilindros(numCilindros);
     this.setNumAssentos(numAssentos);
@@ -43,6 +48,14 @@ public class Carro extends Veiculo {
   // ========= Getters e Setters
   public static String[] getTiposCarros() {
     return tiposCarro;
+  }
+
+  public int getIdCarro() {
+    return this.idCarro;
+  }
+
+  public void setIdCarro(int idCarro) {
+    this.idCarro = idCarro;
   }
 
   public int getPotencia() {

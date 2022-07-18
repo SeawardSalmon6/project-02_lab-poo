@@ -6,7 +6,6 @@ import models.Cliente;
 import models.Vendedor;
 import models.Carro;
 import models.Motocicleta;
-import models.Veiculo;
 import models.Venda;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -15,6 +14,27 @@ public class ListaVendas {
   private static ArrayList<Venda> listaVendas = new ArrayList<>();
 
   // ======= Métodos Auxiliares
+  public static void setLista(ArrayList<Venda> novaLista) {
+    listaVendas = novaLista;
+  }
+
+  public static void printarVendas(Venda venda) {
+    System.out.println("\n| Venda " + venda.getIdVenda());
+    System.out.println("\n| ---------------------------");
+    System.out.println("\n| Valor: " + venda.getValor());
+    System.out.println("\n| Cliente: " + venda.getCliente());
+    System.out.println("\n| Data de venda: " + venda.getData());
+    System.out.println("\n| Horario de venda: " + venda.getHorario());
+    System.out.println("\n| Veiculo: " + venda.getCarro() + venda.getMotocicleta());
+    System.out.println("\n| Vendedor: " + venda.getVendedor());
+
+    System.out.println("\n| ---------------------------");
+  }
+
+  public static ArrayList<Venda> getLista() {
+    return listaVendas;
+  }
+
   public static boolean estaVazia() {
     return listaVendas.size() == 0;
   }
@@ -23,127 +43,367 @@ public class ListaVendas {
     return listaVendas.size();
   }
 
-  // Metodos da classe
+  public static Venda buscarVenda(int idVenda) {
+    if (ListaVendas.estaVazia())
+      return null;
 
-  public void realizarVenda(Scanner sc) {
-    Venda novaVenda = new Venda();
-    Data data = new Data();
-    Cliente novoCliente = new Cliente();
-    Vendedor novoVendedor = new Vendedor();
-    Horario horario = new Horario();
-    Carro novoCarro = new Carro();
-    Motocicleta novaMoto = new Motocicleta();
-    int op;
+    for (int i = 0; i < listaVendas.size(); i++)
+      if (listaVendas.get(i).getIdVenda() == idVenda)
+        return listaVendas.get(i);
 
-    Utils.printCabecalho("CADASTRO DA VENDA");
+    return null;
+  }
 
-    novaVenda.setIdVenda(Utils.lerInt("ID da venda", sc));
-    novoVendedor.setRg(Utils.lerLong("RG do vendedor", sc));
-    novaVenda.setVendedor(novoVendedor);
-    novoCliente.setCpf(Utils.lerLong("CPF do cliente", sc));
-    novaVenda.setCliente(novoCliente);
+  public static void printOpcoesVendas() {
+    Venda venda;
 
-    do {
-      System.out.println("\nQual veiculo sera vendido?");
-      Venda.printOpcoesTipoVenda();
-      op = Utils.lerInt("Option", sc);
-    } while (op < 0 && op > 1);
-
-    if (op == 0) {
-      novoCarro.setNumChassi(Utils.lerLong("Numero do chassi do carro: ", sc));
-    } else if (op == 1) {
-      novaMoto.setNumChassi(Utils.lerLong("Numero do chassi da moto", sc));
+    if (ListaVendas.estaVazia()) {
+      Utils.printAviso("Não existem vendas cadastradas!");
+      return;
     }
 
-    novaVenda.setValor(Utils.lerDouble("Valor da venda", sc));
+    for (int i = 0; i < listaVendas.size(); i++) {
+      venda = listaVendas.get(i);
 
-    data.setDia(Utils.lerInt("Dia da venda", sc));
-    data.setMes(Utils.lerInt("Mes da venda", sc));
-    data.setAno(Utils.lerInt("Ano da venda", sc));
+      System.out.printf("\n| Venda [%0d]", venda.getIdVenda());
+      System.out.printf("\n| Valor: %s", venda.getValor());
+      System.out.printf("\n| Horario: %u", venda.getHorario());
+      System.out.println("\n-------------------------");
+    }
+  }
+
+  // ======= Métodos da Classe
+  public static void realizarVenda(Scanner sc) {
+    Venda novaVenda = new Venda();
+    Data data = new Data();
+    Horario horario = new Horario();
+    Cliente cliente;
+    Vendedor vendedor;
+    int op;
+
+    Utils.limpaTela();
+    Utils.printCabecalho("CADASTRO DA VENDA");
+
+    if (ListaClientes.estaVazia() || ListaVendedores.estaVazia()
+        || (ListaCarros.estaVazia() && ListaMotos.estaVazia())) {
+      Utils.printAviso("Não é possível realizar uma nova venda no momento por falta de dados cadastrais.");
+      Utils.aguardarTecla();
+      return;
+    }
+
+    do {
+      ListaVendedores.printOpcoesVendedores();
+      vendedor = ListaVendedores.buscarVendedor(Utils.lerInt("Digite o ID do vendedor: ", sc));
+
+      if (vendedor == null)
+        Utils.printAviso("Insira uma opção válida!");
+    } while (vendedor == null);
+
+    do {
+      ListaClientes.printOpcoesClientes();
+      cliente = ListaClientes.buscarCliente(Utils.lerInt("Digite o ID do cliente: ", sc));
+
+      if (cliente == null)
+        Utils.printAviso("Insira uma opção válida!");
+    } while (cliente == null);
+
+    do {
+      System.out.println("\n== Qual veículo sera vendido?");
+      System.out.println("\n(1) Carro");
+      System.out.println("\n(2) Motocicleta");
+
+      op = Utils.lerInt("Digite o tipo de veículo: ", sc);
+
+      if (op < 1 && op > 2)
+        Utils.printAviso("Insira uma opção válida!");
+    } while (op < 1 && op > 2);
+
+    if (op == 1 && !ListaCarros.estaVazia()) {
+      Carro carro;
+
+      do {
+        ListaCarros.printOpcoesCarros();
+        carro = ListaCarros.buscarCarro(Utils.lerInt("Digite o ID do carro: ", sc));
+
+        if (carro == null)
+          Utils.printAviso("Insira uma opção válida!");
+      } while (carro == null);
+
+    } else if (op == 2 && !ListaCarros.estaVazia()) {
+      Motocicleta moto;
+
+      do {
+        ListaMotos.printOpcoesMotos();
+        moto = ListaMotos.buscarMotocicleta(Utils.lerInt("Digite o ID da motocicleta: ", sc));
+
+        if (moto == null)
+          Utils.printAviso("Insira uma opção válida!");
+      } while (moto == null);
+    }
+
+    novaVenda.setValor(Utils.lerDouble("Digite o valor de venda: ", sc));
+
+    System.out.println("== Insira a data de venda: ");
+
+    do {
+      data.setDia(Utils.lerInt("Dia: ", sc));
+
+      if (data.getDia() == -1)
+        Utils.printAviso("Insira um dia válido!");
+    } while (data.getDia() == -1);
+
+    do {
+      data.setMes(Utils.lerInt("Mês: ", sc));
+
+      if (data.getMes() == -1)
+        Utils.printAviso("Insira um mês válido!");
+    } while (data.getMes() == -1);
+
+    do {
+      data.setAno(Utils.lerInt("Ano: ", sc));
+
+      if (data.getAno() == -1)
+        Utils.printAviso("Insira um ano válido!");
+    } while (data.getAno() == -1);
+
     novaVenda.setData(data);
 
-    System.out.println("\nDigite a hora e minuto de venda separadamente!");
-    horario.setHora(Utils.lerInt("Hora da venda", sc));
-    horario.setMinuto(Utils.lerInt("Minuto da venda", sc));
+    System.out.println("== Insira a hora da venda: ");
+
+    do {
+      horario.setHora(Utils.lerInt("Hora: ", sc));
+
+      if (horario.getHora() == -1)
+        Utils.printAviso("Insira uma hora válida!");
+    } while (horario.getHora() == -1);
+
+    do {
+      horario.setMinuto(Utils.lerInt("Minuto: ", sc));
+
+      if (horario.getMinuto() == -1)
+        Utils.printAviso("Insira minuto válido!");
+    } while (horario.getMinuto() == -1);
+
     novaVenda.setHorario(horario);
 
     listaVendas.add(novaVenda);
-    System.out.println("\n---> Cadastro efetuado com sucesso!");
+    System.out.println("\n---> Venda efetuada com sucesso!");
     Utils.aguardarTecla();
   }
 
   // Alteracao de dados
-  public void alteraVenda(ArrayList<Venda> listaVendas, Scanner sc, int id) {
+  public void alteraVenda(Scanner sc) {
+    int op;
+    Venda venda;
+    Data data;
+    Vendedor vendedor;
+    Cliente cliente;
 
-    Utils.printCabecalho("Alterar dados da venda");
-    System.out.println("\n 1 - ID da venda");
-    System.out.println("\n 2 - Nome");
-    System.out.println("\n 3 - Data de nascimento");
-    System.out.println("\n 4 - Data de admissao");
-    System.out.println("\n 5 - Salario");
-    System.out.println("\n 6 - Tempo treinamento");
-    System.out.println("\n 7 - ");
-    int op = Utils.lerInt("Selecione a opcao", sc);
-
-    switch (op) {
-      case 1:
-        alterarIdVenda(listaVendas, sc, id);
-        break;
-      case 2:
-        alterarNome(listaVendas, sc, id);
-        break;
-      case 3:
-        alterarDataNasc(listaVendas, sc, id);
-        break;
-      case 4:
-        alterarDataAdmissao(listaVendas, sc, id);
-        break;
-      case 5:
-        alterarSalario(listaVendas, sc, id);
-        break;
-      case 6:
-        alterarTempoTreinamento(listaVendas, sc, id);
-        break;
-      case 7:
-        alterarGerente(listaVendas, sc, id);
-        break;
-      default:
-        break;
+    if (ListaVendas.estaVazia()) {
+      Utils.printCabecalho("ALTERAR DADOS DA VENDA");
+      Utils.printAviso("Não existem vendas cadastradas!");
+      Utils.aguardarTecla();
+      return;
     }
 
+    do {
+      Utils.limpaTela();
+      Utils.printCabecalho("ALTERAR DADOS DA VENDA");
+      ListaVendas.printOpcoesVendas();
+
+      venda = ListaVendas.buscarVenda(Utils.lerInt("Digite o ID da venda: ", sc));
+
+      if (venda == null)
+        Utils.printAviso("Insira uma opção válida!");
+    } while (venda == null);
+
+    data = venda.getData();
+
+    do {
+      Utils.limpaTela();
+
+      Utils.printCabecalho("Alterar dados da venda");
+      System.out.println("\n (1) ID da venda");
+      System.out.println("\n (2) Vendedor");
+      System.out.println("\n (3) Cliente");
+      System.out.println("\n (4) Veículo");
+      System.out.println("\n (5) Valor");
+      System.out.println("\n (6) Data");
+      System.out.println("\n (7) Horário");
+      op = Utils.lerInt("Digite a opção desejada: ", sc);
+
+      switch (op) {
+        case 1:
+          venda.setIdVenda(Utils.lerInt("Digite o novo ID da venda: ", sc));
+          break;
+
+        case 2:
+          do {
+            System.out.println("\n== Escolha o novo vendedor: ");
+
+            ListaVendedores.printOpcoesVendedores();
+            vendedor = ListaVendedores.buscarVendedor(Utils.lerInt("Digite a opção desejada: ", sc));
+
+            if (vendedor == null)
+              Utils.printAviso("Insira uma opção válida!");
+          } while (vendedor == null);
+          venda.setVendedor(vendedor);
+          break;
+
+        case 3:
+
+          do {
+            System.out.println("\n== Escolha o novo cliente: ");
+
+            ListaClientes.printOpcoesClientes();
+            cliente = ListaClientes.buscarCliente(Utils.lerInt("Digite a opção desejada: ", sc));
+
+            if (cliente == null)
+              Utils.printAviso("Insira uma opção válida!");
+          } while (cliente == null);
+          venda.setCliente(cliente);
+
+          break;
+
+        case 4:
+
+          do {
+            System.out.println("\n== Qual veículo sera vendido?");
+            System.out.println("\n(1) Carro");
+            System.out.println("\n(2) Motocicleta");
+
+            op = Utils.lerInt("Digite o tipo de veículo: ", sc);
+
+            if (op < 1 && op > 2)
+              Utils.printAviso("Insira uma opção válida!");
+          } while (op < 1 && op > 2);
+
+          if (op == 1 && !ListaCarros.estaVazia()) {
+            Carro carroAtual, carroNovo;
+            do {
+              System.out.println("\n== Escolha o novo carro: ");
+
+              ListaCarros.printOpcoesCarros();
+              carroNovo = ListaCarros.buscarCarro(Utils.lerInt("Digite a opção desejada: ", sc));
+
+              if (carroNovo == null)
+                Utils.printAviso("Insira uma opção válida!");
+            } while (carroNovo == null);
+
+            carroAtual = venda.getCarro();
+            carroAtual.setVendido(false);
+            carroNovo.setVendido(true);
+            venda.setCarro(carroNovo);
+
+          } else if (op == 2 && !ListaMotos.estaVazia()) {
+            Motocicleta motoAtual, motoNova;
+            do {
+              ListaMotos.printOpcoesMotos();
+              motoNova = ListaMotos.buscarMotocicleta(Utils.lerInt("Digite o ID da motocicleta: ", sc));
+
+              if (motoNova == null)
+                Utils.printAviso("Insira uma opção válida!");
+            } while (motoNova == null);
+
+            motoAtual = venda.getMotocicleta();
+            motoAtual.setVendido(false);
+            motoNova.setVendido(true);
+            venda.setMotocicleta(motoNova);
+          }
+          break;
+
+        case 5:// altera valor
+          venda.setValor(Utils.lerDouble("Digite o novo valor: ", sc));
+          break;
+
+        case 6:// altera data
+          System.out.println("== Insira a nova data de venda: ");
+
+          do {
+            data.setDia(Utils.lerInt("Dia: ", sc));
+
+            if (data.getDia() == -1)
+              Utils.printAviso("Insira um dia válido!");
+          } while (data.getDia() == -1);
+
+          do {
+            data.setMes(Utils.lerInt("Mês: ", sc));
+
+            if (data.getMes() == -1)
+              Utils.printAviso("Insira um mês válido!");
+          } while (data.getMes() == -1);
+
+          do {
+            data.setAno(Utils.lerInt("Ano: ", sc));
+
+            if (data.getAno() == -1)
+              Utils.printAviso("Insira um ano válido!");
+          } while (data.getAno() == -1);
+          break;
+
+        case 7: // altera hora
+          System.out.println("== Insira a nova hora de venda: ");
+          Horario hora = new Horario();
+          do {
+            hora.setHora(Utils.lerInt("Hora: ", sc));
+
+            if (hora.getHora() == -1)
+              Utils.printAviso("Insira uma hora válida!");
+          } while (hora.getHora() == -1);
+
+          do {
+            hora.setMinuto(Utils.lerInt("Minuto: ", sc));
+
+            if (hora.getMinuto() == -1)
+              Utils.printAviso("Insira um minuto válido!");
+          } while (hora.getMinuto() == -1);
+
+        default:
+          Utils.printAviso("Insira uma opção válida!");
+          break;
+      }
+    } while (op != 0);
   }
 
-  public void alterarIdVenda(ArrayList<Venda> listaVenda, Scanner sc, int id) {
+  public static void excluirVenda(Scanner sc) {
+    Venda venda;
 
-    listaVenda.get(id).setIdVenda(Utils.lerInt("Novo id da venda", sc));
-    System.out.println("\nId da venda" + id + "atualizado!");
+    if (ListaVendas.estaVazia()) {
+      Utils.printCabecalho("EXCLUIR VENDA");
+      Utils.printAviso("Não existem vendas cadastradas!");
+      Utils.aguardarTecla();
+      return;
+    }
+
+    do {
+      Utils.limpaTela();
+      Utils.printCabecalho("EXCLUIR VENDA");
+      ListaVendas.printOpcoesVendas();
+
+      venda = ListaVendas.buscarVenda(Utils.lerInt("Digite o ID da venda: ", sc));
+
+      if (venda == null)
+        Utils.printAviso("Insira uma opção válida!");
+    } while (venda == null);
+
+    printarVendas(venda);
+    listaVendas.remove(venda);
+    System.out.println("\n---> Venda removida com sucesso!");
     Utils.aguardarTecla();
   }
 
-  public void alterarVendedor(ArrayList<Venda> listaVenda, Scanner sc, int id) {
-    Vendedor novoVendedor = new Vendedor();
+  public static void listarVendas() {
+    if (ListaVendas.estaVazia()) {
+      Utils.printCabecalho("LISTA COMPLETA DE VENDAS");
+      Utils.printAviso("Não existem vendas cadastradas!");
+      Utils.aguardarTecla();
+      return;
+    }
 
-    novoVendedor.setRg((Utils.lerLong("Novo vendedor", sc)));
-    listaVenda.get(id).setVendedor(novoVendedor);
-    System.out.println("\nVendedor da venda" + id + "atualizado!");
+    Utils.printCabecalho("LISTA COMPLETA DE VENDAS");
+    for (int i = 0; i < listaVendas.size(); i++)
+      printarVendas(listaVendas.get(i));
+
     Utils.aguardarTecla();
   }
-
-  public void alterarCliente(ArrayList<Venda> listaVenda, Scanner sc, int id) {
-    Cliente novoCliente = new Cliente();
-
-    novoCliente.setCpf((Utils.lerLong("Novo cliente", sc)));
-    listaVenda.get(id).setCliente(novoCliente);
-    System.out.println("\nCliente da venda" + id + "atualizado!");
-    Utils.aguardarTecla();
-  }
-
-  public void alterarVeiculo(ArrayList<Venda> listaVenda, Scanner sc, int id) {
-
-    novoVendedor.setRg((Utils.lerLong("Novo veiculo", sc)));
-    listaVenda.get(id).setVeiculo(veiculo);
-    System.out.println("\nVendedor" + id + "atualizado!");
-    Utils.aguardarTecla();
-  }
-
 }

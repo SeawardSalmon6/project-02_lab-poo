@@ -158,4 +158,112 @@ public final class Menus {
       }
     } while (op != 0);
   }
+
+  public static void gerenciarClientes(Scanner sc) {
+    int op;
+
+    do {
+      Utils.limpaTela();
+
+      Utils.printCabecalho("GERENCIAR CLIENTES");
+      System.out.println("\n(1) Adicionar Cliente");
+      System.out.println("\n(2) Alterar Cliente");
+      System.out.println("\n(3) Excluir Cliente");
+      System.out.println("\n(4) Listar Clientes");
+      System.out.println("\n(0) Voltar para o Menu Gerência");
+
+      op = Utils.lerInt("Digite a opção desejada: ", sc);
+
+      switch (op) {
+        case 1:
+          ListaClientes.cadastrarCliente(sc);
+          break;
+        case 2:
+          ListaClientes.alterarCliente(sc);
+          break;
+        case 3:
+          ListaClientes.excluirCliente(sc);
+          break;
+        case 4:
+          ListaClientes.listarClientes();
+          break;
+        case 0:
+          break;
+        default:
+          Utils.printAviso("Insira uma opção válida!");
+      }
+    } while (op != 0);
+  }
+
+  public static void gerenciarVendedores(Scanner sc) {
+    int op;
+
+    do {
+      Utils.limpaTela();
+
+      Utils.printCabecalho("GERENCIAR VENDEDORES");
+      System.out.println("\n(1) Adicionar Vendedor");
+      System.out.println("\n(2) Alterar Vendedor");
+      System.out.println("\n(3) Excluir Vendedor");
+      System.out.println("\n(4) Listar Vendedores");
+      System.out.println("\n(0) Voltar para o Menu Gerência");
+
+      op = Utils.lerInt("Digite a opção desejada: ", sc);
+
+      switch (op) {
+        case 1:
+          ListaClientes.adicionarVendedor(sc);
+          break;
+        case 2:
+          ListaClientes.alterarVendedor(sc);
+          break;
+        case 3:
+          ListaClientes.excluirVendedor(sc);
+          break;
+        case 4:
+          ListaClientes.listarVendedores();
+          break;
+        case 0:
+          break;
+        default:
+          Utils.printAviso("Insira uma opção válida!");
+      }
+    } while (op != 0);
+  }
+
+  public static void gerenciarVeiculos(Scanner sc) {
+    int op;
+
+    do {
+      Utils.limpaTela();
+
+      Utils.printCabecalho("GERENCIAR VEÍCULOS");
+      System.out.println("\n(1) Adicionar Veículo");
+      System.out.println("\n(2) Alterar Veículo");
+      System.out.println("\n(3) Excluir Veículo");
+      System.out.println("\n(4) Listar Veículos");
+      System.out.println("\n(0) Voltar para o Menu Gerência");
+
+      op = Utils.lerInt("Digite a opção desejada: ", sc);
+
+      switch (op) {
+        case 1:
+          ListaClientes.adicionarVeiculo(sc);
+          break;
+        case 2:
+          ListaClientes.alterarVeiculo(sc);
+          break;
+        case 3:
+          ListaClientes.excluirVeiculo(sc);
+          break;
+        case 4:
+          ListaClientes.listarVeiculos();
+          break;
+        case 0:
+          break;
+        default:
+          Utils.printAviso("Insira uma opção válida!");
+      }
+    } while (op != 0);
+  }
 }

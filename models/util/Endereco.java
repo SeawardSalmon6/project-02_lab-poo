@@ -6,6 +6,11 @@ public class Endereco {
   private String bairro;
   private String cidade;
 
+  // ========= Métodos de Classe
+  public String gerarEndereco() {
+    return this.rua + ", " + this.numero + ", " + this.bairro + " - " + this.cidade;
+  }
+
   // ========= Construtores
   public Endereco() {
     this("", 0, "", "");

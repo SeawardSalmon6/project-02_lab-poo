@@ -1,19 +1,30 @@
 package models;
+
 import models.util.Data;
 
 public class Vendedor extends Funcionario {
-  private int tempoTreinamento;
-  private Gerente gerenteResponsavel;
+  private static int qtdVendedores = 0;
 
-  public Vendedor(long rg, String nome, Data dataNascimento, Data dataAdmissao, double salario, int tempoTreinamento,
-      Gerente gerenteResponsavel) {
-    super(rg, nome, dataNascimento, dataAdmissao, salario);
-    this.tempoTreinamento = tempoTreinamento;
-    this.gerenteResponsavel = gerenteResponsavel;
-  }
+  private int idVendedor;
+  private int tempoTreinamento;
 
   public Vendedor() {
-    this(0, null, null, null, 0, 0, null);
+    this(++qtdVendedores, 0, null, null, null, 0, 0);
+  }
+
+  public Vendedor(int idVendedor, long rg, String nome, Data dataNascimento, Data dataAdmissao, double salario,
+      int tempoTreinamento) {
+    super(rg, nome, dataNascimento, dataAdmissao, salario);
+    this.idVendedor = idVendedor;
+    this.tempoTreinamento = tempoTreinamento;
+  }
+
+  public int getIdVendedor() {
+    return this.idVendedor;
+  }
+
+  public void setIdVendedor(int idVendedor) {
+    this.idVendedor = idVendedor;
   }
 
   public int getTempoTreinamento() {
@@ -23,13 +34,4 @@ public class Vendedor extends Funcionario {
   public void setTempoTreinamento(int tempoTreinamento) {
     this.tempoTreinamento = tempoTreinamento;
   }
-
-  public Gerente getGerenteResponsavel() {
-    return gerenteResponsavel;
-  }
-
-  public void setGerenteResponsavel(Gerente gerenteResponsavel) {
-    this.gerenteResponsavel = gerenteResponsavel;
-  }
-
 }

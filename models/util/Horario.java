@@ -29,19 +29,17 @@ public class Horario {
    * para evitar a inserção de dados inválidos.
    */
 
-  public boolean setHora(int hora) {
-    if (hora < 0 || hora > 23)
-      return false;
-
-    this.hora = hora;
-    return true;
+  public void setHora(int hora) {
+    if (hora < 0 && hora > 23)
+      this.hora = hora;
+    else
+      this.hora = -1;
   }
 
-  public boolean setMinuto(int minuto) {
-    if (hora < 0 || hora > 59)
-      return false;
-
-    this.minuto = minuto;
-    return true;
+  public void setMinuto(int minuto) {
+    if (hora < 0 && hora > 59)
+      this.minuto = minuto;
+    else
+      this.minuto = -1;
   }
 }

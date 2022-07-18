@@ -9,6 +9,14 @@ public class ListaCarros {
   private static ArrayList<Carro> listaCarros = new ArrayList<>();
 
   // ======= Métodos Auxiliares
+  public static ArrayList<Carro> getLista() {
+    return listaCarros;
+  }
+
+  public static void setLista(ArrayList<Carro> novaLista) {
+    listaCarros = novaLista;
+  }
+
   public static boolean estaVazia() {
     return listaCarros.size() == 0;
   }
@@ -28,6 +36,36 @@ public class ListaCarros {
     }
 
     return true;
+  }
+
+  public static void printOpcoesCarros() {
+    Carro carro;
+
+    if (ListaCarros.estaVazia()) {
+      Utils.printAviso("Não existem Carros cadastrados!");
+      return;
+    }
+
+    for (int i = 0; i < listaCarros.size(); i++) {
+      carro = listaCarros.get(i);
+
+      System.out.printf("\n| Carro [%0d]", carro.getIdCarro());
+      System.out.printf("\n| Marca: %s", carro.getMarca());
+      System.out.printf("\n| Modelo: %s", carro.getModelo());
+      System.out.printf("\n| Número do Chassi: %u", carro.getNumChassi());
+      System.out.println("\n-------------------------");
+    }
+  }
+
+  public static Carro buscarCarro(int idCarro) {
+    if (ListaCarros.estaVazia())
+      return null;
+
+    for (int i = 0; i < listaCarros.size(); i++)
+      if (listaCarros.get(i).getIdCarro() == idCarro)
+        return listaCarros.get(i);
+
+    return null;
   }
 
   // ======= Métodos da Classe
@@ -89,200 +127,129 @@ public class ListaCarros {
     Utils.aguardarTecla();
   }
 
-  //Alteracao
-  public void alterarCarro(ArrayList<Carro> listaCarros, Scanner sc, int id) {
+  // Alteracao
+  public void alterarCarro(Scanner sc) {
+    int op;
+    Carro carro;
 
-    Utils.printCabecalho("Alterar dados do carro");
-    System.out.println("\n 1 - Numero chassi");
-    System.out.println("\n 2 - Marca");
-    System.out.println("\n 3 - Modelo");
-    System.out.println("\n 4 - Ano");
-    System.out.println("\n 5 - Quilometragem");
-    System.out.println("\n 6 - Tipo combustivel");
-    System.out.println("\n 7 - Peso");
-    System.out.println("\n 8 - Situacao de venda");
-    System.out.println("\n 9 - Potencia");
-    System.out.println("\n 10 - Cilindros");
-    System.out.println("\n 11 - Assentos");
-    System.out.println("\n 12 - Tipo de carro");
-    System.out.println("\n 13 - Altura");
-    System.out.println("\n 14 - Largura");
-    System.out.println("\n 15 - Comprimento");
-    int op = Utils.lerInt("Selecione a opcao", sc);
-
-    switch (op) {
-      case 1:
-        alterarNumChassi(listaCarros, sc, id);
-        break;
-      case 2:
-        alterarMarca(listaCarros, sc, id);
-        break;
-      case 3:
-        alterarModelo(listaCarros, sc, id);
-        break;
-      case 4:
-        alterarAno(listaCarros, sc, id);
-        break;
-      case 5:
-        alterarKm(listaCarros, sc, id);
-        break;
-      case 6:
-        alterarTipoCombustivel(listaCarros, sc, id);
-        break;
-      case 7:
-        alterarPeso(listaCarros, sc, id);
-        break;
-      case 8:
-        alterarVendido(listaCarros, sc, id);
-        break;
-      case 9:
-        alterarPotencia(listaCarros, sc, id);
-        break;
-      case 10:
-        alterarCilindros(listaCarros, sc, id);
-        break;
-      case 11:
-        alterarAssentos(listaCarros, sc, id);
-        break;
-      case 12:
-        alterarTipoCarro(listaCarros, sc, id);
-        break;
-      case 13:
-        alterarAltura(listaCarros, sc, id);
-        break;
-      case 14:
-        alterarLargura(listaCarros, sc, id);
-        break;
-      case 15:
-        alterarComprimento(listaCarros, sc, id);
-        break;
-      default:
-        break;
+    if (ListaCarros.estaVazia()) {
+      Utils.printCabecalho("ALTERAR DADOS DA MOTOCICLETA");
+      Utils.printAviso("Não existem motocicletas cadastradas!");
+      Utils.aguardarTecla();
+      return;
     }
-  }
-
-  public void alterarNumChassi(ArrayList<Carro> listaCarros, Scanner sc, int id) {
-
-    listaCarros.get(id).setNumChassi(Utils.lerLong("Novo numero chassi", sc));
-    System.out.println("\nNumero chassi do carro" + id + "atualizado!");
-    Utils.aguardarTecla();
-  }
-
-  public void alterarMarca(ArrayList<Carro> listaCarros, Scanner sc, int id) {
-
-    listaCarros.get(id).setMarca(Utils.lerString("Nova marca do carro", sc));
-    System.out.println("\nMarca do carro" + id + "atualizada!");
-    Utils.aguardarTecla();
-  }
-
-  public void alterarModelo(ArrayList<Carro> listaCarros, Scanner sc, int id) {
-
-    listaCarros.get(id).setModelo(Utils.lerString("Novo modelo do carro", sc));
-    System.out.println("\nModelo do carro" + id + "atualizado!");
-    Utils.aguardarTecla();
-  }
-
-  public void alterarAno(ArrayList<Carro> listaCarros, Scanner sc, int id) {
-
-    listaCarros.get(id).setAno(Utils.lerInt("Novo ano do carro", sc));
-    System.out.println("\nAno do carro" + id + "atualizado!");
-    Utils.aguardarTecla();
-  }
-
-  public void alterarKm(ArrayList<Carro> listaCarros, Scanner sc, int id) {
-
-    listaCarros.get(id).setKm(Utils.lerDouble("Nova quilometragem do carro", sc));
-    System.out.println("\nQuilometragem do carro" + id + "atualizada!");
-    Utils.aguardarTecla();
-  }
-
-  public void alterarTipoCombustivel(ArrayList<Carro> listaCarros, Scanner sc, int id) {
-
-    listaCarros.get(id).setTipoCombustivel(Utils.lerString("Novo combustivel", sc));
-    System.out.println("\nCombustivel do carro" + id + "atualizado!");
-    Utils.aguardarTecla();
-  }
-
-  public void alterarPeso(ArrayList<Carro> listaCarros, Scanner sc, int id) {
-
-    listaCarros.get(id).setPeso(Utils.lerInt("Novo peso do carro", sc));
-    System.out.println("\nPeso do carro" + id + "atualizado!");
-    Utils.aguardarTecla();
-  }
-
-  public void alterarVendido(ArrayList<Carro> listaCarros, Scanner sc, int id) {
-    int auxVendido;
 
     do {
-      System.out.println("\n== O carro foi vendido?");
-      System.out.println("\n(0) Não");
-      System.out.println("\n(1) Sim");
-      auxVendido = Utils.lerInt("Insira a opção desejada: ", sc);
+      Utils.limpaTela();
+      Utils.printCabecalho("ALTERAR DADOS DA MOTOCICLETA");
+      ListaCarros.printOpcoesCarros();
 
-      if (auxVendido < 0 && auxVendido > 1)
-        Utils.printAviso("Insira um valor válido!");
-    } while (auxVendido < 0 && auxVendido > 1);
+      carro = ListaCarros.buscarCarro(Utils.lerInt("Digite o ID do carro: ", sc));
 
-    listaCarros.get(id).setVendido(auxVendido == 0 ? false : true);
-    System.out.println("\nSituacao do carro" + id + "atualizada!");
-    Utils.aguardarTecla();
-  }
+      if (carro == null)
+        Utils.printAviso("Insira uma opção válida!");
+    } while (carro == null);
 
-  public void alterarPotencia(ArrayList<Carro> listaCarros, Scanner sc, int id) {
-
-    listaCarros.get(id).setPotencia(Utils.lerInt("Nova potencia do carro", sc));
-    System.out.println("\nPotencia do carro" + id + "atualizado!");
-    Utils.aguardarTecla();
-  }
-
-  public void alterarCilindros(ArrayList<Carro> listaCarros, Scanner sc, int id) {
-
-    listaCarros.get(id).setNumCilindros(Utils.lerInt("Novo numero de cilindros do carro", sc));
-    System.out.println("\nNumero de cilindros do carro" + id + "atualizado!");
-    Utils.aguardarTecla();
-  }
-
-  public void alterarAssentos(ArrayList<Carro> listaCarros, Scanner sc, int id) {
-
-    listaCarros.get(id).setNumAssentos(Utils.lerInt("Novo numero de assentos do carro", sc));
-    System.out.println("\nNumero de assentos do carro" + id + "atualizado!");
-    Utils.aguardarTecla();
-  }
-
-  public void alterarTipoCarro(ArrayList<Carro> listaCarros, Scanner sc, int id) {
-    int auxTipoCarro;
     do {
-      System.out.println("== Tipo de Carro");
-      Carro.printOpcoesTiposCarro();
-      auxTipoCarro = Utils.lerInt("Escolha o tipo de carro desejado: ", sc);
+      Utils.limpaTela();
 
-      if (auxTipoCarro < 1 && auxTipoCarro > 5)
-        Utils.printAviso("Insira um valor válido!");
-    } while (auxTipoCarro < 1 && auxTipoCarro > 5);
+      Utils.printCabecalho("ALTERAR DADOS DO MOTOCICLETA");
 
-    listaCarros.get(id).setIndexTipoCarro(auxTipoCarro - 1);
-    System.out.println("\nNumero de assentos do carro" + id + "atualizado!");
-    Utils.aguardarTecla();
-  }
+      ListaCarros.printOpcoesCarros();
 
-  public void alterarAltura(ArrayList<Carro> listaCarros, Scanner sc, int id) {
+      System.out.println("\n(1) Numero do chassi");
+      System.out.println("\n(2) Marca");
+      System.out.println("\n(3) Modelo");
+      System.out.println("\n(4) Ano");
+      System.out.println("\n(5) Quilometragem");
+      System.out.println("\n(6) Tipo combustivel");
+      System.out.println("\n(7) Peso");
+      System.out.println("\n(8) Status de venda");
+      System.out.println("\n(9) Potencia");
+      System.out.println("\n(10) Numero de cilindros");
+      System.out.println("\n(11) Numero de ocupantes");
+      System.out.println("\n(12) Tipo do carro");
+      System.out.println("\n(13) Altura");
+      System.out.println("\n(14) Largura");
+      System.out.println("\n(15) Comprimento");
+      System.out.println("\n(0) Cancelar");
+      op = Utils.lerInt("Digite a opção desejada: ", sc);
 
-    listaCarros.get(id).setAltura(Utils.lerInt("Nova altura do carro", sc));
-    System.out.println("\nAltura do carro" + id + "atualizada!");
-    Utils.aguardarTecla();
-  }
+      switch (op) {
+        case 1:
+          carro.setNumChassi(Utils.lerLong("Novo numero do chassi: ", sc));
+          ;
+          break;
+        case 2:
+          carro.setMarca(Utils.lerString("Nova marca da moto: ", sc));
+          break;
+        case 3:
+          carro.setModelo(Utils.lerString("Novo modelo da moto: ", sc));
+          break;
+        case 4:
+          carro.setAno(Utils.lerInt("Novo ano da moto: ", sc));
+          break;
+        case 5:
+          carro.setKm(Utils.lerDouble("Nova quilometragem da moto: ", sc));
+          break;
+        case 6:
+          carro.setTipoCombustivel(Utils.lerString("Novo tipo de combustivel da moto: ", sc));
+          break;
+        case 7:
+          carro.setPeso(Utils.lerDouble("Novo peso da moto: ", sc));
+          break;
+        case 8:
+          int auxVendido;
 
-  public void alterarLargura(ArrayList<Carro> listaCarros, Scanner sc, int id) {
+          do {
+            System.out.println("\n== A moto foi vendida?");
+            System.out.println("\n(0) Não");
+            System.out.println("\n(1) Sim");
+            auxVendido = Utils.lerInt("Insira a opção desejada: ", sc);
 
-    listaCarros.get(id).setLargura(Utils.lerInt("Nova largura do carro", sc));
-    System.out.println("\nLargura do carro" + id + "atualizada!");
-    Utils.aguardarTecla();
-  }
+            if (auxVendido < 0 && auxVendido > 1)
+              Utils.printAviso("Insira um valor válido!");
+          } while (auxVendido < 0 && auxVendido > 1);
+          carro.setVendido(auxVendido == 0 ? false : true);
+          System.out.println("\nSitaucao da moto atualizada!");
 
-  public void alterarComprimento(ArrayList<Carro> listaCarros, Scanner sc, int id) {
+          break;
+        case 9:
+          carro.setPotencia(Utils.lerInt("Nova potencia do carro: ", sc));
+          break;
+        case 10:
+          carro.setNumCilindros(Utils.lerInt("Novo numero de cilindros do carro: ", sc));
+          break;
+        case 11:
+          carro.setNumAssentos(Utils.lerInt("Novo numero de assentos do carro: ", sc));
+          break;
+        case 12:
+          int auxTipoCarro;
 
-    listaCarros.get(id).setComprimento(Utils.lerInt("Novo comprimento do carro", sc));
-    System.out.println("\nComprimento do carro" + id + "atualizado!");
-    Utils.aguardarTecla();
+          do {
+            System.out.println("== Tipo de Motocicleta");
+            Carro.printOpcoesTiposCarro();
+            auxTipoCarro = Utils.lerInt("Escolha o tipo de motocicleta desejado: ", sc);
+
+            if (auxTipoCarro < 1 && auxTipoCarro > 5)
+              Utils.printAviso("Insira um valor válido!");
+          } while (auxTipoCarro < 1 && auxTipoCarro > 5);
+
+          carro.setIndexTipoCarro(auxTipoCarro - 1);
+          System.out.println("\nTipo da moto atualizado!");
+          break;
+        case 13:
+          carro.setAltura(Utils.lerDouble("Nova altura do carro: ", sc));
+          break;
+        case 14:
+          carro.setLargura(Utils.lerDouble("Nova largura do carro: ", sc));
+          break;
+        case 15:
+          carro.setComprimento(Utils.lerDouble("Novo comprimento do carro: ", sc));
+        default:
+          Utils.printAviso("Insira uma opção válida!");
+          break;
+      }
+    } while (op != 0);
   }
 }

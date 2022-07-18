@@ -5,12 +5,19 @@ import java.util.Scanner;
 import models.Vendedor;
 import services.Utils;
 import models.util.Data;
-import models.Gerente;
 
 public class ListaVendedores {
   private static ArrayList<Vendedor> listaVendedores = new ArrayList<>();
 
   // ======= Métodos Auxiliares
+  public static ArrayList<Vendedor> getLista() {
+    return listaVendedores;
+  }
+
+  public static void setLista(ArrayList<Vendedor> novaLista) {
+    listaVendedores = novaLista;
+  }
+
   public static boolean estaVazia() {
     return listaVendedores.size() == 0;
   }
@@ -19,132 +26,225 @@ public class ListaVendedores {
     return listaVendedores.size();
   }
 
-  //Metodos da classe 
-  public void cadastroVendedor(Scanner sc) {
-    final Data dataNascimento = new Data();
-    final Data dataAdmissao = new Data();
-    Vendedor novoVendedor = new Vendedor();
-    Gerente gerenteResponsavel = new Gerente();
+  public static void printarVendedor(Vendedor vendedor) {
+    System.out.println("\n| Vendedor " + vendedor.getNome());
+    System.out.println("\n| ---------------------------");
+    System.out.println("\n| RG: " + vendedor.getRg());
+    System.out.println("\n| Data de Nascimento: " + vendedor.getDataNascimento().gerarData());
+    System.out.println("\n| Data de Admissão: " + vendedor.getDataAdmissao().gerarData());
+    System.out.println("\n| Salário Atual: " + vendedor.getSalario());
+    System.out.println("\n| Tempo de Treinamento: " + vendedor.getTempoTreinamento());
+    System.out.println("\n| ---------------------------");
+  }
 
-    Utils.printCabecalho("Cadastro de vendedor");
+  public static void printOpcoesVendedores() {
+    Vendedor vendedor;
+
+    if (ListaVendedores.estaVazia()) {
+      Utils.printAviso("Não existem vendedores cadastrados!");
+      return;
+    }
+
+    for (int i = 0; i < listaVendedores.size(); i++) {
+      vendedor = listaVendedores.get(i);
+
+      System.out.printf("\n| Vendedor [%0d]", vendedor.getIdVendedor());
+      System.out.printf("\n| Nome: %s", vendedor.getNome());
+      System.out.printf("\n| RG: %u", vendedor.getRg());
+      System.out.println("\n-------------------------");
+    }
+  }
+
+  public static Vendedor buscarVendedor(int idVendedor) {
+    if (ListaVendedores.estaVazia())
+      return null;
+
+    for (int i = 0; i < listaVendedores.size(); i++)
+      if (listaVendedores.get(i).getIdVendedor() == idVendedor)
+        return listaVendedores.get(i);
+
+    return null;
+  }
+
+  // ====== Métodos da Classe
+  public void cadastroVendedor(Scanner sc) {
+    Data dataNascimento = new Data();
+    Data dataAdmissao = new Data();
+    Vendedor novoVendedor = new Vendedor();
+
+    Utils.printCabecalho("CADASTRAR NOVO VENDEDOR");
 
     novoVendedor.setRg(Utils.lerLong("RG", sc));
     novoVendedor.setNome(Utils.lerString("Nome", sc));
-    dataNascimento.setDia(Utils.lerInt("Dia de nascimento", sc));
-    dataNascimento.setMes(Utils.lerInt("Mes de nascimento", sc));
-    dataNascimento.setAno(Utils.lerInt("Ano de nascimento", sc));
-    dataAdmissao.setDia(Utils.lerInt("Dia de nascimento", sc));
-    dataAdmissao.setMes(Utils.lerInt("Mes de nascimento", sc));
-    dataAdmissao.setAno(Utils.lerInt("Ano de nascimento", sc));
+
+    System.out.println("== Insira a data de nascimento do vendedor: ");
+
+    do {
+      dataNascimento.setDia(Utils.lerInt("Dia: ", sc));
+
+      if (dataNascimento.getDia() == -1)
+        Utils.printAviso("Insira um dia válido!");
+    } while (dataNascimento.getDia() == -1);
+
+    do {
+      dataNascimento.setMes(Utils.lerInt("Mês: ", sc));
+
+      if (dataNascimento.getMes() == -1)
+        Utils.printAviso("Insira um mês válido!");
+    } while (dataNascimento.getMes() == -1);
+
+    do {
+      dataNascimento.setAno(Utils.lerInt("Ano: ", sc));
+
+      if (dataNascimento.getAno() == -1)
+        Utils.printAviso("Insira um ano válido!");
+    } while (dataNascimento.getAno() == -1);
+
     novoVendedor.setDataNascimento(dataNascimento);
+
+    System.out.println("== Insira a data de admissão do vendedor: ");
+
+    do {
+      dataAdmissao.setDia(Utils.lerInt("Dia: ", sc));
+
+      if (dataAdmissao.getDia() == -1)
+        Utils.printAviso("Insira um dia válido!");
+    } while (dataAdmissao.getDia() == -1);
+
+    do {
+      dataAdmissao.setMes(Utils.lerInt("Mês: ", sc));
+
+      if (dataAdmissao.getMes() == -1)
+        Utils.printAviso("Insira um mês válido!");
+    } while (dataAdmissao.getMes() == -1);
+
+    do {
+      dataAdmissao.setAno(Utils.lerInt("Ano: ", sc));
+
+      if (dataAdmissao.getAno() == -1)
+        Utils.printAviso("Insira um ano válido!");
+    } while (dataAdmissao.getAno() == -1);
+
     novoVendedor.setDataAdmissao(dataAdmissao);
-    novoVendedor.setSalario(Utils.lerDouble("Salario", sc));
-    novoVendedor.setTempoTreinamento(Utils.lerInt("Tempo de treinamento", sc));
-    gerenteResponsavel.setNome(Utils.lerString("Nome do gerente responsavel", sc));
-    novoVendedor.setGerenteResponsavel(gerenteResponsavel);
+
+    novoVendedor.setSalario(Utils.lerDouble("Digite o salário do vendedor: ", sc));
+    novoVendedor.setTempoTreinamento(Utils.lerInt("Digite o tempo de treinamento: ", sc));
 
     listaVendedores.add(novoVendedor);
-    System.out.println("\nCadastro efetuado com sucesso!");
+    System.out.println("\n--> Cadastro efetuado com sucesso!");
     Utils.aguardarTecla();
   }
 
   // Alteracao de dados
-  public void alteraVendedor(ArrayList<Vendedor> listaVendedores, Scanner sc, int id) {
+  public void alterarVendedor(Scanner sc) {
+    int op;
+    Vendedor vendedor;
+    Data dataNascimento;
+    Data dataAdmissao;
 
-    Utils.printCabecalho("Alterar dados do vendedor");
-    System.out.println("\n 1 - Rg");
-    System.out.println("\n 2 - Nome");
-    System.out.println("\n 3 - Data de nascimento");
-    System.out.println("\n 4 - Data de admissao");
-    System.out.println("\n 5 - Salario");
-    System.out.println("\n 6 - Tempo treinamento");
-    System.out.println("\n 7 - Gerente responsavel");
-    int op = Utils.lerInt("Selecione a opcao", sc);
-
-    switch (op) {
-      case 1:
-        alterarRg(listaVendedores, sc, id);
-        break;
-      case 2:
-        alterarNome(listaVendedores, sc, id);
-        break;
-      case 3:
-        alterarDataNasc(listaVendedores, sc, id);
-        break;
-      case 4:
-        alterarDataAdmissao(listaVendedores, sc, id);
-        break;
-      case 5:
-        alterarSalario(listaVendedores, sc, id);
-        break;
-      case 6:
-        alterarTempoTreinamento(listaVendedores, sc, id);
-        break;
-      case 7:
-        alterarGerente(listaVendedores, sc, id);
-        break;
-      default:
-        break;
+    if (ListaVendedores.estaVazia()) {
+      Utils.printCabecalho("ALTERAR DADOS DO VENDEDOR");
+      Utils.printAviso("Não existem vendedores cadastrados!");
+      Utils.aguardarTecla();
+      return;
     }
-  }
 
-  public void alterarRg(ArrayList<Vendedor> listaVendedores, Scanner sc, int id) {
+    do {
+      Utils.limpaTela();
+      Utils.printCabecalho("ALTERAR DADOS DO VENDEDOR");
+      ListaVendedores.printOpcoesVendedores();
 
-    listaVendedores.get(id).setRg(Utils.lerLong("Novo rg do vendedor", sc));
-    System.out.println("\nRg do vendedor" + id + "atualizado!");
-    Utils.aguardarTecla();
-  }
+      vendedor = ListaVendedores.buscarVendedor(Utils.lerInt("Digite o ID do vendedor: ", sc));
 
-  public void alterarNome(ArrayList<Vendedor> listaVendedores, Scanner sc, int id) {
+      if (vendedor == null)
+        Utils.printAviso("Insira uma opção válida!");
+    } while (vendedor == null);
 
-    listaVendedores.get(id).setNome(Utils.lerString("Novo nome do vendedor", sc));
-    System.out.println("\nNome do vendedor" + id + "atualizado!");
-    Utils.aguardarTecla();
-   
-  }
+    dataNascimento = vendedor.getDataNascimento();
+    dataAdmissao = vendedor.getDataAdmissao();
 
-  public void alterarDataNasc(ArrayList<Vendedor> listaVendedores, Scanner sc, int id) {
-    Data dataNascimento = new Data();
+    do {
+      Utils.limpaTela();
 
-    dataNascimento.setDia(Utils.lerInt("Novo dia de nascimento", sc));
-    dataNascimento.setMes(Utils.lerInt("Novo mes de nascimento", sc));
-    dataNascimento.setAno(Utils.lerInt("Novo ano de nascimento", sc));
-    listaVendedores.get(id).setDataNascimento(dataNascimento);
-    System.out.println("\nData de nascimento do vendedor" + id + "atualizada!");
-    Utils.aguardarTecla();
-  }
+      Utils.printCabecalho("ALTERAR DADOS DO VENDEDOR");
 
-  public void alterarDataAdmissao(ArrayList<Vendedor> listaVendedores, Scanner sc, int id) {
-    Data dataAdmissao = new Data();
+      ListaVendedores.printarVendedor(vendedor);
 
-    dataAdmissao.setDia(Utils.lerInt("Novo dia de admissao", sc));
-    dataAdmissao.setMes(Utils.lerInt("Novo mes de admissao", sc));
-    dataAdmissao.setAno(Utils.lerInt("Novo ano de admissao", sc));
-    listaVendedores.get(id).setDataAdmissao(dataAdmissao);
-    System.out.println("\nData de admissao do vendedor" + id + "atualizada!");
-    Utils.aguardarTecla();
-  }
+      System.out.println("\n(1) RG");
+      System.out.println("\n(2) Nome");
+      System.out.println("\n(3) Data de nascimento");
+      System.out.println("\n(4) Data de admissão");
+      System.out.println("\n(5) Salário");
+      System.out.println("\n(6) Tempo treinamento");
+      System.out.println("\n(0) Cancelar");
 
-  public void alterarSalario(ArrayList<Vendedor> listaVendedores, Scanner sc, int id) {
+      op = Utils.lerInt("Digite a opção desejada: ", sc);
 
-    listaVendedores.get(id).setSalario(Utils.lerDouble("Novo salario", sc));
-    System.out.println("\nSalario do vendedor" + id + "atualizado!");
-    Utils.aguardarTecla();
-  }
+      switch (op) {
+        case 1:
+          vendedor.setRg(Utils.lerLong("Digite o novo RG: ", sc));
+          break;
+        case 2:
+          vendedor.setNome(Utils.lerString("Digite o novo nome: ", sc));
+          break;
+        case 3:
+          System.out.println("== Insira a nova data de nascimento: ");
 
-  public void alterarTempoTreinamento(ArrayList<Vendedor> listaVendedores, Scanner sc, int id) {
+          do {
+            dataNascimento.setDia(Utils.lerInt("Dia: ", sc));
 
-    listaVendedores.get(id).setTempoTreinamento(Utils.lerInt("Novo tempo de treinamento", sc));
-    System.out.println("\nTempo de treinamento do vendedor" + id + "atualizado!");
-    Utils.aguardarTecla();
-  }
+            if (dataNascimento.getDia() == -1)
+              Utils.printAviso("Insira um dia válido!");
+          } while (dataNascimento.getDia() == -1);
 
-  public void alterarGerente(ArrayList<Vendedor> listaVendedores, Scanner sc, int id) {
-    Gerente gerenteResponsavel = new Gerente();
-    gerenteResponsavel.setNome(Utils.lerString("Nome do novo gerente responsavel", sc));
-    listaVendedores.get(id).setGerenteResponsavel(gerenteResponsavel);
-    System.out.println("\nSalario do vendedor" + id + "atualizado!");
-    Utils.aguardarTecla();
-    Utils.limpaTela();
+          do {
+            dataNascimento.setMes(Utils.lerInt("Mês: ", sc));
+
+            if (dataNascimento.getMes() == -1)
+              Utils.printAviso("Insira um mês válido!");
+          } while (dataNascimento.getMes() == -1);
+
+          do {
+            dataNascimento.setAno(Utils.lerInt("Ano: ", sc));
+
+            if (dataNascimento.getAno() == -1)
+              Utils.printAviso("Insira um ano válido!");
+          } while (dataNascimento.getAno() == -1);
+          break;
+        case 4:
+          System.out.println("== Insira a nova data de admissão: ");
+
+          do {
+            dataAdmissao.setDia(Utils.lerInt("Dia: ", sc));
+
+            if (dataAdmissao.getDia() == -1)
+              Utils.printAviso("Insira um dia válido!");
+          } while (dataAdmissao.getDia() == -1);
+
+          do {
+            dataAdmissao.setMes(Utils.lerInt("Mês: ", sc));
+
+            if (dataAdmissao.getMes() == -1)
+              Utils.printAviso("Insira um mês válido!");
+          } while (dataAdmissao.getMes() == -1);
+
+          do {
+            dataAdmissao.setAno(Utils.lerInt("Ano: ", sc));
+
+            if (dataAdmissao.getAno() == -1)
+              Utils.printAviso("Insira um ano válido!");
+          } while (dataAdmissao.getAno() == -1);
+          break;
+        case 5:
+          vendedor.setSalario(Utils.lerDouble("Digite o novo salário: ", sc));
+          break;
+        case 6:
+          vendedor.setTempoTreinamento(Utils.lerInt("Digite o novo tempo de treinamento: ", sc));
+          break;
+        default:
+          Utils.printAviso("Insira uma opção válida!");
+          break;
+      }
+    } while (op != 0);
   }
 }

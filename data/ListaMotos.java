@@ -9,6 +9,14 @@ public class ListaMotos {
   private static ArrayList<Motocicleta> listaMotos = new ArrayList<>();
 
   // ======= Métodos Auxiliares
+  public static ArrayList<Motocicleta> getLista() {
+    return listaMotos;
+  }
+
+  public static void setLista(ArrayList<Motocicleta> novaLista) {
+    listaMotos = novaLista;
+  }
+
   public static boolean estaVazia() {
     return listaMotos.size() == 0;
   }
@@ -28,6 +36,38 @@ public class ListaMotos {
     }
 
     return true;
+  }
+
+  public static void printOpcoesMotos() {
+    Motocicleta moto;
+
+    if (ListaMotos.estaVazia()) {
+      Utils.printAviso("Não existem motocicletas cadastradas!");
+      return;
+    }
+
+    for (int i = 0; i < listaMotos.size(); i++) {
+      moto = listaMotos.get(i);
+
+      if (!moto.getVendido()) {
+        System.out.printf("\n| Motocicleta [%0d]", moto.getIdMoto());
+        System.out.printf("\n| Marca: %s", moto.getMarca());
+        System.out.printf("\n| Modelo: %s", moto.getModelo());
+        System.out.printf("\n| Número do Chassi: %u", moto.getNumChassi());
+        System.out.println("\n-------------------------");
+      }
+    }
+  }
+
+  public static Motocicleta buscarMotocicleta(int idMotocicleta) {
+    if (ListaMotos.estaVazia())
+      return null;
+
+    for (int i = 0; i < listaMotos.size(); i++)
+      if (listaMotos.get(i).getIdMoto() == idMotocicleta)
+        return listaMotos.get(i);
+
+    return null;
   }
 
   // ======== Métodos da Classe
@@ -84,146 +124,113 @@ public class ListaMotos {
     Utils.aguardarTecla();
   }
 
-  //Alteracao
-  public void alterarMoto(ArrayList<Motocicleta> listaMotos, Scanner sc, int id) {
+  public void alterarMotocicleta(Scanner sc) {
+    Motocicleta motocicleta;
+    int op, auxVendido;
+    long auxChassi;
 
-    Utils.printCabecalho("Alterar dados da motocicleta");
-    System.out.println("\n 1 - Numero chassi");
-    System.out.println("\n 2 - Marca");
-    System.out.println("\n 3 - Modelo");
-    System.out.println("\n 4 - Ano");
-    System.out.println("\n 5 - Quilometragem");
-    System.out.println("\n 6 - Tipo combustivel");
-    System.out.println("\n 7 - Peso");
-    System.out.println("\n 8 - Situacao de venda");
-    System.out.println("\n 9 - Cilindradas");
-    System.out.println("\n 10 - Tipo da moto");
-
-    int op = Utils.lerInt("Selecione a opcao", sc);
-
-    switch (op) {
-      case 1:
-        alterarNumChassi(listaMotos, sc, id);
-        break;
-      case 2:
-        alterarMarca(listaMotos, sc, id);
-        break;
-      case 3:
-        alterarModelo(listaMotos, sc, id);
-        break;
-      case 4:
-        alterarAno(listaMotos, sc, id);
-        break;
-      case 5:
-        alterarKm(listaMotos, sc, id);
-        break;
-      case 6:
-        alterarTipoCombustivel(listaMotos, sc, id);
-        break;
-      case 7:
-        alterarPeso(listaMotos, sc, id);
-        break;
-      case 8:
-        alterarVendido(listaMotos, sc, id);
-        break;
-      case 9:
-        alterarCilindradas(listaMotos, sc, id);
-        break;
-      case 10:
-        alterarTipoMoto(listaMotos, sc, id);
-      default:
-        break;
+    if (ListaMotos.estaVazia()) {
+      Utils.printCabecalho("ALTERAR DADOS DA MOTOCICLETA");
+      Utils.printAviso("Não existem motocicletas cadastradas!");
+      Utils.aguardarTecla();
+      return;
     }
-  }
-
-  public void alterarNumChassi(ArrayList<Motocicleta> listaMotos, Scanner sc, int id) {
-
-    listaMotos.get(id).setNumChassi(Utils.lerLong("Novo numero chassi", sc));
-    System.out.println("\nNumero chassi da moto" + id + "atualizado!");
-    Utils.aguardarTecla();
-  }
-
-  public void alterarMarca(ArrayList<Motocicleta> listaMotos, Scanner sc, int id) {
-
-    listaMotos.get(id).setMarca(Utils.lerString("Nova marca da moto", sc));
-    System.out.println("\nMarca da moto" + id + "atualizada!");
-    Utils.aguardarTecla();
-  }
-
-  public void alterarModelo(ArrayList<Motocicleta> listaMotos, Scanner sc, int id) {
-
-    listaMotos.get(id).setModelo(Utils.lerString("Novo modelo da moto", sc));
-    System.out.println("\nModelo da moto" + id + "atualizado!");
-    Utils.aguardarTecla();
-  }
-
-  public void alterarAno(ArrayList<Motocicleta> listaMotos, Scanner sc, int id) {
-
-    listaMotos.get(id).setAno(Utils.lerInt("Novo ano da moto", sc));
-    System.out.println("\nAno da moto" + id + "atualizado!");
-    Utils.aguardarTecla();
-  }
-
-  public void alterarKm(ArrayList<Motocicleta> listaMotos, Scanner sc, int id) {
-
-    listaMotos.get(id).setKm(Utils.lerDouble("Nova quilometragem da moto", sc));
-    System.out.println("\nQuilometragem da moto" + id + "atualizada!");
-    Utils.aguardarTecla();
-  }
-
-  public void alterarTipoCombustivel(ArrayList<Motocicleta> listaMotos, Scanner sc, int id) {
-
-    listaMotos.get(id).setTipoCombustivel(Utils.lerString("Novo combustivel", sc));
-    System.out.println("\nCombustivel da moto" + id + "atualizado!");
-    Utils.aguardarTecla();
-  }
-
-  public void alterarPeso(ArrayList<Motocicleta> listaMotos, Scanner sc, int id) {
-
-    listaMotos.get(id).setPeso(Utils.lerInt("Novo peso da moto", sc));
-    System.out.println("\nPeso da moto" + id + "atualizado!");
-    Utils.aguardarTecla();
-  }
-
-  public void alterarVendido(ArrayList<Motocicleta> listaMotos, Scanner sc, int id) {
-    int auxVendido;
 
     do {
-      System.out.println("\n== A moto foi vendida?");
-      System.out.println("\n(0) Não");
-      System.out.println("\n(1) Sim");
-      auxVendido = Utils.lerInt("Insira a opção desejada: ", sc);
+      Utils.limpaTela();
+      Utils.printCabecalho("ALTERAR DADOS DA MOTOCICLETA");
+      ListaMotos.printOpcoesMotos();
 
-      if (auxVendido < 0 && auxVendido > 1)
-        Utils.printAviso("Insira um valor válido!");
-    } while (auxVendido < 0 && auxVendido > 1);
+      motocicleta = ListaMotos.buscarMotocicleta(Utils.lerInt("Digite o ID da motocicleta: ", sc));
 
-    listaMotos.get(id).setVendido(auxVendido == 0 ? false : true);
-    System.out.println("\nSituacao da moto" + id + "atualizada!");
-    Utils.aguardarTecla();
-  }
-
-  public void alterarCilindradas(ArrayList<Motocicleta> listaMotos, Scanner sc, int id) {
-
-    listaMotos.get(id).setCilindradas(Utils.lerInt("Nova cilindradas da moto", sc));
-    System.out.println("\nCilindradas da moto" + id + "atualizada!");
-    Utils.aguardarTecla();
-  }
-
-  public void alterarTipoMoto(ArrayList<Motocicleta> listaMotos, Scanner sc, int id) {
-    int auxTipoMoto;
+      if (motocicleta == null)
+        Utils.printAviso("Insira uma opção válida!");
+    } while (motocicleta == null);
 
     do {
-      System.out.println("== Tipo de Motocicleta");
-      Motocicleta.printOpcoesTiposMotocicleta();
-      auxTipoMoto = Utils.lerInt("Escolha o tipo de motocicleta desejado: ", sc);
+      Utils.limpaTela();
 
-      if (auxTipoMoto < 1 && auxTipoMoto > 4)
-        Utils.printAviso("Insira um valor válido!");
-    } while (auxTipoMoto < 1 && auxTipoMoto > 4);
+      Utils.printCabecalho("ALTERAR DADOS DO MOTOCICLETA");
 
-    listaMotos.get(id).setIndexTipoMotocicleta(auxTipoMoto - 1);
-    System.out.println("\nTipo da moto" + id + "atualizado!");
-    Utils.aguardarTecla();
+      ListaMotos.printOpcoesMotos();
+
+      System.out.println("\n(1) Número do chassi");
+      System.out.println("\n(2) Marca");
+      System.out.println("\n(3) Modelo");
+      System.out.println("\n(4) Ano");
+      System.out.println("\n(5) Quilometragem");
+      System.out.println("\n(6) Tipo combustível");
+      System.out.println("\n(7) Peso");
+      System.out.println("\n(8) Status de venda");
+      System.out.println("\n(9) Cilindradas");
+      System.out.println("\n(10) Tipo de moto");
+      System.out.println("\n(0) Cancelar");
+      op = Utils.lerInt("Digite a opção desejada: ", sc);
+
+      switch (op) {
+        case 1:
+          do {
+            auxChassi = Utils.lerLong("Digite o novo número do chassi: ", sc);
+
+            if (!ListaMotos.chassiExiste(auxChassi)) {
+              Utils.printAviso("O chassi indicado já existe. Insira um chassi válido!");
+              auxChassi = -1;
+            }
+          } while (auxChassi == -1);
+          motocicleta.setNumChassi(auxChassi);
+          break;
+        case 2:
+          motocicleta.setMarca(Utils.lerString("Digite a nova marca da motocicleta: ", sc));
+          break;
+        case 3:
+          motocicleta.setModelo(Utils.lerString("Digite o novo modelo da motocicleta: ", sc));
+          break;
+        case 4:
+          motocicleta.setAno(Utils.lerInt("Digite o novo ano da motocicleta: ", sc));
+          break;
+        case 5:
+          motocicleta.setKm(Utils.lerDouble("Digite a nova quilometragem da motocicleta: ", sc));
+          break;
+        case 6:
+          motocicleta.setTipoCombustivel(Utils.lerString("Digite o novo tipo de combustível da motocicleta: ", sc));
+          break;
+        case 7:
+          motocicleta.setPeso(Utils.lerDouble("Digite o novo peso da motocicleta: ", sc));
+          break;
+        case 8:
+          do {
+            System.out.println("\n== A moto foi vendida?");
+            System.out.println("\n(0) Não");
+            System.out.println("\n(1) Sim");
+            auxVendido = Utils.lerInt("Insira a opção desejada: ", sc);
+
+            if (auxVendido < 0 && auxVendido > 1)
+              Utils.printAviso("Insira um valor válido!");
+          } while (auxVendido < 0 && auxVendido > 1);
+
+          motocicleta.setVendido(auxVendido == 0 ? false : true);
+          break;
+        case 9:
+          motocicleta.setCilindradas(Utils.lerInt("Nova quantidade de cilindradas da moto: ", sc));
+          break;
+        case 10:
+          int auxTipoMoto;
+
+          do {
+            System.out.println("== Tipo de Motocicleta");
+            Motocicleta.printOpcoesTiposMotocicleta();
+            auxTipoMoto = Utils.lerInt("Escolha o tipo de motocicleta desejado: ", sc);
+
+            if (auxTipoMoto < 1 && auxTipoMoto > 4)
+              Utils.printAviso("Insira um valor válido!");
+          } while (auxTipoMoto < 1 && auxTipoMoto > 4);
+
+          motocicleta.setIndexTipoMotocicleta(auxTipoMoto - 1);
+          break;
+        default:
+          Utils.printAviso("Insira uma opção válida!");
+          break;
+      }
+    } while (op != 0);
   }
 }

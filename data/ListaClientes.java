@@ -1,18 +1,25 @@
 package data;
 
 import java.util.Scanner;
-
 import models.Cliente;
 import models.util.Data;
+import models.util.Endereco;
 
 import java.util.ArrayList;
-
 import services.Utils;
 
 public class ListaClientes {
   private static ArrayList<Cliente> listaClientes = new ArrayList<>();
 
   // ======= Métodos Auxiliares
+  public static ArrayList<Cliente> getLista() {
+    return listaClientes;
+  }
+
+  public static void setLista(ArrayList<Cliente> novaLista) {
+    listaClientes = novaLista;
+  }
+
   public static boolean estaVazia() {
     return listaClientes.size() == 0;
   }
@@ -34,15 +41,55 @@ public class ListaClientes {
     return true;
   }
 
+  public static void printarCliente(Cliente cliente) {
+    System.out.println("\n| Cliente " + cliente.getNome());
+    System.out.println("\n| ---------------------------");
+    System.out.println("\n| CPF: " + cliente.getCpf());
+    System.out.println("\n| Renda Atual: " + cliente.getRenda());
+    System.out.println("\n| Data de Nascimento: " + cliente.getDataNasc().gerarData());
+    System.out.println("\n| Quantidade de Dependentes: " + cliente.getDependentes());
+    System.out.println("\n| ---------------------------");
+  }
+
+  public static void printOpcoesClientes() {
+    Cliente cliente;
+
+    if (ListaClientes.estaVazia()) {
+      Utils.printAviso("Não existem clientes cadastrados!");
+      return;
+    }
+
+    for (int i = 0; i < listaClientes.size(); i++) {
+      cliente = listaClientes.get(i);
+
+      System.out.printf("\n| Cliente [%0d]", cliente.getIdCliente());
+      System.out.printf("\n| Nome: %s", cliente.getNome());
+      System.out.printf("\n| CPF: %u", cliente.getCpf());
+      System.out.println("\n-------------------------");
+    }
+  }
+
+  public static Cliente buscarCliente(int idCliente) {
+    if (ListaClientes.estaVazia())
+      return null;
+
+    for (int i = 0; i < listaClientes.size(); i++)
+      if (listaClientes.get(i).getIdCliente() == idCliente)
+        return listaClientes.get(i);
+
+    return null;
+  }
+
   // Calcula o numero de digitos de um tipo long
   private static long contarDigitosCpf(long x) {
     return (long) Math.floor(Math.log10(x) + 1);
   }
 
   // ======= Métodos da Classe
-  public void cadastrarCliente(Scanner sc) {
+  public static void cadastrarCliente(Scanner sc) {
     Cliente novoCliente = new Cliente();
     Data dataNascimento = new Data();
+    Endereco novoEndereco = new Endereco();
     long auxCpf;
     boolean erro;
 
@@ -60,15 +107,40 @@ public class ListaClientes {
         erro = true;
       } else
         erro = false;
-
     } while (erro);
 
     System.out.println("== Insira a data de nascimento do cliente: ");
-    dataNascimento.setDia(Utils.lerInt("Dia: ", sc));
-    dataNascimento.setMes(Utils.lerInt("Mês: ", sc));
-    dataNascimento.setAno(Utils.lerInt("Ano: ", sc));
+
+    do {
+      dataNascimento.setDia(Utils.lerInt("Dia: ", sc));
+
+      if (dataNascimento.getDia() == -1)
+        Utils.printAviso("Insira um dia válido!");
+    } while (dataNascimento.getDia() == -1);
+
+    do {
+      dataNascimento.setMes(Utils.lerInt("Mês: ", sc));
+
+      if (dataNascimento.getMes() == -1)
+        Utils.printAviso("Insira um mês válido!");
+    } while (dataNascimento.getMes() == -1);
+
+    do {
+      dataNascimento.setAno(Utils.lerInt("Ano: ", sc));
+
+      if (dataNascimento.getAno() == -1)
+        Utils.printAviso("Insira um ano válido!");
+    } while (dataNascimento.getAno() == -1);
 
     novoCliente.setDataNasc(dataNascimento);
+
+    System.out.println("== Insira o endereço do cliente: ");
+    novoEndereco.setRua(Utils.lerString("Digite a rua: ", sc));
+    novoEndereco.setNumero(Utils.lerInt("Digite o número da residência: ", sc));
+    novoEndereco.setBairro(Utils.lerString("Digite o bairro: ", sc));
+    novoEndereco.setCidade(Utils.lerString("Digite a cidade: ", sc));
+    novoCliente.setEndereco(novoEndereco);
+
     novoCliente.setRenda(Utils.lerFloat("Digite a renda: ", sc));
     novoCliente.setDependentes(Utils.lerInt("Digite a quantidade de dependentes: ", sc));
 
@@ -77,75 +149,157 @@ public class ListaClientes {
     Utils.aguardarTecla();
   }
 
-  //Alteracao
-  public void alteraCliente(ArrayList<Cliente> listaClientes, Scanner sc, int id) {
+  public static void alterarCliente(Scanner sc) {
+    Cliente cliente;
+    Data dataNascimento;
+    Endereco endereco;
+    int op;
+    long auxCpf;
+    boolean erro;
 
-    Utils.printCabecalho("Alterar dados do Cliente");
-    System.out.println("\n 1 - CPF");
-    System.out.println("\n 2 - Nome");
-    System.out.println("\n 3 - Data de nascimento");
-    System.out.println("\n 4 - Renda");
-    System.out.println("\n 5 - Dependentes");
-    int op = Utils.lerInt("Selecione a opcao", sc);
-
-    switch (op) {
-      case 1:
-        alterarCpf(listaClientes, sc, id);
-        break;
-      case 2:
-        alterarNome(listaClientes, sc, id);
-        break;
-      case 3:
-        alterarDataNasc(listaClientes, sc, id);
-        break;
-      case 4:
-        alterarRenda(listaClientes, sc, id);
-        break;
-      case 5:
-        alterarDependentes(listaClientes, sc, id);
-        break;
-      default:
-        break;
+    if (ListaClientes.estaVazia()) {
+      Utils.printCabecalho("ALTERAR DADOS DO CLIENTE");
+      Utils.printAviso("Não existem clientes cadastrados!");
+      Utils.aguardarTecla();
+      return;
     }
+
+    do {
+      Utils.limpaTela();
+      Utils.printCabecalho("ALTERAR DADOS DO CLIENTE");
+      ListaClientes.printOpcoesClientes();
+
+      cliente = ListaClientes.buscarCliente(Utils.lerInt("Digite o ID do cliente: ", sc));
+
+      if (cliente == null)
+        Utils.printAviso("Insira uma opção válida!");
+    } while (cliente == null);
+
+    dataNascimento = cliente.getDataNasc();
+    endereco = cliente.getEndereco();
+
+    do {
+      Utils.limpaTela();
+
+      Utils.printCabecalho("ALTERAR DADOS DO CLIENTE");
+
+      ListaClientes.printarCliente(cliente);
+
+      System.out.println("\n(1) CPF");
+      System.out.println("\n(2) Nome");
+      System.out.println("\n(3) Data de nascimento");
+      System.out.println("\n(4) Endereço");
+      System.out.println("\n(5) Renda");
+      System.out.println("\n(6) Número de dependentes");
+      System.out.println("\n(0) Cancelar");
+
+      op = Utils.lerInt("Digite a opção desejada: ", sc);
+
+      switch (op) {
+        case 1:
+          do {
+            auxCpf = Utils.lerLong("Digite o CPF do cliente: ", sc);
+
+            if (ListaClientes.contarDigitosCpf(auxCpf) != 11) {
+              Utils.printAviso("O CPF deve conter exatos 11 dígitos!");
+              erro = true;
+            } else if (ListaClientes.cpfExiste(auxCpf)) {
+              Utils.printAviso("O CPF inserido já existe, digite um válido!");
+              erro = true;
+            } else
+              erro = false;
+          } while (erro);
+
+          cliente.setCpf(auxCpf);
+          break;
+        case 2:
+          cliente.setNome(Utils.lerString("Digite o novo nome: ", sc));
+          break;
+        case 3:
+          System.out.println("== Insira a nova data de nascimento: ");
+
+          do {
+            dataNascimento.setDia(Utils.lerInt("Dia: ", sc));
+
+            if (dataNascimento.getDia() == -1)
+              Utils.printAviso("Insira um dia válido!");
+          } while (dataNascimento.getDia() == -1);
+
+          do {
+            dataNascimento.setMes(Utils.lerInt("Mês: ", sc));
+
+            if (dataNascimento.getMes() == -1)
+              Utils.printAviso("Insira um mês válido!");
+          } while (dataNascimento.getMes() == -1);
+
+          do {
+            dataNascimento.setAno(Utils.lerInt("Ano: ", sc));
+
+            if (dataNascimento.getAno() == -1)
+              Utils.printAviso("Insira um ano válido!");
+          } while (dataNascimento.getAno() == -1);
+          break;
+        case 4:
+          System.out.println("== Insira o novo endereço: ");
+
+          endereco.setRua(Utils.lerString("Digite a rua: ", sc));
+          endereco.setNumero(Utils.lerInt("Digite o número da residência: ", sc));
+          endereco.setBairro(Utils.lerString("Digite o bairro: ", sc));
+          endereco.setCidade(Utils.lerString("Digite a cidade: ", sc));
+
+          break;
+        case 5:
+          cliente.setRenda(Utils.lerFloat("Digite a nova renda: ", sc));
+          break;
+        case 6:
+          cliente.setDependentes(Utils.lerInt("Digite o novo número de dependentes: ", sc));
+          break;
+        default:
+          Utils.printAviso("Insira uma opção válida!");
+          break;
+      }
+    } while (op != 0);
   }
 
-  public void alterarCpf(ArrayList<Cliente> listaClientes, Scanner sc, int id) {
+  public static void excluirCliente(Scanner sc) {
+    Cliente cliente;
 
-    listaClientes.get(id).setCpf(Utils.lerLong("Novo CPF do Cliente", sc));
-    System.out.println("\nCPF do Cliente" + id + "atualizado!");
+    if (ListaClientes.estaVazia()) {
+      Utils.printCabecalho("EXCLUIR CLIENTE");
+      Utils.printAviso("Não existem clientes cadastrados!");
+      Utils.aguardarTecla();
+      return;
+    }
+
+    do {
+      Utils.limpaTela();
+      Utils.printCabecalho("EXCLUIR CLIENTE");
+      ListaClientes.printOpcoesClientes();
+
+      cliente = ListaClientes.buscarCliente(Utils.lerInt("Digite o ID do cliente: ", sc));
+
+      if (cliente == null)
+        Utils.printAviso("Insira uma opção válida!");
+    } while (cliente == null);
+
+    printarCliente(cliente);
+    listaClientes.remove(cliente);
+    System.out.println("\n---> Cliente removido com sucesso!");
     Utils.aguardarTecla();
   }
 
-  public void alterarNome(ArrayList<Cliente> listaClientes, Scanner sc, int id) {
+  public static void listarClientes() {
+    if (ListaClientes.estaVazia()) {
+      Utils.printCabecalho("LISTA COMPLETA DE CLIENTES");
+      Utils.printAviso("Não existem clientes cadastrados!");
+      Utils.aguardarTecla();
+      return;
+    }
 
-    listaClientes.get(id).setNome(Utils.lerString("Novo nome do Cliente", sc));
-    System.out.println("\nNome do Cliente" + id + "atualizado!");
-    Utils.aguardarTecla();
-   
-  }
+    Utils.printCabecalho("LISTA COMPLETA DE CLIENTES");
+    for (int i = 0; i < listaClientes.size(); i++)
+      printarCliente(listaClientes.get(i));
 
-  public void alterarDataNasc(ArrayList<Cliente> listaClientes, Scanner sc, int id) {
-    Data dataNascimento = new Data();
-
-    dataNascimento.setDia(Utils.lerInt("Novo dia de nascimento", sc));
-    dataNascimento.setMes(Utils.lerInt("Novo mes de nascimento", sc));
-    dataNascimento.setAno(Utils.lerInt("Novo ano de nascimento", sc));
-    listaClientes.get(id).setDataNasc(dataNascimento);
-    System.out.println("\nData de nascimento do Cliente" + id + "atualizada!");
-    Utils.aguardarTecla();
-  }
-
-  public void alterarRenda(ArrayList<Cliente> listaClientes, Scanner sc, int id) {
-
-    listaClientes.get(id).setRenda(Utils.lerInt("Nova renda do cliente", sc));
-    System.out.println("\nRenda do Cliente" + id + "atualizada!");
-    Utils.aguardarTecla();
-  }
-
-  public void alterarDependentes(ArrayList<Cliente> listaClientes, Scanner sc, int id) {
-
-    listaClientes.get(id).setDependentes(Utils.lerInt("Novo numero de dep. do cliente", sc));
-    System.out.println("\nNumero de dependentes do Cliente" + id + "atualizado!");
     Utils.aguardarTecla();
   }
 }

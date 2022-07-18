@@ -4,31 +4,32 @@ import models.util.Data;
 import models.util.Horario;
 
 public class Venda {
-    private static final String[] tipoVenda = { "Carro", "Motocicleta" };
     private static int qtdVendas = 0;
 
     private int idVenda;
     private Vendedor vendedor;
     private Cliente cliente;
-    private Veiculo veiculo;
     private double valor;
     private Data data;
     private Horario horario;
+    private Carro carro;
+    private Motocicleta motocicleta;
 
     // Metodos Construtores
-    public Venda(int idVenda, Vendedor vendedor, Cliente cliente, Veiculo veiculo, double valor, Data data,
-            Horario horario) {
+    public Venda(int idVenda, Vendedor vendedor, Cliente cliente, double valor, Data data,
+            Horario horario, Carro carro, Motocicleta motocicleta) {
         this.idVenda = idVenda;
         this.vendedor = vendedor;
         this.cliente = cliente;
-        this.veiculo = veiculo;
         this.valor = valor;
         this.data = data;
         this.horario = horario;
+        this.carro = carro;
+        this.motocicleta = motocicleta;
     }
 
     public Venda() {
-        this(++qtdVendas, null, null, null, 0, null, null);
+        this(++qtdVendas, null, null, 0, null, null, null, null);
     }
 
     // Getters e Setters
@@ -56,12 +57,12 @@ public class Venda {
         this.cliente = cliente;
     }
 
-    public Veiculo getVeiculo() {
-        return veiculo;
+    public void setCarro(Carro carro) {
+        this.carro = carro;
     }
 
-    public void setVeiculo(Veiculo veiculo) {
-        this.veiculo = veiculo;
+    public void setMotocicleta(Motocicleta motocicleta) {
+        this.motocicleta = motocicleta;
     }
 
     public double getValor() {
@@ -88,13 +89,11 @@ public class Venda {
         this.horario = horario;
     }
 
-    // Metodos criados
-    // Cadastro venda
+    public Carro getCarro() {
+        return carro;
+    }
 
-    public static void printOpcoesTipoVenda() {
-        for (int i = 0; i < tipoVenda.length; i++)
-            System.out.printf("\n(%d) %s", i + 1, tipoVenda[i]);
-
-        System.out.println();
+    public Motocicleta getMotocicleta() {
+        return motocicleta;
     }
 }
