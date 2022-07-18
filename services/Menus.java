@@ -4,6 +4,7 @@ import java.util.Scanner;
 import data.ListaCarros;
 import data.ListaClientes;
 import data.ListaVendas;
+import data.ListaVendedores;
 
 public final class Menus {
   private static final String SENHA_GERENTE = "adminGerente";
@@ -74,18 +75,18 @@ public final class Menus {
           tipoVeiculo = Menus.consultarTipoVeiculo(sc);
 
           if (tipoVeiculo != 0)
-            Menus.consultarVeiculo(tipoVeiculo, sc);
+            // Menus.consultarVeiculo(tipoVeiculo, sc);
 
-          break;
+            break;
         case 3:
           tipoVeiculo = Menus.consultarTipoVeiculo(sc);
 
           if (tipoVeiculo != 0)
-            Menus.consultarVeiculosDisponiveis(tipoVeiculo, sc);
+            // Menus.consultarVeiculosDisponiveis(tipoVeiculo, sc);
 
-          break;
+            break;
         case 4:
-          ListaClientes.consultarCliente(sc);
+          // ListaClientes.consultarCliente(sc);
           break;
         case 5:
           ListaVendas.listarVendas();
@@ -148,7 +149,7 @@ public final class Menus {
           Menus.gerenciarVeiculos(sc);
           break;
         case 4:
-          ListaVendas.gerarRelatorio();
+          // ListaVendas.gerarRelatorio();
           break;
         case 0:
           break;
@@ -212,16 +213,16 @@ public final class Menus {
 
       switch (op) {
         case 1:
-          ListaClientes.adicionarVendedor(sc);
+          ListaVendedores.cadastroVendedor(sc);
           break;
         case 2:
-          ListaClientes.alterarVendedor(sc);
+          ListaVendedores.alterarVendedor(sc);
           break;
         case 3:
-          ListaClientes.excluirVendedor(sc);
+          // ListaClientes.excluirVendedor(sc);
           break;
         case 4:
-          ListaClientes.listarVendedores();
+          // ListaClientes.listarVendedores();
           break;
         case 0:
           break;
@@ -248,16 +249,16 @@ public final class Menus {
 
       switch (op) {
         case 1:
-          ListaClientes.adicionarVeiculo(sc);
+          // ListaClientes.adicionarVeiculo(sc);
           break;
         case 2:
-          ListaClientes.alterarVeiculo(sc);
+          // ListaClientes.alterarVeiculo(sc);
           break;
         case 3:
-          ListaClientes.excluirVeiculo(sc);
+          // ListaClientes.excluirVeiculo(sc);
           break;
         case 4:
-          ListaClientes.listarVeiculos();
+          // ListaClientes.listarVeiculos();
           break;
         case 0:
           break;

@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 
 public class Main extends JFrame {
-
     // Deixarei main comentada para testar a parte de GUI
 
     // public static void main(String[] args) {

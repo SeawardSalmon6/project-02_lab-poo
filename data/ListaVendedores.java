@@ -67,7 +67,7 @@ public class ListaVendedores {
   }
 
   // ====== Métodos da Classe
-  public void cadastroVendedor(Scanner sc) {
+  public static void cadastroVendedor(Scanner sc) {
     Data dataNascimento = new Data();
     Data dataAdmissao = new Data();
     Vendedor novoVendedor = new Vendedor();
@@ -136,7 +136,7 @@ public class ListaVendedores {
   }
 
   // Alteracao de dados
-  public void alterarVendedor(Scanner sc) {
+  public static void alterarVendedor(Scanner sc) {
     int op;
     Vendedor vendedor;
     Data dataNascimento;
