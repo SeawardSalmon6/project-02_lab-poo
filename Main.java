@@ -1,19 +1,38 @@
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
+
 import javax.swing.JFrame;
 
-public class Main extends JFrame {
-    // Deixarei main comentada para testar a parte de GUI
+import services.Menus;
+import views.GuiLogin;
 
-    // public static void main(String[] args) {
-    // Scanner sc = new Scanner(System.in);
-    // ArrayList<Vendedor> listaVendedor = new ArrayList<Vendedor>();
+// Login para GUI: gerente
+// Senha para GUI: adminGerente
+// ou 
+// Login para GUI: vendedor
+// Senha para GUI: adminVendedor
 
-    // Vendedor v1 = new Vendedor(); //teste do codigo
-    // v1.cadastroVendedor(listaVendedor, sc);
+// Senha para terminal: adminGerente
+// ou
+// Senha para terminal: adminVendedor
 
-    // }
+public class Main extends JFrame{
+    public static void main(String[] args) {
+        int op;
+        System.out.println("Escolha uma opcao:");
+        System.out.println("0 - Sistema via terminal");
+        System.out.println("1 - Sistema GUI");
+        Scanner sc = new Scanner(System.in);
+        op = sc.nextInt();
+        sc.nextLine();
+        switch (op) {
+            case 0:
+                Menus.areaLogin(sc);
+                break;
+            case 1:
+                new GuiLogin();
+                break;
+            default:
+                break;
+        }
+    }
 }
