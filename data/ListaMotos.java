@@ -61,7 +61,7 @@ public class ListaMotos {
 
   public static void printarMotocicleta(Motocicleta moto) {
     System.out.println("\n| ---------------------------");
-    System.out.println("\n| Carro " + moto.getMarca() + " " + moto.getModelo());
+    System.out.println("\n| Motocicleta " + moto.getMarca() + " " + moto.getModelo());
     System.out.println("\n| Ano: " + moto.getAno());
     System.out.println("\n| Número do Chassi: " + moto.getNumChassi());
     System.out.println("\n| Cilindradas: " + moto.getCilindradas());
@@ -118,7 +118,7 @@ public class ListaMotos {
     do {
       auxChassi = Utils.lerLong("Digite o número do chassi: ", sc);
 
-      if (!ListaMotos.chassiExiste(auxChassi)) {
+      if (ListaMotos.chassiExiste(auxChassi)) {
         Utils.printAviso("O chassi indicado já existe. Insira um chassi válido!");
         auxChassi = -1;
       }
@@ -210,7 +210,7 @@ public class ListaMotos {
           do {
             auxChassi = Utils.lerLong("Digite o novo número do chassi: ", sc);
 
-            if (!ListaMotos.chassiExiste(auxChassi)) {
+            if (ListaMotos.chassiExiste(auxChassi)) {
               Utils.printAviso("O chassi indicado já existe. Insira um chassi válido!");
               auxChassi = -1;
             }

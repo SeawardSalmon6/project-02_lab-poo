@@ -27,8 +27,8 @@ public class ListaVendedores {
   }
 
   public static void printarVendedor(Vendedor vendedor) {
-    System.out.println("\n| Vendedor " + vendedor.getNome());
     System.out.println("\n| ---------------------------");
+    System.out.println("\n| Vendedor " + vendedor.getNome());
     System.out.println("\n| RG: " + vendedor.getRg());
     System.out.println("\n| Data de Nascimento: " + vendedor.getDataNascimento().gerarData());
     System.out.println("\n| Data de Admissão: " + vendedor.getDataAdmissao().gerarData());

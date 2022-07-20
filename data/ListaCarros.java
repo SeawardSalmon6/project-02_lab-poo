@@ -113,12 +113,13 @@ public class ListaCarros {
     long auxChassi;
     int auxTipoCarro, auxVendido;
 
+    Utils.limpaTela();
     Utils.printCabecalho("CADASTRAR NOVO CARRO");
 
     do {
       auxChassi = Utils.lerLong("Digite o número do chassi: ", sc);
 
-      if (!ListaCarros.chassiExiste(auxChassi)) {
+      if (ListaCarros.chassiExiste(auxChassi)) {
         Utils.printAviso("O chassi indicado já existe. Insira um chassi válido!");
         auxChassi = -1;
       }
@@ -220,7 +221,7 @@ public class ListaCarros {
           do {
             auxChassi = Utils.lerLong("Digite o número do chassi: ", sc);
 
-            if (!ListaCarros.chassiExiste(auxChassi)) {
+            if (ListaCarros.chassiExiste(auxChassi)) {
               Utils.printAviso("O chassi indicado já existe. Insira um chassi válido!");
               auxChassi = -1;
             }

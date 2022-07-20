@@ -71,7 +71,7 @@ public final class Menus {
       if (gerenteAtivo)
         System.out.println("(6) Acessar Gerência");
 
-      System.out.println("(0) Sair para o Login");
+      System.out.println("(0) Fazer Logout");
       op = Utils.lerInt("Digite a opção desejada: ", sc);
 
       switch (op) {
@@ -171,6 +171,12 @@ public final class Menus {
 
   public static int consultarTipoVeiculo(Scanner sc) {
     int tipoVeiculo;
+
+    if (ListaCarros.estaVazia() && ListaMotos.estaVazia()) {
+      Utils.printAviso("Não há veículos cadastrados no momento!");
+      Utils.aguardarTecla();
+      return 0;
+    }
 
     do {
       Utils.limpaTela();
