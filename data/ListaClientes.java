@@ -30,23 +30,24 @@ public class ListaClientes {
 
   public static boolean cpfExiste(long cpf) {
     if (ListaClientes.estaVazia())
-      return true;
+      return false;
 
     for (int i = 0; i < listaClientes.size(); i++) {
       if (listaClientes.get(i).getCpf() == cpf) {
-        return false;
+        return true;
       }
     }
 
-    return true;
+    return false;
   }
 
   public static void printarCliente(Cliente cliente) {
-    System.out.println("\n| Cliente " + cliente.getNome());
     System.out.println("\n| ---------------------------");
+    System.out.println("\n| Cliente " + cliente.getNome());
     System.out.println("\n| CPF: " + cliente.getCpf());
     System.out.println("\n| Renda Atual: " + cliente.getRenda());
     System.out.println("\n| Data de Nascimento: " + cliente.getDataNasc().gerarData());
+    System.out.println("\n| Endereço: " + cliente.getEndereco().gerarEndereco());
     System.out.println("\n| Quantidade de Dependentes: " + cliente.getDependentes());
     System.out.println("\n| ---------------------------");
   }
@@ -62,9 +63,9 @@ public class ListaClientes {
     for (int i = 0; i < listaClientes.size(); i++) {
       cliente = listaClientes.get(i);
 
-      System.out.printf("\n| Cliente [%0d]", cliente.getIdCliente());
+      System.out.printf("\n| Cliente [%d]", cliente.getIdCliente());
       System.out.printf("\n| Nome: %s", cliente.getNome());
-      System.out.printf("\n| CPF: %u", cliente.getCpf());
+      System.out.printf("\n| CPF: %d", cliente.getCpf());
       System.out.println("\n-------------------------");
     }
   }
@@ -93,6 +94,7 @@ public class ListaClientes {
     long auxCpf;
     boolean erro;
 
+    Utils.limpaTela();
     Utils.printCabecalho("CADASTRAR NOVO CLIENTE");
     novoCliente.setNome(Utils.lerString("Digite o nome do cliente: ", sc));
 
@@ -109,7 +111,9 @@ public class ListaClientes {
         erro = false;
     } while (erro);
 
-    System.out.println("== Insira a data de nascimento do cliente: ");
+    novoCliente.setCpf(auxCpf);
+
+    System.out.println("\n== Insira a data de nascimento do cliente: ");
 
     do {
       dataNascimento.setDia(Utils.lerInt("Dia: ", sc));
@@ -134,7 +138,7 @@ public class ListaClientes {
 
     novoCliente.setDataNasc(dataNascimento);
 
-    System.out.println("== Insira o endereço do cliente: ");
+    System.out.println("\n== Insira o endereço do cliente: ");
     novoEndereco.setRua(Utils.lerString("Digite a rua: ", sc));
     novoEndereco.setNumero(Utils.lerInt("Digite o número da residência: ", sc));
     novoEndereco.setBairro(Utils.lerString("Digite o bairro: ", sc));
@@ -184,21 +188,22 @@ public class ListaClientes {
       Utils.printCabecalho("ALTERAR DADOS DO CLIENTE");
 
       ListaClientes.printarCliente(cliente);
+      System.out.println();
 
-      System.out.println("\n(1) CPF");
-      System.out.println("\n(2) Nome");
-      System.out.println("\n(3) Data de nascimento");
-      System.out.println("\n(4) Endereço");
-      System.out.println("\n(5) Renda");
-      System.out.println("\n(6) Número de dependentes");
-      System.out.println("\n(0) Cancelar");
+      System.out.println("(1) CPF");
+      System.out.println("(2) Nome");
+      System.out.println("(3) Data de nascimento");
+      System.out.println("(4) Endereço");
+      System.out.println("(5) Renda");
+      System.out.println("(6) Número de dependentes");
+      System.out.println("(0) Cancelar");
 
       op = Utils.lerInt("Digite a opção desejada: ", sc);
 
       switch (op) {
         case 1:
           do {
-            auxCpf = Utils.lerLong("Digite o CPF do cliente: ", sc);
+            auxCpf = Utils.lerLong("Digite o novo CPF do cliente: ", sc);
 
             if (ListaClientes.contarDigitosCpf(auxCpf) != 11) {
               Utils.printAviso("O CPF deve conter exatos 11 dígitos!");
@@ -216,7 +221,7 @@ public class ListaClientes {
           cliente.setNome(Utils.lerString("Digite o novo nome: ", sc));
           break;
         case 3:
-          System.out.println("== Insira a nova data de nascimento: ");
+          System.out.println("\n== Insira a nova data de nascimento: ");
 
           do {
             dataNascimento.setDia(Utils.lerInt("Dia: ", sc));
@@ -240,7 +245,7 @@ public class ListaClientes {
           } while (dataNascimento.getAno() == -1);
           break;
         case 4:
-          System.out.println("== Insira o novo endereço: ");
+          System.out.println("\n== Insira o novo endereço: ");
 
           endereco.setRua(Utils.lerString("Digite a rua: ", sc));
           endereco.setNumero(Utils.lerInt("Digite o número da residência: ", sc));
@@ -282,7 +287,7 @@ public class ListaClientes {
         Utils.printAviso("Insira uma opção válida!");
     } while (cliente == null);
 
-    printarCliente(cliente);
+    ListaClientes.printarCliente(cliente);
     listaClientes.remove(cliente);
     System.out.println("\n---> Cliente removido com sucesso!");
     Utils.aguardarTecla();

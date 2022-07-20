@@ -27,15 +27,15 @@ public class ListaMotos {
 
   public static boolean chassiExiste(long chassi) {
     if (ListaMotos.estaVazia())
-      return true;
+      return false;
 
     for (int i = 0; i < listaMotos.size(); i++) {
       if (listaMotos.get(i).getNumChassi() == chassi) {
-        return false;
+        return true;
       }
     }
 
-    return true;
+    return false;
   }
 
   public static void printOpcoesMotos() {
@@ -50,10 +50,10 @@ public class ListaMotos {
       moto = listaMotos.get(i);
 
       if (!moto.getVendido()) {
-        System.out.printf("\n| Motocicleta [%0d]", moto.getIdMoto());
+        System.out.printf("\n| Motocicleta [%d]", moto.getIdMoto());
         System.out.printf("\n| Marca: %s", moto.getMarca());
         System.out.printf("\n| Modelo: %s", moto.getModelo());
-        System.out.printf("\n| Número do Chassi: %u", moto.getNumChassi());
+        System.out.printf("\n| Número do Chassi: %d", moto.getNumChassi());
         System.out.println("\n-------------------------");
       }
     }
@@ -124,7 +124,7 @@ public class ListaMotos {
     Utils.aguardarTecla();
   }
 
-  public void alterarMotocicleta(Scanner sc) {
+  public static void alterarMotocicleta(Scanner sc) {
     Motocicleta motocicleta;
     int op, auxVendido;
     long auxChassi;

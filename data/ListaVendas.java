@@ -65,9 +65,9 @@ public class ListaVendas {
     for (int i = 0; i < listaVendas.size(); i++) {
       venda = listaVendas.get(i);
 
-      System.out.printf("\n| Venda [%0d]", venda.getIdVenda());
+      System.out.printf("\n| Venda [%d]", venda.getIdVenda());
       System.out.printf("\n| Valor: %s", venda.getValor());
-      System.out.printf("\n| Horario: %u", venda.getHorario());
+      System.out.printf("\n| Horario: %d", venda.getHorario());
       System.out.println("\n-------------------------");
     }
   }
@@ -143,7 +143,7 @@ public class ListaVendas {
 
     novaVenda.setValor(Utils.lerDouble("Digite o valor de venda: ", sc));
 
-    System.out.println("== Insira a data de venda: ");
+    System.out.println("\n== Insira a data de venda: ");
 
     do {
       data.setDia(Utils.lerInt("Dia: ", sc));
@@ -168,7 +168,7 @@ public class ListaVendas {
 
     novaVenda.setData(data);
 
-    System.out.println("== Insira a hora da venda: ");
+    System.out.println("\n== Insira a hora da venda: ");
 
     do {
       horario.setHora(Utils.lerInt("Hora: ", sc));
@@ -317,7 +317,7 @@ public class ListaVendas {
           break;
 
         case 6:// altera data
-          System.out.println("== Insira a nova data de venda: ");
+          System.out.println("\n== Insira a nova data de venda: ");
 
           do {
             data.setDia(Utils.lerInt("Dia: ", sc));
@@ -342,7 +342,7 @@ public class ListaVendas {
           break;
 
         case 7: // altera hora
-          System.out.println("== Insira a nova hora de venda: ");
+          System.out.println("\n== Insira a nova hora de venda: ");
           Horario hora = new Horario();
           do {
             hora.setHora(Utils.lerInt("Hora: ", sc));

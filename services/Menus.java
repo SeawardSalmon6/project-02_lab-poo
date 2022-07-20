@@ -20,11 +20,12 @@ public final class Menus {
     String senhaLida;
 
     do {
+      Utils.limpaTela();
       Utils.printCabecalho("ÁREA DE LOGIN");
       senhaLida = Utils.lerString("Digite sua senha de acesso: ", sc);
 
       System.out.println("\n(1) Realizar Login");
-      System.out.println("\n(0) Sair");
+      System.out.println("(0) Sair");
       op = Utils.lerInt("Escolha a opção desejada: ", sc);
 
       switch (op) {
@@ -54,17 +55,19 @@ public final class Menus {
     int op, tipoVeiculo;
 
     do {
-      Utils.printCabecalho("MENU PRINCIPAL");
-      System.out.println("\n(1) Realizar Venda");
-      System.out.println("\n(2) Consultar Veículo");
-      System.out.println("\n(3) Consultar Veículos Disponíveis");
-      System.out.println("\n(4) Consultar Cliente");
-      System.out.println("\n(5) Listar Vendas");
+      Utils.limpaTela();
+
+      Utils.printCabecalho("MENU PRINCIPAL\n");
+      System.out.println("(1) Realizar Venda");
+      System.out.println("(2) Consultar Veículo");
+      System.out.println("(3) Consultar Veículos Disponíveis");
+      System.out.println("(4) Consultar Cliente");
+      System.out.println("(5) Listar Vendas");
 
       if (gerenteAtivo)
-        System.out.println("\n(6) Acessar Gerência");
+        System.out.println("(6) Acessar Gerência");
 
-      System.out.println("\n(0) Sair para o Login");
+      System.out.println("(0) Sair para o Login");
       op = Utils.lerInt("Digite a opção desejada: ", sc);
 
       switch (op) {
@@ -109,10 +112,10 @@ public final class Menus {
 
     do {
       Utils.limpaTela();
-      Utils.printCabecalho("CONSULTAR VEÍCULO");
-      System.out.println("\n(1) Carro");
-      System.out.println("\n(2) Moto");
-      System.out.println("\n(0) Voltar");
+      Utils.printCabecalho("CONSULTAR VEÍCULO\n");
+      System.out.println("(1) Carro");
+      System.out.println("(2) Moto");
+      System.out.println("(0) Voltar");
 
       tipoVeiculo = Utils.lerInt("Escolha o tipo de veículo para consulta: ", sc);
 
@@ -129,12 +132,12 @@ public final class Menus {
     do {
       Utils.limpaTela();
 
-      Utils.printCabecalho("MENU DE GERÊNCIA");
-      System.out.println("\n(1) Gerenciar Clientes");
-      System.out.println("\n(2) Gerenciar Vendedores");
-      System.out.println("\n(3) Gerenciar Veículos");
-      System.out.println("\n(4) Gerar Relatório de Vendas");
-      System.out.println("\n(0) Voltar para o Menu Principal");
+      Utils.printCabecalho("MENU DE GERÊNCIA\n");
+      System.out.println("(1) Gerenciar Clientes");
+      System.out.println("(2) Gerenciar Vendedores");
+      System.out.println("(3) Gerenciar Veículos");
+      System.out.println("(4) Gerar Relatório de Vendas");
+      System.out.println("(0) Voltar para o Menu Principal");
 
       op = Utils.lerInt("Digite a opção desejada: ", sc);
 
@@ -166,12 +169,12 @@ public final class Menus {
     do {
       Utils.limpaTela();
 
-      Utils.printCabecalho("GERENCIAR CLIENTES");
-      System.out.println("\n(1) Adicionar Cliente");
-      System.out.println("\n(2) Alterar Cliente");
-      System.out.println("\n(3) Excluir Cliente");
-      System.out.println("\n(4) Listar Clientes");
-      System.out.println("\n(0) Voltar para o Menu Gerência");
+      Utils.printCabecalho("GERENCIAR CLIENTES\n");
+      System.out.println("(1) Adicionar Cliente");
+      System.out.println("(2) Alterar Cliente");
+      System.out.println("(3) Excluir Cliente");
+      System.out.println("(4) Listar Clientes");
+      System.out.println("(0) Voltar para o Menu Gerência");
 
       op = Utils.lerInt("Digite a opção desejada: ", sc);
 
@@ -202,12 +205,12 @@ public final class Menus {
     do {
       Utils.limpaTela();
 
-      Utils.printCabecalho("GERENCIAR VENDEDORES");
-      System.out.println("\n(1) Adicionar Vendedor");
-      System.out.println("\n(2) Alterar Vendedor");
-      System.out.println("\n(3) Excluir Vendedor");
-      System.out.println("\n(4) Listar Vendedores");
-      System.out.println("\n(0) Voltar para o Menu Gerência");
+      Utils.printCabecalho("GERENCIAR VENDEDORES\n");
+      System.out.println("(1) Adicionar Vendedor");
+      System.out.println("(2) Alterar Vendedor");
+      System.out.println("(3) Excluir Vendedor");
+      System.out.println("(4) Listar Vendedores");
+      System.out.println("(0) Voltar para o Menu Gerência");
 
       op = Utils.lerInt("Digite a opção desejada: ", sc);
 
@@ -238,12 +241,12 @@ public final class Menus {
     do {
       Utils.limpaTela();
 
-      Utils.printCabecalho("GERENCIAR VEÍCULOS");
-      System.out.println("\n(1) Adicionar Veículo");
-      System.out.println("\n(2) Alterar Veículo");
-      System.out.println("\n(3) Excluir Veículo");
-      System.out.println("\n(4) Listar Veículos");
-      System.out.println("\n(0) Voltar para o Menu Gerência");
+      Utils.printCabecalho("GERENCIAR VEÍCULOS\n");
+      System.out.println("(1) Adicionar Veículo");
+      System.out.println("(2) Alterar Veículo");
+      System.out.println("(3) Excluir Veículo");
+      System.out.println("(4) Listar Veículos");
+      System.out.println("(0) Voltar para o Menu Gerência");
 
       op = Utils.lerInt("Digite a opção desejada: ", sc);
 

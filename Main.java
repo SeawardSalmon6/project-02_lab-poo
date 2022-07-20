@@ -15,7 +15,7 @@ import views.GuiLogin;
 // ou
 // Senha para terminal: adminVendedor
 
-public class Main extends JFrame{
+public class Main extends JFrame {
     public static void main(String[] args) {
         int op;
         System.out.println("Escolha uma opcao:");

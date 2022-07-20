@@ -35,21 +35,21 @@ public class Data {
   }
 
   public void setDia(int dia) {
-    if (dia < 1 && dia > 31)
+    if (dia >= 1 && dia <= 31)
       this.dia = dia;
     else
       this.dia = -1;
   }
 
   public void setMes(int mes) {
-    if (mes < 1 && mes > 12)
+    if (mes >= 1 && mes <= 12)
       this.mes = mes;
     else
       this.mes = -1;
   }
 
   public void setAno(int ano) {
-    if (ano < 1950 && ano > 2050)
+    if (ano >= 1950 && ano <= 2050)
       this.ano = ano;
     else
       this.ano = -1;

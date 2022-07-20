@@ -30,14 +30,14 @@ public class Horario {
    */
 
   public void setHora(int hora) {
-    if (hora < 0 && hora > 23)
+    if (hora >= 0 && hora <= 23)
       this.hora = hora;
     else
       this.hora = -1;
   }
 
   public void setMinuto(int minuto) {
-    if (hora < 0 && hora > 59)
+    if (hora >= 0 && hora <= 59)
       this.minuto = minuto;
     else
       this.minuto = -1;

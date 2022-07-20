@@ -35,7 +35,7 @@ public class Cliente {
   }
 
   public long getCpf() {
-    return cpf;
+    return this.cpf;
   }
 
   public void setCpf(long cpf) {

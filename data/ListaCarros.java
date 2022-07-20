@@ -27,15 +27,15 @@ public class ListaCarros {
 
   public static boolean chassiExiste(long chassi) {
     if (ListaCarros.estaVazia())
-      return true;
+      return false;
 
     for (int i = 0; i < listaCarros.size(); i++) {
       if (listaCarros.get(i).getNumChassi() == chassi) {
-        return false;
+        return true;
       }
     }
 
-    return true;
+    return false;
   }
 
   public static void printOpcoesCarros() {
@@ -49,10 +49,10 @@ public class ListaCarros {
     for (int i = 0; i < listaCarros.size(); i++) {
       carro = listaCarros.get(i);
 
-      System.out.printf("\n| Carro [%0d]", carro.getIdCarro());
+      System.out.printf("\n| Carro [%d]", carro.getIdCarro());
       System.out.printf("\n| Marca: %s", carro.getMarca());
       System.out.printf("\n| Modelo: %s", carro.getModelo());
-      System.out.printf("\n| Número do Chassi: %u", carro.getNumChassi());
+      System.out.printf("\n| Número do Chassi: %d", carro.getNumChassi());
       System.out.println("\n-------------------------");
     }
   }

@@ -48,9 +48,9 @@ public class ListaVendedores {
     for (int i = 0; i < listaVendedores.size(); i++) {
       vendedor = listaVendedores.get(i);
 
-      System.out.printf("\n| Vendedor [%0d]", vendedor.getIdVendedor());
+      System.out.printf("\n| Vendedor [%d]", vendedor.getIdVendedor());
       System.out.printf("\n| Nome: %s", vendedor.getNome());
-      System.out.printf("\n| RG: %u", vendedor.getRg());
+      System.out.printf("\n| RG: %d", vendedor.getRg());
       System.out.println("\n-------------------------");
     }
   }
@@ -77,7 +77,7 @@ public class ListaVendedores {
     novoVendedor.setRg(Utils.lerLong("RG", sc));
     novoVendedor.setNome(Utils.lerString("Nome", sc));
 
-    System.out.println("== Insira a data de nascimento do vendedor: ");
+    System.out.println("\n== Insira a data de nascimento do vendedor: ");
 
     do {
       dataNascimento.setDia(Utils.lerInt("Dia: ", sc));
@@ -102,7 +102,7 @@ public class ListaVendedores {
 
     novoVendedor.setDataNascimento(dataNascimento);
 
-    System.out.println("== Insira a data de admissão do vendedor: ");
+    System.out.println("\n== Insira a data de admissão do vendedor: ");
 
     do {
       dataAdmissao.setDia(Utils.lerInt("Dia: ", sc));
@@ -188,7 +188,7 @@ public class ListaVendedores {
           vendedor.setNome(Utils.lerString("Digite o novo nome: ", sc));
           break;
         case 3:
-          System.out.println("== Insira a nova data de nascimento: ");
+          System.out.println("\n== Insira a nova data de nascimento: ");
 
           do {
             dataNascimento.setDia(Utils.lerInt("Dia: ", sc));
@@ -212,7 +212,7 @@ public class ListaVendedores {
           } while (dataNascimento.getAno() == -1);
           break;
         case 4:
-          System.out.println("== Insira a nova data de admissão: ");
+          System.out.println("\n== Insira a nova data de admissão: ");
 
           do {
             dataAdmissao.setDia(Utils.lerInt("Dia: ", sc));
@@ -246,5 +246,47 @@ public class ListaVendedores {
           break;
       }
     } while (op != 0);
+  }
+
+  public static void excluirVendedor(Scanner sc) {
+    Vendedor vendedor;
+
+    if (ListaVendedores.estaVazia()) {
+      Utils.printCabecalho("EXCLUIR VENDEDOR");
+      Utils.printAviso("Não existem vendedores cadastrados!");
+      Utils.aguardarTecla();
+      return;
+    }
+
+    do {
+      Utils.limpaTela();
+      Utils.printCabecalho("EXCLUIR VENDEDOR");
+      ListaVendedores.printOpcoesVendedores();
+
+      vendedor = ListaVendedores.buscarVendedor(Utils.lerInt("Digite o ID do vendedor: ", sc));
+
+      if (vendedor == null)
+        Utils.printAviso("Insira uma opção válida!");
+    } while (vendedor == null);
+
+    printarVendedor(vendedor);
+    listaVendedores.remove(vendedor);
+    System.out.println("\n---> Cliente removido com sucesso!");
+    Utils.aguardarTecla();
+  }
+
+  public static void listarVendedores() {
+    if (ListaVendedores.estaVazia()) {
+      Utils.printCabecalho("LISTA COMPLETA DE VENDEDORES");
+      Utils.printAviso("Não existem vendedores cadastrados!");
+      Utils.aguardarTecla();
+      return;
+    }
+
+    Utils.printCabecalho("LISTA COMPLETA DE VENDEDORES");
+    for (int i = 0; i < listaVendedores.size(); i++)
+      printarVendedor(listaVendedores.get(i));
+
+    Utils.aguardarTecla();
   }
 }
