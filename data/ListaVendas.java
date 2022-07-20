@@ -19,16 +19,20 @@ public class ListaVendas {
   }
 
   public static void printarVendas(Venda venda) {
-    System.out.println("\n| Venda " + venda.getIdVenda());
     System.out.println("\n| ---------------------------");
-    System.out.println("\n| Valor: " + venda.getValor());
-    System.out.println("\n| Cliente: " + venda.getCliente());
-    System.out.println("\n| Data de venda: " + venda.getData());
-    System.out.println("\n| Horario de venda: " + venda.getHorario());
-    System.out.println("\n| Veiculo: " + venda.getCarro() + venda.getMotocicleta());
-    System.out.println("\n| Vendedor: " + venda.getVendedor());
+    System.out.println("| Venda " + venda.getIdVenda());
+    System.out.println("| Valor Total: " + venda.getValor());
+    System.out.println("| Cliente: " + venda.getCliente());
+    System.out.println("| Vendedor: " + venda.getVendedor().getNome());
+    System.out.println("| Data de venda: " + venda.getData());
+    System.out.println("| Horário de venda: " + venda.getHorario());
 
-    System.out.println("\n| ---------------------------");
+    if (venda.getCarro() != null)
+      System.out.println("| Veículo: " + venda.getCarro().getMarca() + venda.getCarro().getModelo());
+    else if (venda.getMotocicleta() != null)
+      System.out.println("| Veículo: " + venda.getCarro().getMarca() + venda.getCarro().getModelo());
+
+    System.out.println("| ---------------------------");
   }
 
   public static ArrayList<Venda> getLista() {
@@ -334,7 +338,7 @@ public class ListaVendas {
               Utils.printAviso("Insira um ano válido!");
           } while (data.getAno() == -1);
           break;
-        case 7:
+        case 6:
           System.out.println("\n== Insira a nova hora de venda: ");
 
           do {
@@ -399,7 +403,7 @@ public class ListaVendas {
 
     Utils.printCabecalho("LISTA COMPLETA DE VENDAS");
     for (int i = 0; i < listaVendas.size(); i++)
-      printarVendas(listaVendas.get(i));
+      ListaVendas.printarVendas(listaVendas.get(i));
 
     Utils.aguardarTecla();
   }

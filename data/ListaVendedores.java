@@ -243,6 +243,8 @@ public class ListaVendedores {
         case 6:
           vendedor.setTempoTreinamento(Utils.lerInt("Digite o novo tempo de treinamento: ", sc));
           break;
+        case 0:
+          break;
         default:
           Utils.printAviso("Insira uma opção válida!");
           break;

@@ -81,12 +81,45 @@ public class ListaClientes {
     return null;
   }
 
+  public static Cliente buscarCliente(long cpf) {
+    if (ListaClientes.estaVazia())
+      return null;
+
+    for (int i = 0; i < listaClientes.size(); i++)
+      if (listaClientes.get(i).getCpf() == cpf)
+        return listaClientes.get(i);
+
+    return null;
+  }
+
   // Calcula o numero de digitos de um tipo long
   private static long contarDigitosCpf(long x) {
     return (long) Math.floor(Math.log10(x) + 1);
   }
 
   // ======= Métodos da Classe
+  public static void consultarCliente(Scanner sc) {
+    Cliente cliente;
+
+    Utils.limpaTela();
+    if (ListaClientes.estaVazia()) {
+      Utils.printCabecalho("CONSULTAR CLIENTE");
+      Utils.printAviso("Não existem clientes cadastrados!");
+      Utils.aguardarTecla();
+      return;
+    }
+
+    Utils.printCabecalho("CONSULTAR CLIENTE");
+    cliente = ListaClientes.buscarCliente(Utils.lerLong("Digite o CPF do cliente: ", sc));
+
+    if (cliente == null)
+      Utils.printAviso("O CPF indicado não foi encontrado!");
+    else
+      ListaClientes.printarCliente(cliente);
+
+    Utils.aguardarTecla();
+  }
+
   public static void cadastrarCliente(Scanner sc) {
     Cliente novoCliente = new Cliente();
     Data dataNascimento = new Data();
@@ -258,6 +291,8 @@ public class ListaClientes {
           break;
         case 6:
           cliente.setDependentes(Utils.lerInt("Digite o novo número de dependentes: ", sc));
+          break;
+        case 0:
           break;
         default:
           Utils.printAviso("Insira uma opção válida!");

@@ -72,12 +72,36 @@ public class ListaMotos {
     System.out.println("\n| ---------------------------");
   }
 
+  public static void listarMotosDisponiveis() {
+    if (ListaMotos.estaVazia()) {
+      Utils.printAviso("Não existem motocicletas disponíveis!");
+      return;
+    }
+
+    for (int i = 0; i < listaMotos.size(); i++)
+      ListaMotos.printarMotocicleta(listaMotos.get(i));
+
+    System.out.println();
+  }
+
   public static Motocicleta buscarMotocicleta(int idMotocicleta) {
     if (ListaMotos.estaVazia())
       return null;
 
     for (int i = 0; i < listaMotos.size(); i++)
       if (listaMotos.get(i).getIdMoto() == idMotocicleta)
+        return listaMotos.get(i);
+
+    return null;
+  }
+
+  public static Motocicleta buscarMotocicleta(String marca, String modelo) {
+    if (ListaMotos.estaVazia())
+      return null;
+
+    for (int i = 0; i < listaMotos.size(); i++)
+      if (listaMotos.get(i).getMarca().equalsIgnoreCase(marca) && listaMotos.get(i).getModelo()
+          .equalsIgnoreCase(modelo))
         return listaMotos.get(i);
 
     return null;
@@ -238,6 +262,8 @@ public class ListaMotos {
           } while (auxTipoMoto < 1 && auxTipoMoto > 4);
 
           motocicleta.setIndexTipoMotocicleta(auxTipoMoto - 1);
+          break;
+        case 0:
           break;
         default:
           Utils.printAviso("Insira uma opção válida!");

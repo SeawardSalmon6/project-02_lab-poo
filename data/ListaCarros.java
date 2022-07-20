@@ -55,19 +55,33 @@ public class ListaCarros {
     Carro carro;
 
     if (ListaCarros.estaVazia()) {
-      Utils.printAviso("Não existem Carros cadastrados!");
+      Utils.printAviso("Não existem carros cadastrados!");
       return;
     }
 
     for (int i = 0; i < listaCarros.size(); i++) {
       carro = listaCarros.get(i);
 
-      System.out.printf("| Carro [%d]", carro.getIdCarro());
-      System.out.printf("| Marca: %s", carro.getMarca());
-      System.out.printf("| Modelo: %s", carro.getModelo());
-      System.out.printf("| Número do Chassi: %d", carro.getNumChassi());
-      System.out.println("-------------------------");
+      if (!carro.getVendido()) {
+        System.out.printf("| Carro [%d]", carro.getIdCarro());
+        System.out.printf("| Marca: %s", carro.getMarca());
+        System.out.printf("| Modelo: %s", carro.getModelo());
+        System.out.printf("| Número do Chassi: %d", carro.getNumChassi());
+        System.out.println("-------------------------");
+      }
     }
+  }
+
+  public static void listarCarrosDisponiveis() {
+    if (ListaCarros.estaVazia()) {
+      Utils.printAviso("Não existem carros disponíveis!");
+      return;
+    }
+
+    for (int i = 0; i < listaCarros.size(); i++)
+      ListaCarros.printarCarro(listaCarros.get(i));
+
+    System.out.println();
   }
 
   public static Carro buscarCarro(int idCarro) {
@@ -76,6 +90,18 @@ public class ListaCarros {
 
     for (int i = 0; i < listaCarros.size(); i++)
       if (listaCarros.get(i).getIdCarro() == idCarro)
+        return listaCarros.get(i);
+
+    return null;
+  }
+
+  public static Carro buscarCarro(String marca, String modelo) {
+    if (ListaCarros.estaVazia())
+      return null;
+
+    for (int i = 0; i < listaCarros.size(); i++)
+      if (listaCarros.get(i).getMarca().equalsIgnoreCase(marca) && listaCarros.get(i).getModelo()
+          .equalsIgnoreCase(modelo))
         return listaCarros.get(i);
 
     return null;
@@ -262,6 +288,8 @@ public class ListaCarros {
           break;
         case 15:
           carro.setComprimento(Utils.lerDouble("Novo comprimento do carro: ", sc));
+        case 0:
+          break;
         default:
           Utils.printAviso("Insira uma opção válida!");
           break;

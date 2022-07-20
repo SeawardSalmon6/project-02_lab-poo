@@ -6,6 +6,8 @@ import data.ListaClientes;
 import data.ListaMotos;
 import data.ListaVendas;
 import data.ListaVendedores;
+import models.Carro;
+import models.Motocicleta;
 
 public final class Menus {
   private static final String SENHA_GERENTE = "adminGerente";
@@ -80,18 +82,18 @@ public final class Menus {
           tipoVeiculo = Menus.consultarTipoVeiculo(sc);
 
           if (tipoVeiculo != 0)
-            // Menus.consultarVeiculo(tipoVeiculo, sc);
+            Menus.consultarVeiculo(tipoVeiculo, sc);
 
-            break;
+          break;
         case 3:
           tipoVeiculo = Menus.consultarTipoVeiculo(sc);
 
           if (tipoVeiculo != 0)
-            // Menus.consultarVeiculosDisponiveis(tipoVeiculo, sc);
+            Menus.consultarVeiculosDisponiveis(tipoVeiculo);
 
-            break;
+          break;
         case 4:
-          // ListaClientes.consultarCliente(sc);
+          ListaClientes.consultarCliente(sc);
           break;
         case 5:
           ListaVendas.listarVendas();
@@ -107,6 +109,64 @@ public final class Menus {
           break;
       }
     } while (op != 0);
+  }
+
+  public static void consultarVeiculo(int tipoVeiculo, Scanner sc) {
+    String marca, modelo;
+
+    Utils.limpaTela();
+    if (ListaCarros.estaVazia() && ListaMotos.estaVazia()) {
+      Utils.printCabecalho("CONSULTAR VEÍCULO");
+      Utils.printAviso("Não existem veículos cadastrados!");
+      Utils.aguardarTecla();
+      return;
+    }
+
+    Utils.printCabecalho("CONSULTAR VEÍCULO");
+    if (tipoVeiculo == 1) {
+      Carro carro;
+      marca = Utils.lerString("Digite a marca do carro: ", sc);
+      modelo = Utils.lerString("Digite o modelo do carro: ", sc);
+
+      carro = ListaCarros.buscarCarro(marca, modelo);
+
+      if (carro == null)
+        System.out.println("--> Não encontramos nenhum carro com os dados inseridos!");
+      else
+        ListaCarros.printarCarro(carro);
+    } else if (tipoVeiculo == 2) {
+      Motocicleta moto;
+      marca = Utils.lerString("Digite a marca da motocicleta: ", sc);
+      modelo = Utils.lerString("Digite o modelo da motocicleta: ", sc);
+
+      moto = ListaMotos.buscarMotocicleta(marca, modelo);
+
+      if (moto == null)
+        System.out.println("--> Não encontramos nenhum carro com os dados inseridos!");
+      else
+        ListaMotos.printarMotocicleta(moto);
+    }
+
+    Utils.aguardarTecla();
+  }
+
+  public static void consultarVeiculosDisponiveis(int tipoVeiculo) {
+    Utils.limpaTela();
+    if (ListaCarros.estaVazia() && ListaMotos.estaVazia()) {
+      Utils.printCabecalho("CONSULTAR VEÍCULOS DISPONÍVEIS");
+      Utils.printAviso("Não existem veículos cadastrados!");
+      Utils.aguardarTecla();
+      return;
+    }
+
+    Utils.printCabecalho("CONSULTAR VEÍCULOS DISPONÍVEIS");
+    if (tipoVeiculo == 1) {
+      ListaCarros.listarCarrosDisponiveis();
+    } else if (tipoVeiculo == 2) {
+      ListaMotos.listarMotosDisponiveis();
+    }
+
+    Utils.aguardarTecla();
   }
 
   public static int consultarTipoVeiculo(Scanner sc) {
