@@ -228,6 +228,10 @@ public class ListaVendas {
       Utils.limpaTela();
 
       Utils.printCabecalho("ALTERAR DADOS DA VENDA");
+
+      ListaVendas.printarVendas(venda);
+      System.out.println();
+
       System.out.println("(1) Vendedor");
       System.out.println("(2) Cliente");
       System.out.println("(3) Veículo");

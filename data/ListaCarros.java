@@ -196,7 +196,8 @@ public class ListaCarros {
 
       Utils.printCabecalho("ALTERAR DADOS DO CARRO\n");
 
-      ListaCarros.printOpcoesCarros();
+      ListaCarros.printarCarro(carro);
+      System.out.println();
 
       System.out.println("(1) Número do chassi");
       System.out.println("(2) Marca");

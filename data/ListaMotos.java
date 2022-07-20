@@ -113,6 +113,7 @@ public class ListaMotos {
     long auxChassi;
     int auxTipoMoto, auxVendido;
 
+    Utils.limpaTela();
     Utils.printCabecalho("CADASTRAR NOVA MOTOCICLETA");
 
     do {
@@ -189,7 +190,7 @@ public class ListaMotos {
 
       Utils.printCabecalho("ALTERAR DADOS DO MOTOCICLETA");
 
-      ListaMotos.printOpcoesMotos();
+      ListaMotos.printarMotocicleta(motocicleta);
       System.out.println();
 
       System.out.println("(1) Número do chassi");
