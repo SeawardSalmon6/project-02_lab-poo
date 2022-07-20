@@ -32,7 +32,7 @@ public class GuiGerente extends JFrame {
     private JLabel lblNumOcupantes;
     private JTextField tfNumOcupantes;
     private JLabel lblTipo;
-    private JComboBox cbTipo;
+    private JComboBox<String> cbTipo;
     private JLabel lblDimensoes;
     private JLabel lblAltura;
     private JTextField tfAltura;
@@ -48,7 +48,6 @@ public class GuiGerente extends JFrame {
     
     private void iniciarComponentes() {
         Rectangle tamanhoJPanel = new Rectangle(0, 0, 500, 500);
-        GridBagConstraints gbc = new GridBagConstraints();
 
         abas = new JTabbedPane();
         abas.setBounds(150, 0, 500, 500);
@@ -56,15 +55,14 @@ public class GuiGerente extends JFrame {
         add(abas);
         
         painelLateral = new JPanel();
-        painelLateral.setLayout(new BoxLayout(painelLateral, BoxLayout.Y_AXIS));
+        // painelLateral.setLayout(null);
         painelLateral.setBounds(0, 0, 150, 500);
         painelLateral.setAlignmentY(CENTER_ALIGNMENT);
         add(painelLateral);
-        
 
         painelCadastro = new JPanel();
         painelCadastro.setBounds(tamanhoJPanel);
-        painelCadastro.setLayout(new GridBagLayout());
+        painelCadastro.setLayout(null);
         abas.add("Cadastro", painelCadastro);
 
         painelConsulta = new JPanel();
@@ -94,100 +92,69 @@ public class GuiGerente extends JFrame {
         // ---------------------------
         // Menu Principal
 
-        Dimension d = new Dimension(5, 10);
+        int x = 25, y = 25, w = 100, h = 10;
 
         lblPotencia = new JLabel();
-        lblPotencia.setText("Potencia: ");
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        painelCadastro.add(lblPotencia, gbc);
+        lblPotencia.setText("Potencia: ");lblPotencia.setBounds(x, y, w + 60, h);
+        painelCadastro.add(lblPotencia);
 
         tfPotencia = new JTextField();
-        tfPotencia.setColumns(3);
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        painelCadastro.add(tfPotencia, gbc);
+        tfPotencia.setBounds(x + w + 60, y, w + 60, h);
+        painelCadastro.add(tfPotencia);
 
         lblNumCilindros = new JLabel();
         lblNumCilindros.setText("Numero de Cilindros: ");
-        lblNumCilindros.setSize(d);
-        gbc.gridx = 2;
-        gbc.gridy = 0;
-        painelCadastro.add(lblNumCilindros, gbc);
+        lblNumCilindros.setBounds(x, y * 2, w + 60, h);
+        painelCadastro.add(lblNumCilindros);
 
         tfNumCilindros = new JTextField();
-        tfNumCilindros.setColumns(3);
-        gbc.gridx = 3;
-        gbc.gridy = 0;
-        painelCadastro.add(tfNumCilindros, gbc);
+        // tfNumCilindros.setBounds(2 * x + h, y, w, h);
+        painelCadastro.add(tfNumCilindros);
 
         lblNumOcupantes = new JLabel();
         lblNumOcupantes.setText("Numero de Ocupantes:");
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        painelCadastro.add(lblNumOcupantes, gbc);
+        painelCadastro.add(lblNumOcupantes);
 
         tfNumOcupantes = new JTextField();
         tfNumOcupantes.setColumns(3);
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        painelCadastro.add(tfNumOcupantes, gbc);
+        painelCadastro.add(tfNumOcupantes);
 
         lblTipo = new JLabel();
         lblTipo.setText("Tipo:");
-        gbc.gridx = 2;
-        gbc.gridy = 1;
-        painelCadastro.add(lblTipo, gbc);
+        painelCadastro.add(lblTipo);
 
         String tipos[] = {"Utilitario", "Pickup", "Sedan", "Hatch", "Esportivo"};
         cbTipo = new JComboBox<>(tipos);
         cbTipo.setFocusable(false);
-        gbc.gridx = 3;
-        gbc.gridy = 1;
-        painelCadastro.add(cbTipo, gbc);
+        painelCadastro.add(cbTipo);
 
         lblDimensoes = new JLabel();
         lblDimensoes.setText("Dimensoes");
-        gbc.insets = new Insets(10,0,0,0);
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        painelCadastro.add(lblDimensoes, gbc);
+        painelCadastro.add(lblDimensoes);
 
         lblAltura = new JLabel();
         lblAltura.setText("Altura:");
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        painelCadastro.add(lblAltura, gbc);
+        painelCadastro.add(lblAltura);
 
         tfAltura = new JTextField();
         tfAltura.setColumns(3);
-        gbc.gridx = 1;
-        gbc.gridy = 3;
-        painelCadastro.add(tfAltura, gbc);
+        painelCadastro.add(tfAltura);
 
         lblLargura = new JLabel();
         lblLargura.setText("Largura:");
-        gbc.gridx = 2;
-        gbc.gridy = 3;
-        painelCadastro.add(lblLargura, gbc);
+        painelCadastro.add(lblLargura);
 
         tfLargura = new JTextField();
         tfLargura.setColumns(3);
-        gbc.gridx = 3;
-        gbc.gridy = 3;
-        painelCadastro.add(tfLargura, gbc);
+        painelCadastro.add(tfLargura);
 
         lblComprimento = new JLabel();
         lblComprimento.setText("Comprimento:");
-        gbc.gridx = 4;
-        gbc.gridy = 3;
-        painelCadastro.add(lblComprimento, gbc);
+        painelCadastro.add(lblComprimento);
 
         tfComprimento = new JTextField();
         tfComprimento.setColumns(3);
-        gbc.gridx = 5;
-        gbc.gridy = 3;
-        painelCadastro.add(tfComprimento, gbc);
+        painelCadastro.add(tfComprimento);
     }
 
     private void definirEventos() {
