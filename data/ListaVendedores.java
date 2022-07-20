@@ -68,14 +68,15 @@ public class ListaVendedores {
 
   // ====== Métodos da Classe
   public static void cadastroVendedor(Scanner sc) {
+    Vendedor novoVendedor = new Vendedor();
     Data dataNascimento = new Data();
     Data dataAdmissao = new Data();
-    Vendedor novoVendedor = new Vendedor();
 
+    Utils.limpaTela();
     Utils.printCabecalho("CADASTRAR NOVO VENDEDOR");
 
-    novoVendedor.setRg(Utils.lerLong("RG", sc));
-    novoVendedor.setNome(Utils.lerString("Nome", sc));
+    novoVendedor.setRg(Utils.lerLong("Digite o RG: ", sc));
+    novoVendedor.setNome(Utils.lerString("Digite o nome: ", sc));
 
     System.out.println("\n== Insira a data de nascimento do vendedor: ");
 
@@ -131,7 +132,7 @@ public class ListaVendedores {
     novoVendedor.setTempoTreinamento(Utils.lerInt("Digite o tempo de treinamento: ", sc));
 
     listaVendedores.add(novoVendedor);
-    System.out.println("\n--> Cadastro efetuado com sucesso!");
+    System.out.println("\n---> Cadastro efetuado com sucesso!");
     Utils.aguardarTecla();
   }
 
@@ -169,14 +170,15 @@ public class ListaVendedores {
       Utils.printCabecalho("ALTERAR DADOS DO VENDEDOR");
 
       ListaVendedores.printarVendedor(vendedor);
+      System.out.println();
 
-      System.out.println("\n(1) RG");
-      System.out.println("\n(2) Nome");
-      System.out.println("\n(3) Data de nascimento");
-      System.out.println("\n(4) Data de admissão");
-      System.out.println("\n(5) Salário");
-      System.out.println("\n(6) Tempo treinamento");
-      System.out.println("\n(0) Cancelar");
+      System.out.println("(1) RG");
+      System.out.println("(2) Nome");
+      System.out.println("(3) Data de nascimento");
+      System.out.println("(4) Data de admissão");
+      System.out.println("(5) Salário");
+      System.out.println("(6) Tempo treinamento");
+      System.out.println("(0) Cancelar");
 
       op = Utils.lerInt("Digite a opção desejada: ", sc);
 
@@ -246,6 +248,8 @@ public class ListaVendedores {
           break;
       }
     } while (op != 0);
+
+    Utils.aguardarTecla();
   }
 
   public static void excluirVendedor(Scanner sc) {
@@ -269,13 +273,16 @@ public class ListaVendedores {
         Utils.printAviso("Insira uma opção válida!");
     } while (vendedor == null);
 
-    printarVendedor(vendedor);
+    ListaVendedores.printarVendedor(vendedor);
     listaVendedores.remove(vendedor);
-    System.out.println("\n---> Cliente removido com sucesso!");
+
+    System.out.println("\n---> Vendedor removido com sucesso!");
     Utils.aguardarTecla();
   }
 
   public static void listarVendedores() {
+    Utils.limpaTela();
+
     if (ListaVendedores.estaVazia()) {
       Utils.printCabecalho("LISTA COMPLETA DE VENDEDORES");
       Utils.printAviso("Não existem vendedores cadastrados!");
@@ -285,7 +292,7 @@ public class ListaVendedores {
 
     Utils.printCabecalho("LISTA COMPLETA DE VENDEDORES");
     for (int i = 0; i < listaVendedores.size(); i++)
-      printarVendedor(listaVendedores.get(i));
+      ListaVendedores.printarVendedor(listaVendedores.get(i));
 
     Utils.aguardarTecla();
   }

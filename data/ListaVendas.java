@@ -185,17 +185,17 @@ public class ListaVendas {
     } while (horario.getMinuto() == -1);
 
     novaVenda.setHorario(horario);
-
     listaVendas.add(novaVenda);
+
     System.out.println("\n---> Venda efetuada com sucesso!");
     Utils.aguardarTecla();
   }
 
-  // Alteracao de dados
-  public void alteraVenda(Scanner sc) {
+  public static void alterarVenda(Scanner sc) {
     int op;
     Venda venda;
     Data data;
+    Horario horario;
     Vendedor vendedor;
     Cliente cliente;
 
@@ -218,26 +218,23 @@ public class ListaVendas {
     } while (venda == null);
 
     data = venda.getData();
+    horario = venda.getHorario();
 
     do {
       Utils.limpaTela();
 
-      Utils.printCabecalho("Alterar dados da venda");
-      System.out.println("\n (1) ID da venda");
-      System.out.println("\n (2) Vendedor");
-      System.out.println("\n (3) Cliente");
-      System.out.println("\n (4) Veículo");
-      System.out.println("\n (5) Valor");
-      System.out.println("\n (6) Data");
-      System.out.println("\n (7) Horário");
+      Utils.printCabecalho("ALTERAR DADOS DA VENDA");
+      System.out.println("(1) Vendedor");
+      System.out.println("(2) Cliente");
+      System.out.println("(3) Veículo");
+      System.out.println("(4) Valor");
+      System.out.println("(5) Data");
+      System.out.println("(6) Horário");
+      System.out.println("(0) Cancelar");
       op = Utils.lerInt("Digite a opção desejada: ", sc);
 
       switch (op) {
         case 1:
-          venda.setIdVenda(Utils.lerInt("Digite o novo ID da venda: ", sc));
-          break;
-
-        case 2:
           do {
             System.out.println("\n== Escolha o novo vendedor: ");
 
@@ -247,11 +244,10 @@ public class ListaVendas {
             if (vendedor == null)
               Utils.printAviso("Insira uma opção válida!");
           } while (vendedor == null);
+
           venda.setVendedor(vendedor);
           break;
-
-        case 3:
-
+        case 2:
           do {
             System.out.println("\n== Escolha o novo cliente: ");
 
@@ -261,12 +257,10 @@ public class ListaVendas {
             if (cliente == null)
               Utils.printAviso("Insira uma opção válida!");
           } while (cliente == null);
+
           venda.setCliente(cliente);
-
           break;
-
-        case 4:
-
+        case 3:
           do {
             System.out.println("\n== Qual veículo sera vendido?");
             System.out.println("\n(1) Carro");
@@ -280,11 +274,12 @@ public class ListaVendas {
 
           if (op == 1 && !ListaCarros.estaVazia()) {
             Carro carroAtual, carroNovo;
+
             do {
               System.out.println("\n== Escolha o novo carro: ");
 
               ListaCarros.printOpcoesCarros();
-              carroNovo = ListaCarros.buscarCarro(Utils.lerInt("Digite a opção desejada: ", sc));
+              carroNovo = ListaCarros.buscarCarro(Utils.lerInt("Digite o ID do carro: ", sc));
 
               if (carroNovo == null)
                 Utils.printAviso("Insira uma opção válida!");
@@ -297,6 +292,7 @@ public class ListaVendas {
 
           } else if (op == 2 && !ListaMotos.estaVazia()) {
             Motocicleta motoAtual, motoNova;
+
             do {
               ListaMotos.printOpcoesMotos();
               motoNova = ListaMotos.buscarMotocicleta(Utils.lerInt("Digite o ID da motocicleta: ", sc));
@@ -311,12 +307,10 @@ public class ListaVendas {
             venda.setMotocicleta(motoNova);
           }
           break;
-
-        case 5:// altera valor
+        case 4:
           venda.setValor(Utils.lerDouble("Digite o novo valor: ", sc));
           break;
-
-        case 6:// altera data
+        case 5:
           System.out.println("\n== Insira a nova data de venda: ");
 
           do {
@@ -340,24 +334,24 @@ public class ListaVendas {
               Utils.printAviso("Insira um ano válido!");
           } while (data.getAno() == -1);
           break;
-
-        case 7: // altera hora
+        case 7:
           System.out.println("\n== Insira a nova hora de venda: ");
-          Horario hora = new Horario();
-          do {
-            hora.setHora(Utils.lerInt("Hora: ", sc));
 
-            if (hora.getHora() == -1)
+          do {
+            horario.setHora(Utils.lerInt("Hora: ", sc));
+
+            if (horario.getHora() == -1)
               Utils.printAviso("Insira uma hora válida!");
-          } while (hora.getHora() == -1);
+          } while (horario.getHora() == -1);
 
           do {
-            hora.setMinuto(Utils.lerInt("Minuto: ", sc));
+            horario.setMinuto(Utils.lerInt("Minuto: ", sc));
 
-            if (hora.getMinuto() == -1)
+            if (horario.getMinuto() == -1)
               Utils.printAviso("Insira um minuto válido!");
-          } while (hora.getMinuto() == -1);
-
+          } while (horario.getMinuto() == -1);
+        case 0:
+          break;
         default:
           Utils.printAviso("Insira uma opção válida!");
           break;
@@ -386,13 +380,16 @@ public class ListaVendas {
         Utils.printAviso("Insira uma opção válida!");
     } while (venda == null);
 
-    printarVendas(venda);
+    ListaVendas.printarVendas(venda);
     listaVendas.remove(venda);
+
     System.out.println("\n---> Venda removida com sucesso!");
     Utils.aguardarTecla();
   }
 
   public static void listarVendas() {
+    Utils.limpaTela();
+
     if (ListaVendas.estaVazia()) {
       Utils.printCabecalho("LISTA COMPLETA DE VENDAS");
       Utils.printAviso("Não existem vendas cadastradas!");

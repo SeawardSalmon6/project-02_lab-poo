@@ -3,6 +3,7 @@ package services;
 import java.util.Scanner;
 import data.ListaCarros;
 import data.ListaClientes;
+import data.ListaMotos;
 import data.ListaVendas;
 import data.ListaVendedores;
 
@@ -36,9 +37,10 @@ public final class Menus {
           } else if (senhaLida.equals(SENHA_VENDEDOR)) {
             Menus.setGerenteAtivo(true);
             Menus.menuPrincipal(sc);
-          } else
+          } else {
             Utils.printAviso("A senha de acesso inserida está incorreta!");
-
+            Utils.aguardarTecla();
+          }
           break;
         case 0:
           Utils.limpaTela();
@@ -112,7 +114,7 @@ public final class Menus {
 
     do {
       Utils.limpaTela();
-      Utils.printCabecalho("CONSULTAR VEÍCULO\n");
+      Utils.printCabecalho("TIPO DE VEÍCULO\n");
       System.out.println("(1) Carro");
       System.out.println("(2) Moto");
       System.out.println("(0) Voltar");
@@ -136,7 +138,8 @@ public final class Menus {
       System.out.println("(1) Gerenciar Clientes");
       System.out.println("(2) Gerenciar Vendedores");
       System.out.println("(3) Gerenciar Veículos");
-      System.out.println("(4) Gerar Relatório de Vendas");
+      System.out.println("(4) Gerenciar Vendas");
+      System.out.println("(5) Gerar Relatório de Vendas");
       System.out.println("(0) Voltar para o Menu Principal");
 
       op = Utils.lerInt("Digite a opção desejada: ", sc);
@@ -152,6 +155,9 @@ public final class Menus {
           Menus.gerenciarVeiculos(sc);
           break;
         case 4:
+          Menus.gerenciarVendas(sc);
+          break;
+        case 5:
           // ListaVendas.gerarRelatorio();
           break;
         case 0:
@@ -222,10 +228,10 @@ public final class Menus {
           ListaVendedores.alterarVendedor(sc);
           break;
         case 3:
-          // ListaClientes.excluirVendedor(sc);
+          ListaVendedores.excluirVendedor(sc);
           break;
         case 4:
-          // ListaClientes.listarVendedores();
+          ListaVendedores.listarVendedores();
           break;
         case 0:
           break;
@@ -236,7 +242,7 @@ public final class Menus {
   }
 
   public static void gerenciarVeiculos(Scanner sc) {
-    int op;
+    int op, tipoVeiculo;
 
     do {
       Utils.limpaTela();
@@ -250,18 +256,77 @@ public final class Menus {
 
       op = Utils.lerInt("Digite a opção desejada: ", sc);
 
+      do {
+        System.out.println("\n== Qual o tipo de veículo?");
+        System.out.println("\n(1) Carro");
+        System.out.println("\n(2) Motocicleta");
+
+        tipoVeiculo = Utils.lerInt("Digite o tipo de veículo: ", sc);
+
+        if (tipoVeiculo < 1 && tipoVeiculo > 2)
+          Utils.printAviso("Insira uma opção válida!");
+      } while (tipoVeiculo < 1 && tipoVeiculo > 2);
+
       switch (op) {
         case 1:
-          // ListaClientes.adicionarVeiculo(sc);
+          if (tipoVeiculo == 1)
+            ListaCarros.cadastrarCarro(sc);
+          else if (tipoVeiculo == 2)
+            ListaMotos.cadastroMotocicleta(sc);
           break;
         case 2:
-          // ListaClientes.alterarVeiculo(sc);
+          if (tipoVeiculo == 1)
+            ListaCarros.alterarCarro(sc);
+          else if (tipoVeiculo == 2)
+            ListaMotos.alterarMotocicleta(sc);
           break;
         case 3:
-          // ListaClientes.excluirVeiculo(sc);
+          if (tipoVeiculo == 1)
+            ListaCarros.excluirCarro(sc);
+          else if (tipoVeiculo == 2)
+            ListaMotos.excluirMotocicleta(sc);
           break;
         case 4:
-          // ListaClientes.listarVeiculos();
+          if (tipoVeiculo == 1)
+            ListaCarros.listarCarros();
+          else if (tipoVeiculo == 2)
+            ListaMotos.listarMotocicletas();
+          break;
+        case 0:
+          break;
+        default:
+          Utils.printAviso("Insira uma opção válida!");
+      }
+    } while (op != 0);
+  }
+
+  public static void gerenciarVendas(Scanner sc) {
+    int op;
+
+    do {
+      Utils.limpaTela();
+
+      Utils.printCabecalho("GERENCIAR VENDEDORES\n");
+      System.out.println("(1) Realizar Nova Venda");
+      System.out.println("(2) Alterar Venda");
+      System.out.println("(3) Excluir Venda");
+      System.out.println("(4) Listar Vendas");
+      System.out.println("(0) Voltar para o Menu Gerência");
+
+      op = Utils.lerInt("Digite a opção desejada: ", sc);
+
+      switch (op) {
+        case 1:
+          ListaVendas.realizarVenda(sc);
+          break;
+        case 2:
+          ListaVendas.alterarVenda(sc);
+          break;
+        case 3:
+          ListaVendas.excluirVenda(sc);
+          break;
+        case 4:
+          ListaVendas.listarVendas();
           break;
         case 0:
           break;

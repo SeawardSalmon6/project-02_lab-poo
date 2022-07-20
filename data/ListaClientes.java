@@ -294,6 +294,8 @@ public class ListaClientes {
   }
 
   public static void listarClientes() {
+    Utils.limpaTela();
+
     if (ListaClientes.estaVazia()) {
       Utils.printCabecalho("LISTA COMPLETA DE CLIENTES");
       Utils.printAviso("Não existem clientes cadastrados!");

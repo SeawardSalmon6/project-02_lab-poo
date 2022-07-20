@@ -59,6 +59,19 @@ public class ListaMotos {
     }
   }
 
+  public static void printarMotocicleta(Motocicleta moto) {
+    System.out.println("\n| ---------------------------");
+    System.out.println("\n| Carro " + moto.getMarca() + " " + moto.getModelo());
+    System.out.println("\n| Ano: " + moto.getAno());
+    System.out.println("\n| Número do Chassi: " + moto.getNumChassi());
+    System.out.println("\n| Cilindradas: " + moto.getCilindradas());
+    System.out.println("\n| Tipo da Motocicleta: " + moto.getTipoMotocicleta());
+    System.out.println("\n| Tipo Combustível: " + moto.getTipoCombustivel());
+    System.out.println("\n| Quilometragem rodada: " + moto.getKm());
+    System.out.println("\n| Status: " + (moto.getVendido() ? "Vendido" : "A venda"));
+    System.out.println("\n| ---------------------------");
+  }
+
   public static Motocicleta buscarMotocicleta(int idMotocicleta) {
     if (ListaMotos.estaVazia())
       return null;
@@ -97,7 +110,7 @@ public class ListaMotos {
     novaMoto.setCilindradas(Utils.lerInt("Digite a quantidade de cilindradas da moto: ", sc));
 
     do {
-      System.out.println("== Tipo de Motocicleta");
+      System.out.println("\n== Tipo de Motocicleta");
       Motocicleta.printOpcoesTiposMotocicleta();
       auxTipoMoto = Utils.lerInt("Escolha o tipo de motocicleta desejado: ", sc);
 
@@ -109,8 +122,8 @@ public class ListaMotos {
 
     do {
       System.out.println("\n== A moto foi vendida?");
-      System.out.println("\n(0) Não");
-      System.out.println("\n(1) Sim");
+      System.out.println("(0) Não");
+      System.out.println("(1) Sim");
       auxVendido = Utils.lerInt("Insira a opção desejada: ", sc);
 
       if (auxVendido < 0 && auxVendido > 1)
@@ -126,7 +139,7 @@ public class ListaMotos {
 
   public static void alterarMotocicleta(Scanner sc) {
     Motocicleta motocicleta;
-    int op, auxVendido;
+    int op, auxVendido, auxTipoMoto;
     long auxChassi;
 
     if (ListaMotos.estaVazia()) {
@@ -153,18 +166,19 @@ public class ListaMotos {
       Utils.printCabecalho("ALTERAR DADOS DO MOTOCICLETA");
 
       ListaMotos.printOpcoesMotos();
+      System.out.println();
 
-      System.out.println("\n(1) Número do chassi");
-      System.out.println("\n(2) Marca");
-      System.out.println("\n(3) Modelo");
-      System.out.println("\n(4) Ano");
-      System.out.println("\n(5) Quilometragem");
-      System.out.println("\n(6) Tipo combustível");
-      System.out.println("\n(7) Peso");
-      System.out.println("\n(8) Status de venda");
-      System.out.println("\n(9) Cilindradas");
-      System.out.println("\n(10) Tipo de moto");
-      System.out.println("\n(0) Cancelar");
+      System.out.println("(1) Número do chassi");
+      System.out.println("(2) Marca");
+      System.out.println("(3) Modelo");
+      System.out.println("(4) Ano");
+      System.out.println("(5) Quilometragem");
+      System.out.println("(6) Tipo combustível");
+      System.out.println("(7) Peso");
+      System.out.println("(8) Status de venda");
+      System.out.println("(9) Cilindradas");
+      System.out.println("(10) Tipo de moto");
+      System.out.println("(0) Cancelar");
       op = Utils.lerInt("Digite a opção desejada: ", sc);
 
       switch (op) {
@@ -200,8 +214,8 @@ public class ListaMotos {
         case 8:
           do {
             System.out.println("\n== A moto foi vendida?");
-            System.out.println("\n(0) Não");
-            System.out.println("\n(1) Sim");
+            System.out.println("(0) Não");
+            System.out.println("(1) Sim");
             auxVendido = Utils.lerInt("Insira a opção desejada: ", sc);
 
             if (auxVendido < 0 && auxVendido > 1)
@@ -214,10 +228,8 @@ public class ListaMotos {
           motocicleta.setCilindradas(Utils.lerInt("Nova quantidade de cilindradas da moto: ", sc));
           break;
         case 10:
-          int auxTipoMoto;
-
           do {
-            System.out.println("== Tipo de Motocicleta");
+            System.out.println("\n== Tipo de Motocicleta");
             Motocicleta.printOpcoesTiposMotocicleta();
             auxTipoMoto = Utils.lerInt("Escolha o tipo de motocicleta desejado: ", sc);
 
@@ -232,5 +244,50 @@ public class ListaMotos {
           break;
       }
     } while (op != 0);
+  }
+
+  public static void excluirMotocicleta(Scanner sc) {
+    Motocicleta moto;
+
+    if (ListaMotos.estaVazia()) {
+      Utils.printCabecalho("EXCLUIR MOTOCICLETA");
+      Utils.printAviso("Não existem motocicleta cadastradas!");
+      Utils.aguardarTecla();
+      return;
+    }
+
+    do {
+      Utils.limpaTela();
+      Utils.printCabecalho("EXCLUIR MOTOCICLETA");
+      ListaMotos.printOpcoesMotos();
+
+      moto = ListaMotos.buscarMotocicleta(Utils.lerInt("Digite o ID da motocicleta: ", sc));
+
+      if (moto == null)
+        Utils.printAviso("Insira uma opção válida!");
+    } while (moto == null);
+
+    ListaMotos.printarMotocicleta(moto);
+    listaMotos.remove(moto);
+
+    System.out.println("\n---> Motocicleta removida com sucesso!");
+    Utils.aguardarTecla();
+  }
+
+  public static void listarMotocicletas() {
+    Utils.limpaTela();
+
+    if (ListaMotos.estaVazia()) {
+      Utils.printCabecalho("LISTA COMPLETA DE MOTOCICLETAS");
+      Utils.printAviso("Não existem motocicletas cadastradas!");
+      Utils.aguardarTecla();
+      return;
+    }
+
+    Utils.printCabecalho("LISTA COMPLETA DE MOTOCICLETAS");
+    for (int i = 0; i < listaMotos.size(); i++)
+      ListaMotos.printarMotocicleta(listaMotos.get(i));
+
+    Utils.aguardarTecla();
   }
 }
